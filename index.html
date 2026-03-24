@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Slice of G</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --forest:       #071410;
+      --forest-deep:  #040d0a;
+      --forest-mid:   #0d2119;
+      --forest-up:    #152e22;
+      --emerald:      #1a4a32;
+      --emerald-pop:  #236642;
+      --gold:         #C9A96E;
+      --gold-light:   #E0C48A;
+      --gold-faint:   #F5EDD8;
+      --coral:        #E07055;
+      --coral-light:  #EC8870;
+      --cream:        #FAF5EE;
+      --warm-white:   #FFFCF5;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--forest);
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 64px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(4,13,10,0.97);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(201,169,110,0.15);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant SC', serif;
+      font-size: 22px; font-weight: 500;
+      letter-spacing: 0.18em;
+      color: var(--gold); text-decoration: none;
+    }
+
+    .nav-links { display: flex; align-items: center; gap: 40px; list-style: none; }
+
+    .nav-links a {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: rgba(255,255,255,0.6); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .nav-cta {
+      background: var(--gold) !important;
+      color: var(--forest-deep) !important;
+      padding: 11px 26px; font-weight: 700 !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; color: var(--forest-deep) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; position: relative;
+      display: flex; align-items: center;
+      overflow: hidden; background: var(--forest-deep);
+    }
+
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse at 18% 55%, rgba(21,46,34,0.95) 0%, transparent 60%),
+        radial-gradient(ellipse at 90% 5%,  rgba(201,169,110,0.1) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 95%, rgba(224,112,85,0.1) 0%, transparent 40%);
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 1;
+      background-image:
+        linear-gradient(rgba(201,169,110,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,169,110,0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    .hero-stripe {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 4px; z-index: 5;
+      background: linear-gradient(180deg, var(--gold) 0%, var(--coral) 100%);
+    }
+
+    .hero-arch {
+      position: absolute; right: 6%; top: 50%;
+      transform: translateY(-50%);
+      width: 400px; height: 540px;
+      border-radius: 200px 200px 0 0;
+      overflow: hidden; z-index: 3;
+      box-shadow:
+        0 0 0 5px rgba(201,169,110,0.25),
+        0 0 0 10px rgba(201,169,110,0.07),
+        0 50px 100px rgba(0,0,0,0.7);
+      animation: archIn 1.2s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+    }
+
+    @keyframes archIn {
+      from { opacity:0; transform:translateY(-45%) scale(0.95); }
+      to   { opacity:1; transform:translateY(-50%) scale(1); }
+    }
+
+    .arch-fill {
+      width:100%; height:100%;
+      background: linear-gradient(170deg, #1a4a32 0%, #0d2119 50%, #040d0a 100%);
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      padding: 40px; position: relative;
+    }
+
+    .arch-fill::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 50%;
+      background: radial-gradient(ellipse at 50% 100%, rgba(201,169,110,0.12) 0%, transparent 70%);
+    }
+
+    .arch-placeholder-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-style: italic;
+      color: rgba(201,169,110,0.35);
+      text-align: center; line-height: 1.8;
+      position: relative; z-index: 1;
+    }
+
+    .palm {
+      position: absolute; bottom: 0;
+      right: calc(6% + 360px);
+      z-index: 2; opacity: 0.055; width: 240px;
+    }
+
+    .hero-content {
+      position: relative; z-index: 4;
+      padding: 0 72px; max-width: 660px;
+      animation: contentIn 1s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    @keyframes contentIn {
+      from { opacity:0; transform: translateY(22px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    .eyebrow { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .eyebrow-line { width: 36px; height: 1px; background: var(--coral); }
+    .eyebrow-text { font-size: 10px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--coral-light); }
+
+    .hero-brand {
+      font-family: 'Cormorant SC', serif;
+      font-size: 26px; font-weight: 400;
+      letter-spacing: 0.35em; color: var(--gold);
+      display: block; margin-bottom: 20px;
+    }
+
+    .hero-h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 80px; font-weight: 700;
+      line-height: 0.95; color: white;
+      margin-bottom: 28px;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.5);
+    }
+
+    .hero-h1 em { font-style: italic; color: var(--gold-light); display: block; }
+
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-style: italic; font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 10px; line-height: 1.55;
+    }
+
+    .hero-detail {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 50px;
+    }
+
+    .detail-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--coral); flex-shrink: 0; }
+
+    .hero-btns { display: flex; gap: 14px; }
+
+    .btn-gold {
+      padding: 16px 38px; background: var(--gold);
+      color: var(--forest-deep); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      text-decoration: none; display: inline-block;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+    .btn-ghost {
+      padding: 16px 38px; background: transparent;
+      color: rgba(255,255,255,0.7); font-size: 10px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      text-decoration: none; border: 1px solid rgba(201,169,110,0.35);
+      display: inline-block; transition: all 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+    .scroll-hint {
+      position: absolute; bottom: 34px; left: 72px; z-index: 4;
+      display: flex; align-items: center; gap: 12px;
+      animation: contentIn 1s 1s both;
+    }
+    .scroll-line { width: 36px; height: 1px; background: rgba(255,255,255,0.18); }
+    .scroll-text { font-size: 10px; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.28); }
+
+    /* MARQUEE */
+    .band { background: var(--gold); padding: 16px 0; overflow: hidden; white-space: nowrap; }
+    .band-inner {
+      display: inline-flex; gap: 52px;
+      animation: marquee 22s linear infinite;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .band-item {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--forest-deep);
+      display: flex; align-items: center; gap: 22px; flex-shrink: 0;
+    }
+    .band-item::after { content: '◆'; font-size: 6px; color: rgba(4,13,10,0.35); }
+
+    /* INTRO */
+    .intro {
+      padding: 120px 80px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 90px; align-items: center;
+      max-width: 1300px; margin: 0 auto;
+    }
+
+    .intro-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--emerald-pop); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .intro-label::before { content: ''; display: inline-block; width: 28px; height: 1.5px; background: var(--coral); }
+
+    .intro h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 54px; font-weight: 400;
+      line-height: 1.12; color: var(--forest); margin-bottom: 28px;
+    }
+    .intro h2 em { font-style: italic; color: var(--emerald); }
+
+    .intro-pullquote { border-left: 2px solid var(--gold); padding-left: 20px; margin-bottom: 24px; }
+    .intro-pullquote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px; font-style: italic;
+      color: rgba(7,20,16,0.5); line-height: 1.7;
+    }
+
+    .intro-body {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; line-height: 1.85;
+      color: rgba(7,20,16,0.65);
+    }
+
+    .arch-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .arch-img { border-radius: 140px 140px 0 0; overflow: hidden; aspect-ratio: 1/1.6; }
+    .arch-img:nth-child(2) { margin-top: 56px; }
+    .arch-img-fill { width: 100%; height: 100%; min-height: 300px; display: flex; align-items: center; justify-content: center; }
+    .fill-1 { background: linear-gradient(180deg, #1a4a32 0%, #040d0a 100%); }
+    .fill-2 { background: linear-gradient(180deg, rgba(201,169,110,0.2) 0%, #0d2119 60%, #040d0a 100%); }
+    .arch-img-label { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; color: rgba(255,255,255,0.25); text-align: center; padding: 20px; line-height: 1.8; }
+
+    /* FLAVOURS */
+    .flavors {
+      background: var(--forest-deep);
+      padding: 100px 80px; position: relative; overflow: hidden;
+    }
+    .flavors::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--emerald), var(--gold), var(--coral));
+    }
+    .flavors-watermark {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: 'Cormorant SC', serif;
+      font-size: 200px; font-weight: 700;
+      color: rgba(255,255,255,0.018);
+      white-space: nowrap; pointer-events: none; letter-spacing: 0.1em;
+    }
+    .flavors-header { text-align: center; margin-bottom: 60px; position: relative; z-index: 1; }
+    .flavors-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--coral-light); display: block; margin-bottom: 14px; }
+    .flavors-header h2 { font-family: 'Playfair Display', serif; font-size: 50px; font-weight: 400; color: white; }
+    .flavors-header p { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: rgba(255,255,255,0.32); margin-top: 10px; }
+
+    .flavors-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 18px; max-width: 1020px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+
+    .flavor-card {
+      border: 1px solid rgba(201,169,110,0.15);
+      padding: 40px 30px 36px;
+      background: rgba(255,255,255,0.025);
+      transition: border-color 0.25s, transform 0.25s, background 0.25s;
+      position: relative;
+    }
+    .flavor-card:hover { border-color: rgba(201,169,110,0.38); transform: translateY(-6px); background: rgba(255,255,255,0.05); }
+    .flavor-card.featured { border-color: var(--gold); background: rgba(201,169,110,0.07); }
+
+    .featured-badge {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: var(--forest-deep);
+      font-size: 8px; font-weight: 800;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      padding: 5px 16px; white-space: nowrap;
+    }
+
+    .flavor-number { font-family: 'Cormorant SC', serif; font-size: 11px; font-weight: 400; letter-spacing: 0.3em; color: rgba(201,169,110,0.45); display: block; margin-bottom: 12px; }
+    .flavor-name { font-family: 'Playfair Display', serif; font-size: 30px; font-style: italic; color: white; margin-bottom: 6px; }
+    .flavor-desc { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: rgba(255,255,255,0.38); margin-bottom: 28px; line-height: 1.65; }
+    .flavor-rule { width: 24px; height: 1px; background: var(--coral); margin-bottom: 20px; }
+    .flavor-price { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; color: var(--gold-light); }
+    .flavor-card.featured .flavor-price { color: var(--coral-light); }
+
+    /* SLOGAN */
+    .slogan {
+      background: var(--warm-white);
+      padding: 110px 80px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .slogan::before { content: ''; position: absolute; top: 0; left: 80px; right: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--emerald), transparent); }
+
+    .slogan-bg-text {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-family: 'Cormorant SC', serif; font-size: 160px; font-weight: 700;
+      color: rgba(7,20,16,0.04); white-space: nowrap;
+      pointer-events: none; letter-spacing: 0.05em;
+    }
+
+    .slogan-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--coral); display: block; margin-bottom: 24px; position: relative; z-index: 1; }
+    .slogan-headline { font-family: 'Playfair Display', serif; font-size: 66px; font-weight: 700; color: var(--forest-deep); line-height: 1.05; margin-bottom: 10px; position: relative; z-index: 1; }
+    .slogan-headline em { font-style: italic; color: var(--gold); }
+    .slogan-sub { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: rgba(7,20,16,0.45); max-width: 520px; margin: 0 auto 44px; line-height: 1.7; position: relative; z-index: 1; }
+    .slogan-cta { display: inline-block; padding: 17px 52px; background: var(--forest-deep); color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; position: relative; z-index: 1; }
+    .slogan-cta:hover { background: var(--emerald); }
+
+    /* FOOTER */
+    footer { background: var(--forest-deep); padding: 56px 80px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(201,169,110,0.1); }
+    .footer-logo { font-family: 'Cormorant SC', serif; font-size: 28px; font-weight: 500; letter-spacing: 0.2em; color: var(--gold); }
+    .footer-center { text-align: center; }
+    .footer-slogan { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: rgba(255,255,255,0.35); margin-bottom: 8px; }
+    .footer-tag { font-size: 9px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--coral-light); }
+    .footer-right { text-align: right; font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.9; }
+    .footer-right a { color: var(--gold); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">A Slice of G</a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Order</a></li>
+      <li><a href="#">Flavours</a></li>
+      <li><a href="#">Gallery</a></li>
+      <li><a href="#" class="nav-cta">Order Now</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-stripe"></div>
+
+    <svg class="palm" viewBox="0 0 200 600" fill="white" xmlns="http://www.w3.org/2000/svg">
+      <rect x="90" y="250" width="20" height="350" rx="6"/>
+      <ellipse cx="100" cy="250" rx="95" ry="28" transform="rotate(-18 100 250)"/>
+      <ellipse cx="100" cy="230" rx="88" ry="24" transform="rotate(20 100 230)"/>
+      <ellipse cx="100" cy="240" rx="82" ry="22" transform="rotate(-38 100 240)"/>
+      <ellipse cx="100" cy="245" rx="76" ry="20" transform="rotate(42 100 245)"/>
+      <ellipse cx="100" cy="235" rx="70" ry="18" transform="rotate(-55 100 235)"/>
+    </svg>
+
+    <div class="hero-arch">
+      <div class="arch-fill">
+        <p class="arch-placeholder-text">
+          Your golden cake<br>lives here.<br><br>
+          (They'll stare.)
+        </p>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <div class="eyebrow">
+        <div class="eyebrow-line"></div>
+        <span class="eyebrow-text">Artisan Rum Cakes</span>
+      </div>
+
+      <span class="hero-brand">A Slice of G</span>
+
+      <h1 class="hero-h1">
+        You've had<br>rum cake.<br>
+        <em>Not like this.</em>
+      </h1>
+
+      <p class="hero-sub">Small batch. Handcrafted. Golden.<br>The kind people ask about at the party.</p>
+
+      <div class="hero-detail">
+        <div class="detail-dot"></div>
+        Made from scratch · Soaked to perfection
+      </div>
+
+      <div class="hero-btns">
+        <a href="#" class="btn-gold">Order Now</a>
+        <a href="#" class="btn-ghost">See Flavours</a>
+      </div>
+    </div>
+
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      <span class="scroll-text">Scroll to explore</span>
+    </div>
+  </section>
+
+  <div class="band">
+    <div class="band-inner">
+      <span class="band-item">Small Batch</span>
+      <span class="band-item">Handcrafted</span>
+      <span class="band-item">Rum Cakes</span>
+      <span class="band-item">Made from Scratch</span>
+      <span class="band-item">Soaked in Love</span>
+      <span class="band-item">Not All Rum Cakes Wear Black</span>
+      <span class="band-item">Small Batch</span>
+      <span class="band-item">Handcrafted</span>
+      <span class="band-item">Rum Cakes</span>
+      <span class="band-item">Made from Scratch</span>
+      <span class="band-item">Soaked in Love</span>
+      <span class="band-item">Not All Rum Cakes Wear Black</span>
+    </div>
+  </div>
+
+  <section class="intro">
+    <div>
+      <div class="intro-label">The Standard</div>
+      <h2>Not just a cake.<br><em>A flex.</em></h2>
+      <div class="intro-pullquote">
+        <p>Most rum cakes are fine. This one is the reason people show up early.</p>
+      </div>
+      <p class="intro-body">Every cake is made from scratch, soaked to perfection, and built for people who don't settle. Small batch. Fully handcrafted. Golden in every sense of the word.</p>
+    </div>
+    <div class="arch-pair">
+      <div class="arch-img">
+        <div class="arch-img-fill fill-1">
+          <span class="arch-img-label">Your cake photo<br>goes right here.</span>
+        </div>
+      </div>
+      <div class="arch-img">
+        <div class="arch-img-fill fill-2">
+          <span class="arch-img-label">And another one.<br>They'll get it.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="flavors">
+    <div class="flavors-watermark">Flavours</div>
+    <div class="flavors-header">
+      <span class="flavors-eyebrow">The Menu</span>
+      <h2>Pick Your Pleasure</h2>
+      <p>All of them are better than what you've had before.</p>
+    </div>
+    <div class="flavors-grid">
+      <div class="flavor-card">
+        <span class="flavor-number">No. 01</span>
+        <div class="flavor-name">The Original</div>
+        <div class="flavor-desc">Rich, golden, and perfectly soaked. The one that started the conversation.</div>
+        <div class="flavor-rule"></div>
+        <div class="flavor-price">$65</div>
+      </div>
+      <div class="flavor-card featured">
+        <div class="featured-badge">The One They Ask About</div>
+        <span class="flavor-number">No. 02</span>
+        <div class="flavor-name">Brown Sugar &amp; Spice</div>
+        <div class="flavor-desc">Warm. Deep. A little dangerous. You've been warned.</div>
+        <div class="flavor-rule"></div>
+        <div class="flavor-price">$75</div>
+      </div>
+      <div class="flavor-card">
+        <span class="flavor-number">No. 03</span>
+        <div class="flavor-name">Coconut Cream</div>
+        <div class="flavor-desc">Smooth, tropical, and entirely too easy to finish.</div>
+        <div class="flavor-rule"></div>
+        <div class="flavor-price">$70</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slogan">
+    <div class="slogan-bg-text">Golden</div>
+    <span class="slogan-eyebrow">The Standard</span>
+    <h2 class="slogan-headline">
+      Not all rum cakes<br>wear <em>black.</em>
+    </h2>
+    <p class="slogan-sub">Mine is golden. And you'll taste the difference.</p>
+    <a href="#" class="slogan-cta">Order Your Cake</a>
+  </section>
+
+  <footer>
+    <div class="footer-logo">A Slice of G</div>
+    <div class="footer-center">
+      <div class="footer-slogan">Not all rum cakes wear black.</div>
+      <div class="footer-tag">Small Batch · Artisan Rum Cakes</div>
+    </div>
+    <div class="footer-right">
+      <a href="#">order@asliceofg.com</a><br>
+      asliceofg.com
+    </div>
+  </footer>
+
+</body>
+</html>
