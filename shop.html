@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop All — A Slice of G</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/main.css"/>
+  <!-- Square Web Payments SDK -->
+  <script src="https://web.squarecdn.com/v1/square.js"></script>
+</head>
+<body
+  class="page-shop"
+  data-square-app-id="sq0idp-Gcdk075dVK6KiWrqZFTOGA"
+  data-square-location-id="LAJ0T04RDKRS7"
+>
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav>
+    <a href="index.html" class="nav-logo">A Slice of G</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop All</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="https://www.instagram.com/_sliceofg/" target="_blank">Instagram</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="nav-cart" id="btn-open-cart">
+        Bag <span class="cart-count" id="cart-count" data-count="0">0</span>
+      </button>
+      <a href="https://asliceofg.com/shop/rum-infused-bites/CBWBDH2EHTBLTCNXKU5HXWGH" class="nav-cta">Order Now</a>
+    </div>
+  </nav>
+
+  <!-- ── Shop Hero ────────────────────────────────────────── -->
+  <section class="shop-hero">
+    <div class="shop-hero-stripe"></div>
+    <div class="shop-hero-grid"></div>
+    <div class="shop-hero-inner">
+      <div class="shop-hero-eyebrow">The Menu</div>
+      <h1>Shop <span>All</span></h1>
+      <p class="shop-hero-sub">Small batch. Handcrafted. Made from scratch.</p>
+    </div>
+  </section>
+
+  <!-- ── Customer Bar ──────────────────────────────────────── -->
+  <div class="customer-bar">
+    <span class="customer-greeting" id="customer-greeting">Sign in to track your orders</span>
+    <button class="btn-text btn-text-gold" id="btn-login">Sign In</button>
+    <button class="btn-text btn-text-gold" id="btn-orders" style="display:none">My Orders</button>
+    <button class="btn-text btn-text-muted" id="btn-signout" style="display:none">Sign Out</button>
+  </div>
+
+  <!-- ── Filter Bar ────────────────────────────────────────── -->
+  <div class="filter-bar" id="filter-bar">
+    <button class="filter-btn active" data-category="all">All</button>
+    <!-- Category buttons injected by shop.js -->
+  </div>
+
+  <!-- ── Products Grid ─────────────────────────────────────── -->
+  <div class="products-section">
+    <div class="products-grid" id="items-grid">
+      <div class="product-loading">
+        <p class="product-loading-text">Loading products</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Cart Drawer ───────────────────────────────────────── -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-header">
+      <span class="cart-drawer-title">Your Bag</span>
+      <button class="cart-close-btn" id="cart-close-btn">✕</button>
+    </div>
+    <div class="cart-drawer-items" id="cart-items">
+      <p class="cart-empty">Your bag is empty.</p>
+    </div>
+    <div class="cart-drawer-footer">
+      <div class="cart-subtotal">
+        <span class="cart-subtotal-label">Subtotal</span>
+        <span class="cart-subtotal-amount" id="cart-total">$0.00</span>
+      </div>
+      <button class="btn-checkout-main" id="btn-checkout-main" disabled>Checkout</button>
+    </div>
+  </div>
+
+  <!-- ── Checkout Modal ────────────────────────────────────── -->
+  <div class="modal-overlay" id="checkout-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Checkout</span>
+        <button class="modal-close" id="btn-close-checkout">✕</button>
+      </div>
+      <div class="modal-body">
+        <span class="modal-section-label">Your Details</span>
+        <input type="email" class="modal-input" id="checkout-email" placeholder="Email address" autocomplete="email"/>
+        <div class="modal-row">
+          <input type="text" class="modal-input" id="checkout-first" placeholder="First name" autocomplete="given-name"/>
+          <input type="text" class="modal-input" id="checkout-last" placeholder="Last name" autocomplete="family-name"/>
+        </div>
+        <span class="modal-section-label">Payment</span>
+        <div id="card-container"></div>
+        <p class="modal-status" id="checkout-status"></p>
+        <button class="btn-pay" id="btn-pay">Pay Now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Login Modal ───────────────────────────────────────── -->
+  <div class="modal-overlay" id="login-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">Sign In</span>
+        <button class="modal-close" id="btn-close-login">✕</button>
+      </div>
+      <div class="modal-body">
+        <span class="modal-section-label">Your Email</span>
+        <input type="email" class="modal-input" id="login-email" placeholder="your@email.com" autocomplete="email"/>
+        <span class="modal-section-label">New Customer? Add Your Name</span>
+        <div class="modal-row">
+          <input type="text" class="modal-input" id="login-first" placeholder="First name (optional)" autocomplete="given-name"/>
+          <input type="text" class="modal-input" id="login-last" placeholder="Last name (optional)" autocomplete="family-name"/>
+        </div>
+        <p class="modal-status" id="login-status"></p>
+        <button class="btn-pay" id="btn-submit-login">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Orders Modal ──────────────────────────────────────── -->
+  <div class="modal-overlay" id="orders-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-title">My Orders</span>
+        <button class="modal-close" id="btn-close-orders">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="orders-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-logo">A Slice of G</div>
+    <div class="footer-center">
+      <div class="footer-slogan">Not all rum cakes wear black.</div>
+      <div class="footer-tag">Small Batch · Artisan Rum Cakes</div>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:order@asliceofg.com">order@asliceofg.com</a><br>
+      asliceofg.com
+    </div>
+  </footer>
+
+  <script src="js/shop.js"></script>
+</body>
+</html>
