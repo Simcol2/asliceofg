@@ -124,7 +124,7 @@ nav {
 .band { background: var(--gold); padding: 16px 0; overflow: hidden; white-space: nowrap; }
 .band-inner {
   display: inline-flex; gap: 52px;
-  animation: marquee 22s linear infinite;
+  animation: marquee 55s linear infinite;
 }
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -304,6 +304,32 @@ footer {
   font-size: 20px; line-height: 1.85;
   color: rgba(7,20,16,0.65);
 }
+
+/* ── Allergen / Info Block ───────────────────────────────── */
+
+.intro-allergens {
+  margin-top: 28px;
+  border-top: 1px solid rgba(7,20,16,0.1);
+  padding-top: 24px;
+  display: flex; flex-direction: column; gap: 12px;
+}
+
+.allergen-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px; font-weight: 400;
+  color: rgba(7,20,16,0.55);
+  line-height: 1.6;
+}
+
+.allergen-icon {
+  flex-shrink: 0;
+  font-size: 11px; font-weight: 700;
+  color: var(--emerald-pop);
+  margin-top: 1px;
+}
+
+.allergen-row strong { font-weight: 700; color: rgba(7,20,16,0.75); }
 
 .arch-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .arch-img { border-radius: 140px 140px 0 0; overflow: hidden; aspect-ratio: 1/1.6; }
