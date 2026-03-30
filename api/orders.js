@@ -1,11 +1,11 @@
 import pkg from 'square';
-const { Client, Environment } = pkg;
+const { SquareClient, SquareEnvironment } = pkg;
 
-const client = new Client({
-  accessToken: process.env.SQUARE_ACCESS_TOKEN,
+const client = new SquareClient({
+  token: process.env.SQUARE_ACCESS_TOKEN,
   environment: process.env.SQUARE_ENVIRONMENT === 'production'
-    ? Environment.Production
-    : Environment.Sandbox,
+    ? SquareEnvironment.Production
+    : SquareEnvironment.Sandbox,
 });
 
 export default async function handler(req, res) {
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { result } = await client.ordersApi.searchOrders({
+    const response = await client.orders.search({
       locationIds: [process.env.SQUARE_LOCATION_ID],
       query: {
         filter: {
@@ -31,7 +31,7 @@ export default async function handler(req, res) {
       },
     });
 
-    const orders = (result.orders || []).map(o => ({
+    const orders = (response.orders || []).map(o => ({
       orderId: o.id,
       createdAt: o.createdAt,
       totalCents: Number(o.totalMoney?.amount ?? 0),

@@ -1,12 +1,12 @@
 import pkg from 'square';
-const { Client, Environment } = pkg;
 import crypto from 'crypto';
+const { SquareClient, SquareEnvironment } = pkg;
 
-const client = new Client({
-  accessToken: process.env.SQUARE_ACCESS_TOKEN,
+const client = new SquareClient({
+  token: process.env.SQUARE_ACCESS_TOKEN,
   environment: process.env.SQUARE_ENVIRONMENT === 'production'
-    ? Environment.Production
-    : Environment.Sandbox,
+    ? SquareEnvironment.Production
+    : SquareEnvironment.Sandbox,
 });
 
 export default async function handler(req, res) {
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { result: searchResult } = await client.customersApi.searchCustomers({
+    const searchResponse = await client.customers.search({
       query: {
         filter: {
           emailAddress: { exact: email },
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       },
     });
 
-    const existing = searchResult.customers?.[0];
+    const existing = searchResponse.customers?.[0];
 
     if (existing) {
       return res.status(200).json({
@@ -49,14 +49,14 @@ export default async function handler(req, res) {
       return res.status(404).json({ error: 'Customer not found' });
     }
 
-    const { result: createResult } = await client.customersApi.createCustomer({
+    const createResponse = await client.customers.create({
       emailAddress: email,
       givenName: givenName || '',
       familyName: familyName || '',
       idempotencyKey: crypto.randomUUID(),
     });
 
-    const customer = createResult.customer;
+    const customer = createResponse.customer;
     return res.status(201).json({
       customerId: customer.id,
       givenName: customer.givenName,

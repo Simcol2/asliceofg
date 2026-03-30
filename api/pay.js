@@ -1,12 +1,12 @@
 import pkg from 'square';
-const { Client, Environment } = pkg;
 import crypto from 'crypto';
+const { SquareClient, SquareEnvironment } = pkg;
 
-const client = new Client({
-  accessToken: process.env.SQUARE_ACCESS_TOKEN,
+const client = new SquareClient({
+  token: process.env.SQUARE_ACCESS_TOKEN,
   environment: process.env.SQUARE_ENVIRONMENT === 'production'
-    ? Environment.Production
-    : Environment.Sandbox,
+    ? SquareEnvironment.Production
+    : SquareEnvironment.Sandbox,
 });
 
 export default async function handler(req, res) {
@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { result } = await client.paymentsApi.createPayment({
+    const response = await client.payments.create({
       sourceId,
       orderId,
       amountMoney: {
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       idempotencyKey: crypto.randomUUID(),
     });
 
-    const payment = result.payment;
+    const payment = response.payment;
     return res.status(200).json({
       paymentId: payment.id,
       status: payment.status,

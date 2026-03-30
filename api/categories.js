@@ -1,11 +1,11 @@
 import pkg from 'square';
-const { Client, Environment } = pkg;
+const { SquareClient, SquareEnvironment } = pkg;
 
-const client = new Client({
-  accessToken: process.env.SQUARE_ACCESS_TOKEN,
+const client = new SquareClient({
+  token: process.env.SQUARE_ACCESS_TOKEN,
   environment: process.env.SQUARE_ENVIRONMENT === 'production'
-    ? Environment.Production
-    : Environment.Sandbox,
+    ? SquareEnvironment.Production
+    : SquareEnvironment.Sandbox,
 });
 
 export default async function handler(req, res) {
@@ -14,13 +14,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { result } = await client.catalogApi.listCatalog(undefined, 'CATEGORY');
-    const categories = (result.objects || [])
-      .filter(o => !o.isDeleted)
-      .map(o => ({
-        id: o.id,
-        name: o.categoryData?.name || 'Uncategorized',
-      }));
+    const categories = [];
+    for await (const obj of await client.catalog.list({ types: 'CATEGORY' })) {
+      if (!obj.isDeleted) {
+        categories.push({
+          id: obj.id,
+          name: obj.categoryData?.name || 'Uncategorized',
+        });
+      }
+    }
 
     res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
     return res.status(200).json({ categories });

@@ -1,12 +1,12 @@
 import pkg from 'square';
-const { Client, Environment } = pkg;
 import crypto from 'crypto';
+const { SquareClient, SquareEnvironment } = pkg;
 
-const client = new Client({
-  accessToken: process.env.SQUARE_ACCESS_TOKEN,
+const client = new SquareClient({
+  token: process.env.SQUARE_ACCESS_TOKEN,
   environment: process.env.SQUARE_ENVIRONMENT === 'production'
-    ? Environment.Production
-    : Environment.Sandbox,
+    ? SquareEnvironment.Production
+    : SquareEnvironment.Sandbox,
 });
 
 export default async function handler(req, res) {
@@ -20,7 +20,6 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Cart is empty' });
   }
 
-  // Validate each cart item has required fields
   for (const item of cartItems) {
     if (!item.variationId || !item.quantity || item.quantity < 1) {
       return res.status(400).json({ error: 'Invalid cart item' });
@@ -28,7 +27,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { result } = await client.ordersApi.createOrder({
+    const response = await client.orders.create({
       order: {
         locationId: process.env.SQUARE_LOCATION_ID,
         customerId: customerId || undefined,
@@ -40,7 +39,7 @@ export default async function handler(req, res) {
       idempotencyKey: crypto.randomUUID(),
     });
 
-    const order = result.order;
+    const order = response.order;
     return res.status(200).json({
       orderId: order.id,
       totalCents: Number(order.totalMoney?.amount ?? 0),
