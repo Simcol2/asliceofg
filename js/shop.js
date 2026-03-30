@@ -48,11 +48,23 @@ async function loadShop() {
 }
 
 // ─── Filter Bar ───────────────────────────────────────────────────────────────
+const ALLOWED_CATEGORIES = [
+  'rum infused bites',
+  'dinner parties',
+  'g totes',
+  'gift wrap and accessories',
+];
+
 function renderFilterBar(categories) {
   const bar = document.getElementById('filter-bar');
   if (!bar) return;
 
-  categories.forEach(cat => {
+  // Only show the 4 approved categories (case-insensitive match)
+  const allowed = categories.filter(cat =>
+    ALLOWED_CATEGORIES.some(name => cat.name.toLowerCase().trim() === name)
+  );
+
+  allowed.forEach(cat => {
     const btn = document.createElement('button');
     btn.className = 'filter-btn';
     btn.dataset.category = cat.id;

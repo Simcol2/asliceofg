@@ -35,7 +35,8 @@ export default async function handler(req, res) {
           id: item.id,
           name: data.name,
           description: data.description || '',
-          categoryId: data.categoryId || null,
+          // v42: categories is an array; fall back to legacy categoryId scalar
+          categoryId: data.categories?.[0]?.id || data.categoryId || null,
           imageUrl: data.imageIds?.length ? imageMap[data.imageIds[0]] : null,
           variations: (data.variations || []).map(v => ({
             id: v.id,
