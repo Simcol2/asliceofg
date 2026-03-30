@@ -1,4 +1,5 @@
-import { Client, Environment } from 'square';
+import pkg from 'square';
+const { Client, Environment } = pkg;
 
 const client = new Client({
   accessToken: process.env.SQUARE_ACCESS_TOKEN,

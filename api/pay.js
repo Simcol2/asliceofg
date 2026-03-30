@@ -1,4 +1,5 @@
-import { Client, Environment } from 'square';
+import pkg from 'square';
+const { Client, Environment } = pkg;
 import crypto from 'crypto';
 
 const client = new Client({
