@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(wc -l \"c:/Users/simon/OneDrive/Desktop/G/asliceofg/square-implementation-plan \\(1\\).md\" \"c:/Users/simon/OneDrive/Desktop/G/asliceofg/square-implementation-plan.md\")",
+      "Bash(node -e \":*)",
+      "Bash(node -e \"import\\(''square''\\).then\\(m => { const pkg = m.default || m; console.log\\(Object.keys\\(pkg\\).filter\\(k => !k.startsWith\\(''_''\\)\\).slice\\(0, 30\\)\\); }\\)\")",
+      "Bash(node -e \"import\\(''square''\\).then\\(m => { const pkg = m.default || m; console.log\\(''SquareEnvironment:'', pkg.SquareEnvironment\\); }\\)\")",
+      "Bash(find node_modules/square -name CatalogListRequest*)",
+      "Bash(xargs grep:*)",
+      "WebFetch(domain:developer.squareup.com)"
+    ]
+  }
+}

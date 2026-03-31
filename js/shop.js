@@ -264,13 +264,15 @@ async function startCheckout() {
   btn.textContent = 'Preparing checkout…';
 
   try {
+    const fulfillmentDateTime = buildFulfillmentDateTime();
+
     const res = await fetch('/api/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         cartItems: cart.map(c => ({ variationId: c.variationId, quantity: c.quantity })),
         fulfillmentType,
-        fulfillmentDateTime: buildFulfillmentDateTime(),
+        fulfillmentDateTime,
       }),
     });
 
@@ -280,14 +282,13 @@ async function startCheckout() {
       throw new Error(data.error || 'Could not create checkout session');
     }
 
-    // Redirect to Square's hosted checkout (handles pickup/delivery/date/payment)
-    window.location.href = data.url;
+    // Show confirmation step instead of immediately redirecting
+    showOrderConfirmation(data.url, fulfillmentDateTime);
 
   } catch (err) {
     console.error(err);
     btn.disabled = false;
     btn.textContent = originalText;
-    // Show error in drawer footer
     const footer = document.querySelector('.cart-drawer-footer');
     let errEl = document.getElementById('checkout-error');
     if (!errEl) {
@@ -299,6 +300,96 @@ async function startCheckout() {
     errEl.textContent = 'Something went wrong. Please try again.';
     setTimeout(() => { if (errEl) errEl.textContent = ''; }, 4000);
   }
+}
+
+function showOrderConfirmation(squareUrl, fulfillmentDateTime) {
+  const drawer = document.getElementById('cart-drawer');
+
+  // Format fulfillment summary line
+  const isPickup = fulfillmentType === 'PICKUP';
+  let fulfillmentLine = isPickup ? 'Pickup' : 'Shipping';
+  if (fulfillmentDateTime) {
+    const dt = new Date(fulfillmentDateTime);
+    const dateStr = dt.toLocaleDateString('en-CA', {
+      weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+    });
+    const timeStr = isPickup
+      ? dt.toLocaleTimeString('en-CA', { hour: 'numeric', minute: '2-digit' })
+      : null;
+    fulfillmentLine = isPickup
+      ? `Pickup — ${dateStr} at ${timeStr}`
+      : `Ship by ${dateStr}`;
+  }
+
+  // Build order summary rows
+  let totalCents = 0;
+  const itemRows = cart.map(c => {
+    const lineCents = c.priceCents * c.quantity;
+    totalCents += lineCents;
+    return `
+      <div class="confirm-item">
+        <span class="confirm-item-name">${escapeHtml(c.name)} × ${c.quantity}</span>
+        <span class="confirm-item-price">$${(lineCents / 100).toFixed(2)}</span>
+      </div>`;
+  }).join('');
+
+  const currency = cart[0]?.currency || 'CAD';
+
+  // Inject confirmation panel — replaces drawer content temporarily
+  drawer.innerHTML = `
+    <div class="cart-drawer-header">
+      <span class="cart-drawer-title">Order Summary</span>
+      <button id="confirm-back-btn" class="cart-close-btn" aria-label="Go back">←</button>
+    </div>
+
+    <div class="cart-drawer-body" style="padding: 1.5rem;">
+
+      <div class="confirm-items">
+        ${itemRows}
+        <div class="confirm-divider"></div>
+        <div class="confirm-item confirm-total">
+          <span>Subtotal</span>
+          <span>$${(totalCents / 100).toFixed(2)} ${currency}</span>
+        </div>
+      </div>
+
+      <div class="confirm-fulfillment">
+        <div class="confirm-fulfillment-label">Fulfillment</div>
+        <div class="confirm-fulfillment-value">${fulfillmentLine}</div>
+      </div>
+
+      <p class="confirm-note">
+        You'll complete payment securely on Square's checkout page.
+      </p>
+
+      <button id="confirm-pay-btn" class="btn-checkout-main">
+        Continue to Payment →
+      </button>
+
+      <button id="confirm-back-btn-2" class="confirm-back-link">
+        ← Edit bag
+      </button>
+
+    </div>
+  `;
+
+  // Wire up buttons
+  document.getElementById('confirm-pay-btn').addEventListener('click', () => {
+    window.location.href = squareUrl;
+  });
+
+  // Both back buttons restore the cart drawer
+  ['confirm-back-btn', 'confirm-back-btn-2'].forEach(id => {
+    document.getElementById(id)?.addEventListener('click', () => {
+      restoreCartDrawer();
+    });
+  });
+}
+
+function restoreCartDrawer() {
+  // Re-render the full cart drawer by closing and reopening
+  // The simplest approach: reload the drawer HTML from the page template
+  location.reload();
 }
 
 // ─── Login Flow ───────────────────────────────────────────────────────────────
@@ -398,11 +489,27 @@ function signOut() {
 }
 
 // ─── Fulfillment Helpers ──────────────────────────────────────────────────────
+function updateFulfillmentUI() {
+  const isPickup = fulfillmentType === 'PICKUP';
+  const timeField = document.getElementById('fulfillment-time-field');
+  const shippingNote = document.getElementById('fulfillment-shipping-note');
+  const dateLabel = document.getElementById('fulfillment-date-label');
+  const row = document.getElementById('fulfillment-datetime-row');
+
+  if (timeField) timeField.style.display = isPickup ? 'flex' : 'none';
+  if (shippingNote) shippingNote.style.display = isPickup ? 'none' : 'block';
+  if (dateLabel) dateLabel.textContent = isPickup ? 'Pickup date' : 'Ship date';
+  // Single column when no time field showing
+  if (row) row.style.gridTemplateColumns = isPickup ? '1fr 1fr' : '1fr';
+}
+
 function buildFulfillmentDateTime() {
-  if (fulfillmentType === 'SHIPMENT') return null;
   const dateVal = document.getElementById('fulfillment-date')?.value;
-  const timeVal = document.getElementById('fulfillment-time')?.value || '12:00';
   if (!dateVal) return null;
+  // For shipping, use noon as a neutral time — only the date matters
+  const timeVal = fulfillmentType === 'PICKUP'
+    ? (document.getElementById('fulfillment-time')?.value || '12:00')
+    : '12:00';
   // Parse in local time so the ISO string carries the correct UTC offset
   const dt = new Date(`${dateVal}T${timeVal}:00`);
   return isNaN(dt.getTime()) ? null : dt.toISOString();
@@ -529,11 +636,7 @@ function bindUI() {
       fulfillmentType = btn.dataset.type;
       document.querySelectorAll('.fulfillment-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const isPickup = fulfillmentType === 'PICKUP';
-      const datetimeEl = document.getElementById('fulfillment-datetime');
-      const shippingNote = document.getElementById('fulfillment-shipping-note');
-      if (datetimeEl) datetimeEl.style.display = isPickup ? 'block' : 'none';
-      if (shippingNote) shippingNote.style.display = isPickup ? 'none' : 'block';
+      updateFulfillmentUI();
     });
   });
 
@@ -545,9 +648,7 @@ function bindUI() {
     dateInput.min = tomorrow.toISOString().split('T')[0];
   }
 
-  // Hide shipping note by default (pickup is default)
-  const shippingNote = document.getElementById('fulfillment-shipping-note');
-  if (shippingNote) shippingNote.style.display = 'none';
+  updateFulfillmentUI();
 
   // Login
   document.getElementById('btn-login')?.addEventListener('click', () => openModal('login-modal'));

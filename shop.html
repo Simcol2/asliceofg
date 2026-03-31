@@ -87,20 +87,20 @@
           <button class="fulfillment-btn active" data-type="PICKUP">Pickup</button>
           <button class="fulfillment-btn" data-type="SHIPMENT">Shipping</button>
         </div>
-        <!-- Date + time shown for pickup; hidden for shipping -->
+        <!-- Date always shown; time shown for pickup only -->
         <div class="fulfillment-datetime" id="fulfillment-datetime">
-          <div class="fulfillment-datetime-row">
+          <div class="fulfillment-datetime-row" id="fulfillment-datetime-row">
             <div class="fulfillment-field">
-              <label class="fulfillment-date-label" for="fulfillment-date">Pickup date</label>
+              <label class="fulfillment-date-label" id="fulfillment-date-label" for="fulfillment-date">Pickup date</label>
               <input type="date" class="fulfillment-date-input" id="fulfillment-date" />
             </div>
-            <div class="fulfillment-field">
+            <div class="fulfillment-field" id="fulfillment-time-field">
               <label class="fulfillment-date-label" for="fulfillment-time">Time</label>
               <input type="time" class="fulfillment-date-input" id="fulfillment-time" value="12:00" />
             </div>
           </div>
+          <p class="fulfillment-shipping-note" id="fulfillment-shipping-note">Shipping address collected at checkout.</p>
         </div>
-        <p class="fulfillment-shipping-note" id="fulfillment-shipping-note">Your shipping address will be collected at checkout.</p>
       </div>
 
       <button class="btn-checkout-main" id="btn-checkout-main" disabled>Checkout</button>
