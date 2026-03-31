@@ -973,12 +973,39 @@ footer {
 
 /* ── Login Modal ─────────────────────────────────────────── */
 
+.gift-card-bar {
+  background: var(--forest);
+  padding: 12px 80px;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 73px;
+}
+
+.btn-gift-card {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: transparent;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 28px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-gift-card:hover {
+  background: var(--gold);
+  color: var(--forest);
+}
+
 .customer-bar {
   background: rgba(201,169,110,0.06);
   border-bottom: 1px solid rgba(201,169,110,0.12);
   padding: 10px 80px;
   display: flex; align-items: center; gap: 20px;
-  margin-top: 73px;
+  margin-top: 0;
 }
 .customer-greeting {
   font-size: 11px; font-weight: 600; letter-spacing: 0.15em;
@@ -1057,6 +1084,7 @@ footer {
   footer { padding: 40px 24px; flex-direction: column; gap: 28px; text-align: center; }
   .footer-right { text-align: center; }
 
+  .gift-card-bar { padding: 12px 24px; }
   .customer-bar { padding: 10px 24px; }
   .cart-drawer { width: 100vw; }
   .modal-row { grid-template-columns: 1fr; }
