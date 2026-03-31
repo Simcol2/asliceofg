@@ -299,7 +299,7 @@
           <div class="catering-deposit-amount" id="modal-deposit-amount">$0.00</div>
         </div>
 
-        <form id="catering-order-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+        <form id="catering-order-form">
           <input type="hidden" name="package_name" id="form-package-name"/>
           <input type="hidden" name="package_size" id="form-package-size"/>
           <input type="hidden" name="base_price" id="form-base-price"/>
@@ -402,7 +402,17 @@
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script>
+    // ── EmailJS config ────────────────────────────────────────
+    const EMAILJS_SERVICE_ID  = 'service_z6rd8xm';
+    const EMAILJS_ADMIN_TPL   = 'template_catering_admin';   // you create this
+    const EMAILJS_CONFIRM_TPL = 'template_catering_confirm'; // you create this
+    const EMAILJS_PUBLIC_KEY  = 'YOUR_EMAILJS_PUBLIC_KEY';   // replace with your key
+
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+
+    // ── Package state ─────────────────────────────────────────
     let currentPkg = {};
 
     function openBookingModal(name, size, price, buffer) {
@@ -418,12 +428,11 @@
       document.getElementById('form-package-name').value = name;
       document.getElementById('form-package-size').value = size;
       document.getElementById('form-base-price').value = price;
-      document.getElementById('form-deposit-amount').value = depositBase;
+      document.getElementById('form-deposit-amount').value = depositBase.toFixed(2);
       document.getElementById('buffer-display').textContent = buffer > 0 ? `+$${buffer.toFixed(2)}` : '+$0';
 
       document.getElementById('add-buffer').checked = false;
 
-      // Reset to form view
       document.getElementById('catering-form-view').style.display = 'block';
       document.getElementById('catering-success-view').classList.remove('active');
 
@@ -438,11 +447,10 @@
 
     function updateDepositDisplay() {
       const withBuffer = document.getElementById('add-buffer').checked;
-      const base = currentPkg.price;
-      const total = base + (withBuffer ? currentPkg.buffer : 0);
+      const total = currentPkg.price + (withBuffer ? currentPkg.buffer : 0);
       const deposit = total / 2;
       document.getElementById('modal-deposit-amount').textContent =
-        base > 0 ? `$${deposit.toFixed(2)} deposit` : 'Contact us for quote';
+        currentPkg.price > 0 ? `$${deposit.toFixed(2)} deposit` : 'Contact us for quote';
     }
 
     // Close on overlay click or Escape
@@ -453,7 +461,7 @@
       if (e.key === 'Escape') closeBookingModal();
     });
 
-    // Handle form submission via Formspree
+    // ── Form submission via EmailJS ───────────────────────────
     document.getElementById('catering-order-form').addEventListener('submit', async e => {
       e.preventDefault();
       const form = e.target;
@@ -461,22 +469,51 @@
       btn.textContent = 'Sending…';
       btn.disabled = true;
 
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: new FormData(form),
-          headers: { 'Accept': 'application/json' },
-        });
+      const withBuffer = document.getElementById('add-buffer').checked;
+      const total = currentPkg.price + (withBuffer ? currentPkg.buffer : 0);
+      const deposit = currentPkg.price > 0 ? (total / 2).toFixed(2) : 'TBD';
 
-        if (res.ok) {
-          document.getElementById('catering-form-view').style.display = 'none';
-          document.getElementById('catering-success-view').classList.add('active');
-        } else {
-          btn.textContent = 'Something went wrong — try emailing us directly';
-          btn.disabled = false;
-        }
-      } catch {
-        btn.textContent = 'Something went wrong — try emailing us directly';
+      const deliverySelect = form.querySelector('[name="delivery_method"]');
+      const deliveryLabel = deliverySelect.options[deliverySelect.selectedIndex].text;
+
+      const params = {
+        // Recipient fields — set in your EmailJS template
+        to_email:      'simone.cole2@gmail.com',
+        customer_email: form.querySelector('[name="email"]').value,
+        reply_to:      form.querySelector('[name="email"]').value,
+
+        // Booking details
+        package_name:    document.getElementById('form-package-name').value,
+        package_size:    document.getElementById('form-package-size').value,
+        base_price:      currentPkg.price > 0 ? `$${currentPkg.price.toFixed(2)}` : 'Quote',
+        deposit_amount:  currentPkg.price > 0 ? `$${deposit}` : 'TBD',
+        add_buffer:      withBuffer ? `Yes (+$${currentPkg.buffer.toFixed(2)})` : 'No',
+
+        // Customer info
+        first_name:    form.querySelector('[name="first_name"]').value,
+        last_name:     form.querySelector('[name="last_name"]').value,
+        phone:         form.querySelector('[name="phone"]').value,
+        event_date:    form.querySelector('[name="event_date"]').value,
+        event_type:    form.querySelector('[name="event_type"]').value,
+        venue:         form.querySelector('[name="venue"]').value || 'Not provided',
+        delivery_method: deliveryLabel,
+        delivery_time: form.querySelector('[name="delivery_time"]').value || 'Not specified',
+        message:       form.querySelector('[name="message"]').value || 'None',
+      };
+
+      try {
+        // 1. Notify you
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_ADMIN_TPL, params);
+
+        // 2. Confirm to customer
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CONFIRM_TPL, params);
+
+        document.getElementById('catering-form-view').style.display = 'none';
+        document.getElementById('catering-success-view').classList.add('active');
+
+      } catch (err) {
+        console.error('EmailJS error:', err);
+        btn.textContent = 'Something went wrong — email us at order@asliceofg.com';
         btn.disabled = false;
       }
     });
