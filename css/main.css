@@ -777,7 +777,6 @@ footer {
   margin-bottom: 16px;
   display: none; /* shown by JS when cart has items */
 }
-.fulfillment-select.visible { display: block; }
 
 .fulfillment-label {
   display: block;

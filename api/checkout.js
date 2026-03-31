@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { cartItems } = req.body;
+  const { cartItems, fulfillmentType, fulfillmentDate } = req.body;
 
   if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
     return res.status(400).json({ error: 'Cart is empty' });
@@ -26,6 +26,32 @@ export default async function handler(req, res) {
     }
   }
 
+  const type = fulfillmentType === 'DELIVERY' ? 'DELIVERY' : 'PICKUP';
+
+  // Build a noon timestamp on the requested date (or tomorrow if none given)
+  let scheduledDate = fulfillmentDate ? new Date(fulfillmentDate) : new Date();
+  if (!fulfillmentDate) scheduledDate.setDate(scheduledDate.getDate() + 1);
+  scheduledDate.setUTCHours(12, 0, 0, 0);
+  const scheduledAt = scheduledDate.toISOString();
+
+  const fulfillment = type === 'PICKUP'
+    ? {
+        type: 'PICKUP',
+        pickupDetails: {
+          scheduleType: 'SCHEDULED',
+          pickupAt: scheduledAt,
+          recipient: { displayName: 'Customer' },
+        },
+      }
+    : {
+        type: 'DELIVERY',
+        deliveryDetails: {
+          scheduleType: 'SCHEDULED',
+          deliverAt: scheduledAt,
+          recipient: { displayName: 'Customer' },
+        },
+      };
+
   try {
     const response = await client.checkout.paymentLinks.create({
       idempotencyKey: crypto.randomUUID(),
@@ -35,6 +61,7 @@ export default async function handler(req, res) {
           catalogObjectId: item.variationId,
           quantity: String(item.quantity),
         })),
+        fulfillments: [fulfillment],
       },
       checkoutOptions: {
         enableCoupon: false,
