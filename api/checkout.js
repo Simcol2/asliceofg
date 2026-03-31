@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { cartItems } = req.body;
+  const { cartItems, fulfillmentType, fulfillmentDate } = req.body;
 
   if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
     return res.status(400).json({ error: 'Cart is empty' });
@@ -23,6 +23,31 @@ export default async function handler(req, res) {
   for (const item of cartItems) {
     if (!item.variationId || !item.quantity || item.quantity < 1) {
       return res.status(400).json({ error: 'Invalid cart item' });
+    }
+  }
+
+  // Build fulfillment object for the order
+  const fulfillments = [];
+  if (fulfillmentType && fulfillmentDate) {
+    // Construct an RFC 3339 timestamp for the requested date (noon local time)
+    const scheduleTime = new Date(`${fulfillmentDate}T12:00:00`).toISOString();
+
+    if (fulfillmentType === 'PICKUP') {
+      fulfillments.push({
+        type: 'PICKUP',
+        pickupDetails: {
+          scheduleType: 'SCHEDULED',
+          pickupAt: scheduleTime,
+        },
+      });
+    } else if (fulfillmentType === 'DELIVERY') {
+      fulfillments.push({
+        type: 'DELIVERY',
+        deliveryDetails: {
+          scheduleType: 'SCHEDULED',
+          deliverAt: scheduleTime,
+        },
+      });
     }
   }
 
@@ -35,12 +60,11 @@ export default async function handler(req, res) {
           catalogObjectId: item.variationId,
           quantity: String(item.quantity),
         })),
+        ...(fulfillments.length > 0 && { fulfillments }),
       },
       checkoutOptions: {
-        // Enable Square's built-in fulfillment selector (pickup / delivery / shipping)
         enableCoupon: false,
         enableLoyalty: false,
-        askForShippingAddress: false,
         acceptedPaymentMethods: {
           applePay: true,
           googlePay: true,

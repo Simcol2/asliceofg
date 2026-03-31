@@ -3,6 +3,7 @@ let cart = [];      // [{ variationId, name, priceCents, currency, quantity }]
 let customer = null; // { customerId, email, givenName, familyName }
 let allItems = [];
 let activeCategory = 'all';
+let fulfillmentType = 'PICKUP'; // 'PICKUP' or 'DELIVERY'
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
@@ -191,15 +192,18 @@ function renderCart() {
   const itemsEl = document.getElementById('cart-items');
   const totalEl = document.getElementById('cart-total');
   const checkoutBtn = document.getElementById('btn-checkout-main');
+  const fulfillmentEl = document.getElementById('fulfillment-select');
 
   if (!cart.length) {
     itemsEl.innerHTML = '<p class="cart-empty">Your bag is empty.</p>';
     totalEl.textContent = '$0.00';
     if (checkoutBtn) checkoutBtn.disabled = true;
+    if (fulfillmentEl) fulfillmentEl.classList.remove('visible');
     return;
   }
 
   if (checkoutBtn) checkoutBtn.disabled = false;
+  if (fulfillmentEl) fulfillmentEl.classList.add('visible');
 
   let totalCents = 0;
   itemsEl.innerHTML = cart.map(c => {
@@ -250,6 +254,18 @@ function closeCart() {
 async function startCheckout() {
   if (!cart.length) return;
 
+  const dateInput = document.getElementById('fulfillment-date');
+  const selectedDate = dateInput?.value;
+
+  if (!selectedDate) {
+    dateInput?.focus();
+    dateInput?.setAttribute('required', 'required');
+    // Brief shake to draw attention
+    dateInput?.classList.add('input-error');
+    setTimeout(() => dateInput?.classList.remove('input-error'), 800);
+    return;
+  }
+
   const btn = document.getElementById('btn-checkout-main');
   const originalText = btn.textContent;
   btn.disabled = true;
@@ -261,6 +277,8 @@ async function startCheckout() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         cartItems: cart.map(c => ({ variationId: c.variationId, quantity: c.quantity })),
+        fulfillmentType,
+        fulfillmentDate: selectedDate,
       }),
     });
 
@@ -477,6 +495,25 @@ function bindUI() {
 
   // Checkout — redirects to Square hosted checkout
   document.getElementById('btn-checkout-main').addEventListener('click', startCheckout);
+
+  // Fulfillment type toggle
+  document.querySelectorAll('.fulfillment-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      fulfillmentType = btn.dataset.type;
+      document.querySelectorAll('.fulfillment-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const label = document.getElementById('fulfillment-date-label');
+      if (label) label.textContent = fulfillmentType === 'PICKUP' ? 'Pickup date' : 'Delivery date';
+    });
+  });
+
+  // Set minimum date to tomorrow
+  const dateInput = document.getElementById('fulfillment-date');
+  if (dateInput) {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    dateInput.min = tomorrow.toISOString().split('T')[0];
+  }
 
   // Login
   document.getElementById('btn-login')?.addEventListener('click', () => openModal('login-modal'));

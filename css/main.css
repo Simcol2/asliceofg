@@ -771,6 +771,69 @@ footer {
   font-size: 28px; font-weight: 700; color: var(--gold-light);
 }
 
+/* ── Fulfillment Selector ────────────────────────────────── */
+
+.fulfillment-select {
+  margin-bottom: 16px;
+  display: none; /* shown by JS when cart has items */
+}
+.fulfillment-select.visible { display: block; }
+
+.fulfillment-label {
+  display: block;
+  font-size: 9px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35); margin-bottom: 10px;
+}
+
+.fulfillment-options {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  margin-bottom: 12px;
+}
+
+.fulfillment-btn {
+  padding: 10px 0;
+  background: none;
+  border: 1px solid rgba(201,169,110,0.2);
+  color: rgba(255,255,255,0.4);
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.fulfillment-btn:hover { border-color: rgba(201,169,110,0.5); color: rgba(255,255,255,0.7); }
+.fulfillment-btn.active { background: rgba(201,169,110,0.12); border-color: var(--gold); color: var(--gold); }
+
+.fulfillment-date-wrap { display: flex; flex-direction: column; gap: 6px; }
+
+.fulfillment-date-label {
+  font-size: 9px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.fulfillment-date-input {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,169,110,0.2);
+  color: white;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  color-scheme: dark;
+}
+.fulfillment-date-input:focus { outline: none; border-color: var(--gold); }
+.fulfillment-date-input.input-error {
+  border-color: var(--coral);
+  animation: shake 0.4s ease;
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
 .btn-checkout-main {
   width: 100%; padding: 17px;
   background: var(--gold); color: var(--forest-deep);

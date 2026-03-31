@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shop All — A Slice of G</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/main.css?v=3"/>
 </head>
 <body class="page-shop">
 
@@ -75,6 +75,20 @@
         <span class="cart-subtotal-label">Subtotal</span>
         <span class="cart-subtotal-amount" id="cart-total">$0.00</span>
       </div>
+
+      <!-- Fulfillment selection -->
+      <div class="fulfillment-select" id="fulfillment-select">
+        <span class="fulfillment-label">How do you want it?</span>
+        <div class="fulfillment-options">
+          <button class="fulfillment-btn active" data-type="PICKUP">Pickup</button>
+          <button class="fulfillment-btn" data-type="DELIVERY">Delivery</button>
+        </div>
+        <div class="fulfillment-date-wrap">
+          <label class="fulfillment-date-label" for="fulfillment-date" id="fulfillment-date-label">Pickup date</label>
+          <input type="date" id="fulfillment-date" class="fulfillment-date-input"/>
+        </div>
+      </div>
+
       <button class="btn-checkout-main" id="btn-checkout-main" disabled>Checkout</button>
     </div>
   </div>
