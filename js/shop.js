@@ -323,53 +323,40 @@ function showOrderConfirmation(squareUrl, fulfillmentDateTime) {
 
   // Build order summary rows
   let totalCents = 0;
- const itemRows = cart.map(c => {
+  const itemRows = cart.map(c => {
     const lineCents = c.priceCents * c.quantity;
     totalCents += lineCents;
-    return `
-      <div style="display:flex; justify-content:space-between; align-items:baseline; padding:6px 0; font-size:14px;">
-        <span>${escapeHtml(c.name)} × ${c.quantity}</span>
-        <span style="font-weight:500;">$${(lineCents / 100).toFixed(2)}</span>
-      </div>`;
+    return `<div class="confirm-item-row">
+      <span>${escapeHtml(c.name)} × ${c.quantity}</span>
+      <span>$${(lineCents / 100).toFixed(2)}</span>
+    </div>`;
   }).join('');
 
   const currency = cart[0]?.currency || 'CAD';
 
   // Inject confirmation panel — replaces drawer content temporarily
- drawer.innerHTML = `
+  drawer.innerHTML = `
     <div class="cart-drawer-header">
       <span class="cart-drawer-title">Order Summary</span>
       <button id="confirm-back-btn" class="cart-close-btn" aria-label="Go back">←</button>
     </div>
 
-    <div class="cart-drawer-body" style="padding: 1.5rem;">
-
-      <div style="margin-bottom: 1.25rem;">
-        ${itemRows}
-        <div style="border-top: 0.5px solid rgba(255,255,255,0.2); margin: 8px 0;"></div>
-        <div style="display:flex; justify-content:space-between; padding: 6px 0; font-size:15px; font-weight:500;">
-          <span>Subtotal</span>
-          <span>$${(totalCents / 100).toFixed(2)} ${currency}</span>
-        </div>
+    <div class="cart-drawer-body">
+      ${itemRows}
+      <div class="confirm-subtotal-row">
+        <span>Subtotal</span>
+        <span>$${(totalCents / 100).toFixed(2)} ${currency}</span>
       </div>
 
-      <div style="background:rgba(255,255,255,0.08); border:0.5px solid rgba(255,255,255,0.2); border-radius:8px; padding:0.85rem 1rem; margin-bottom:1.25rem;">
-        <div style="font-size:11px; text-transform:uppercase; letter-spacing:0.08em; opacity:0.6; margin-bottom:4px;">Fulfillment</div>
-        <div style="font-size:14px; font-weight:500;">${fulfillmentLine}</div>
+      <div class="confirm-fulfillment-box">
+        <div class="confirm-fulfillment-label">Fulfillment</div>
+        <div class="confirm-fulfillment-value">${fulfillmentLine}</div>
       </div>
 
-      <p style="font-size:12px; opacity:0.6; text-align:center; margin-bottom:1rem;">
-        You'll complete payment securely on Square's checkout page.
-      </p>
+      <p class="confirm-note">Payment completed securely on Square's checkout page.</p>
 
-      <button id="confirm-pay-btn" class="btn-checkout-main">
-        Continue to Payment →
-      </button>
-
-      <button id="confirm-back-btn-2" style="display:block; width:100%; background:transparent; border:0.5px solid rgba(255,255,255,0.3); border-radius:8px; color:inherit; font-size:13px; cursor:pointer; margin-top:10px; padding:10px; text-align:center;">
-        ← Edit bag
-      </button>
-
+      <button id="confirm-pay-btn" class="btn-checkout-main">Continue to Payment →</button>
+      <button id="confirm-back-btn-2" class="confirm-edit-btn">← Edit Bag</button>
     </div>
   `;
 

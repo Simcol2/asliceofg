@@ -124,7 +124,7 @@ nav {
 .band { background: var(--gold); padding: 16px 0; overflow: hidden; white-space: nowrap; }
 .band-inner {
   display: inline-flex; gap: 52px;
-  animation: marquee 120s linear infinite;
+  animation: marquee 20s linear infinite;
 }
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -859,8 +859,74 @@ footer {
   border: none; cursor: pointer;
   transition: background 0.2s;
 }
-.btn-checkout-main:hover { background: var(--gold-light); }
+.btn-checkout-main:hover:not(:disabled) { background: var(--gold-light); }
 .btn-checkout-main:disabled { background: rgba(201,169,110,0.3); color: rgba(4,13,10,0.4); cursor: not-allowed; }
+
+/* ── Order Confirmation Panel (inside cart drawer) ───────── */
+
+.cart-drawer-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+  color: rgba(255,255,255,0.9);
+}
+
+.confirm-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.confirm-item-row:last-of-type { border-bottom: none; }
+
+.confirm-subtotal-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0 0;
+  font-size: 15px;
+  font-weight: 500;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  margin-top: 4px;
+}
+
+.confirm-fulfillment-box {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(201,169,110,0.25);
+  padding: 14px 16px;
+  margin: 16px 0;
+}
+.confirm-fulfillment-label {
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 5px;
+}
+.confirm-fulfillment-value {
+  font-size: 14px; font-weight: 500;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+
+.confirm-note {
+  font-size: 11px;
+  color: rgba(255,255,255,0.35);
+  text-align: center;
+  margin-bottom: 14px;
+}
+
+.confirm-edit-btn {
+  display: block; width: 100%;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.6);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  cursor: pointer; padding: 12px;
+  margin-top: 10px;
+  transition: border-color 0.2s, color 0.2s;
+}
+.confirm-edit-btn:hover { border-color: rgba(255,255,255,0.4); color: rgba(255,255,255,0.9); }
 
 /* ── Checkout Modal ──────────────────────────────────────── */
 
@@ -1110,4 +1176,81 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ── Order Confirmation Panel ─────────────────── */
+.confirm-items {
+  margin-bottom: 1.25rem;
+}
+
+.confirm-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 6px 0;
+  font-size: 14px;
+}
+
+.confirm-item-name {
+  color: var(--color-text-primary);
+}
+
+.confirm-item-price {
+  font-weight: 500;
+}
+
+.confirm-total {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.confirm-divider {
+  border-top: 0.5px solid var(--color-border-tertiary);
+  margin: 8px 0;
+}
+
+.confirm-fulfillment {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-md);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.confirm-fulfillment-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.confirm-fulfillment-value {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+}
+
+.confirm-note {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.confirm-back-link {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  margin-top: 10px;
+  text-align: center;
+  padding: 8px;
+}
+
+.confirm-back-link:hover {
+  color: var(--color-text-primary);
 }
