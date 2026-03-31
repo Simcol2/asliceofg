@@ -6,14 +6,8 @@
   <title>Shop All — A Slice of G</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/main.css"/>
-  <!-- Square Web Payments SDK -->
-  <script src="https://web.squarecdn.com/v1/square.js"></script>
 </head>
-<body
-  class="page-shop"
-  data-square-app-id="sq0idp-Gcdk075dVK6KiWrqZFTOGA"
-  data-square-location-id="LAJ0T04RDKRS7"
->
+<body class="page-shop">
 
   <!-- ── Navigation ──────────────────────────────────────── -->
   <nav>
@@ -29,7 +23,6 @@
       <button class="nav-cart" id="btn-open-cart">
         Bag <span class="cart-count" id="cart-count" data-count="0">0</span>
       </button>
-      <a href="https://asliceofg.com/shop/rum-infused-bites/CBWBDH2EHTBLTCNXKU5HXWGH" class="nav-cta">Order Now</a>
     </div>
   </nav>
 
@@ -83,28 +76,6 @@
         <span class="cart-subtotal-amount" id="cart-total">$0.00</span>
       </div>
       <button class="btn-checkout-main" id="btn-checkout-main" disabled>Checkout</button>
-    </div>
-  </div>
-
-  <!-- ── Checkout Modal ────────────────────────────────────── -->
-  <div class="modal-overlay" id="checkout-modal">
-    <div class="modal-box">
-      <div class="modal-header">
-        <span class="modal-title">Checkout</span>
-        <button class="modal-close" id="btn-close-checkout">✕</button>
-      </div>
-      <div class="modal-body">
-        <span class="modal-section-label">Your Details</span>
-        <input type="email" class="modal-input" id="checkout-email" placeholder="Email address" autocomplete="email"/>
-        <div class="modal-row">
-          <input type="text" class="modal-input" id="checkout-first" placeholder="First name" autocomplete="given-name"/>
-          <input type="text" class="modal-input" id="checkout-last" placeholder="Last name" autocomplete="family-name"/>
-        </div>
-        <span class="modal-section-label">Payment</span>
-        <div id="card-container"></div>
-        <p class="modal-status" id="checkout-status"></p>
-        <button class="btn-pay" id="btn-pay">Pay Now</button>
-      </div>
     </div>
   </div>
 

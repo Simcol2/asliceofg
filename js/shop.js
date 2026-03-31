@@ -1,15 +1,8 @@
 // ─── State ───────────────────────────────────────────────────────────────────
 let cart = [];      // [{ variationId, name, priceCents, currency, quantity }]
 let customer = null; // { customerId, email, givenName, familyName }
-let squareCard = null;
-let currentOrderId = null;
-let currentOrderTotal = 0;
-let currentOrderCurrency = 'CAD';
 let allItems = [];
 let activeCategory = 'all';
-
-const APP_ID      = document.body.dataset.squareAppId;
-const LOCATION_ID = document.body.dataset.squareLocationId;
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
@@ -253,156 +246,49 @@ function closeCart() {
   document.body.style.overflow = '';
 }
 
-// ─── Checkout Flow ────────────────────────────────────────────────────────────
+// ─── Checkout Flow — Square Hosted Checkout ───────────────────────────────────
 async function startCheckout() {
   if (!cart.length) return;
-  closeCart();
 
-  if (customer) {
-    document.getElementById('checkout-email').value = customer.email || '';
-    document.getElementById('checkout-first').value = customer.givenName || '';
-    document.getElementById('checkout-last').value = customer.familyName || '';
-  }
-
-  openModal('checkout-modal');
-  await initSquareCard();
-}
-
-async function initSquareCard() {
-  if (squareCard) {
-    await squareCard.destroy();
-    squareCard = null;
-  }
+  const btn = document.getElementById('btn-checkout-main');
+  const originalText = btn.textContent;
+  btn.disabled = true;
+  btn.textContent = 'Preparing checkout…';
 
   try {
-    const payments = Square.payments(APP_ID, LOCATION_ID);
-    squareCard = await payments.card({
-      style: {
-        '.input-container': { borderRadius: '0' },
-        '.input-container.is-focus': { borderColor: '#C9A96E' },
-      }
-    });
-    await squareCard.attach('#card-container');
-  } catch (err) {
-    console.error('Square card init failed:', err);
-    setModalStatus('checkout-status', 'Payment system unavailable. Please try again.', 'error');
-  }
-}
-
-async function processPayment() {
-  const email     = document.getElementById('checkout-email').value.trim();
-  const firstName = document.getElementById('checkout-first').value.trim();
-  const lastName  = document.getElementById('checkout-last').value.trim();
-  const payBtn    = document.getElementById('btn-pay');
-
-  if (!email || !email.includes('@')) {
-    setModalStatus('checkout-status', 'Please enter a valid email address.', 'error');
-    return;
-  }
-
-  payBtn.disabled = true;
-  setModalStatus('checkout-status', 'Preparing your order…');
-
-  try {
-    // Step 1 — resolve customer
-    let resolvedCustomerId = customer?.customerId;
-
-    if (!resolvedCustomerId) {
-      const custRes = await fetch('/api/customer', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'register', email, givenName: firstName, familyName: lastName }),
-      });
-      const custData = await custRes.json();
-
-      if (!custRes.ok || !custData.customerId) {
-        throw new Error('Could not create customer record');
-      }
-
-      resolvedCustomerId = custData.customerId;
-      saveCustomer({ customerId: resolvedCustomerId, email, givenName: firstName, familyName: lastName });
-    }
-
-    // Step 2 — create order
-    setModalStatus('checkout-status', 'Creating order…');
-
-    const orderRes = await fetch('/api/create-order', {
+    const res = await fetch('/api/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         cartItems: cart.map(c => ({ variationId: c.variationId, quantity: c.quantity })),
-        customerId: resolvedCustomerId,
       }),
     });
-    const orderData = await orderRes.json();
 
-    if (!orderRes.ok || !orderData.orderId) {
-      throw new Error(orderData.error || 'Failed to create order');
+    const data = await res.json();
+
+    if (!res.ok || !data.url) {
+      throw new Error(data.error || 'Could not create checkout session');
     }
 
-    currentOrderId = orderData.orderId;
-    currentOrderTotal = orderData.totalCents;
-    currentOrderCurrency = orderData.currency;
-
-    // Step 3 — tokenize card
-    setModalStatus('checkout-status', 'Processing payment…');
-
-    const tokenResult = await squareCard.tokenize();
-    if (tokenResult.status !== 'OK') {
-      const msg = tokenResult.errors?.[0]?.message || 'Card error. Please check your details.';
-      setModalStatus('checkout-status', msg, 'error');
-      payBtn.disabled = false;
-      return;
-    }
-
-    // Step 4 — charge
-    const payRes = await fetch('/api/pay', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        sourceId: tokenResult.token,
-        orderId: currentOrderId,
-        amountCents: currentOrderTotal,
-        currency: currentOrderCurrency,
-        customerId: resolvedCustomerId,
-        email,
-      }),
-    });
-    const payData = await payRes.json();
-
-    if (!payRes.ok) {
-      throw new Error(payData.error || 'Payment failed');
-    }
-
-    if (payData.status === 'COMPLETED') {
-      cart = [];
-      renderCart();
-      updateCartCount();
-      showCheckoutSuccess(payData.receiptUrl);
-    } else {
-      setModalStatus('checkout-status', 'Payment did not complete. Please try again.', 'error');
-      payBtn.disabled = false;
-    }
+    // Redirect to Square's hosted checkout (handles pickup/delivery/date/payment)
+    window.location.href = data.url;
 
   } catch (err) {
     console.error(err);
-    setModalStatus('checkout-status', err.message || 'Something went wrong. Please try again.', 'error');
-    payBtn.disabled = false;
+    btn.disabled = false;
+    btn.textContent = originalText;
+    // Show error in drawer footer
+    const footer = document.querySelector('.cart-drawer-footer');
+    let errEl = document.getElementById('checkout-error');
+    if (!errEl) {
+      errEl = document.createElement('p');
+      errEl.id = 'checkout-error';
+      errEl.style.cssText = 'color:var(--coral);font-size:12px;margin-top:10px;text-align:center;';
+      footer.appendChild(errEl);
+    }
+    errEl.textContent = 'Something went wrong. Please try again.';
+    setTimeout(() => { if (errEl) errEl.textContent = ''; }, 4000);
   }
-}
-
-function showCheckoutSuccess(receiptUrl) {
-  const body = document.querySelector('#checkout-modal .modal-body');
-  body.innerHTML = `
-    <div class="checkout-success">
-      <div class="success-icon">✓</div>
-      <div class="success-heading">Order placed.</div>
-      <p class="success-sub">Thank you. Your cake is on its way.<br>Check your email for confirmation.</p>
-      ${receiptUrl
-        ? `<a href="${receiptUrl}" target="_blank" rel="noopener" class="success-receipt">View Receipt</a>`
-        : ''}
-    </div>
-  `;
 }
 
 // ─── Login Flow ───────────────────────────────────────────────────────────────
@@ -589,13 +475,8 @@ function bindUI() {
   document.getElementById('cart-overlay').addEventListener('click', closeCart);
   document.getElementById('cart-close-btn').addEventListener('click', closeCart);
 
-  // Checkout
+  // Checkout — redirects to Square hosted checkout
   document.getElementById('btn-checkout-main').addEventListener('click', startCheckout);
-  document.getElementById('btn-pay').addEventListener('click', processPayment);
-  document.getElementById('btn-close-checkout').addEventListener('click', () => closeModal('checkout-modal'));
-  document.getElementById('checkout-modal').addEventListener('click', e => {
-    if (e.target === e.currentTarget) closeModal('checkout-modal');
-  });
 
   // Login
   document.getElementById('btn-login')?.addEventListener('click', () => openModal('login-modal'));
@@ -621,7 +502,7 @@ function bindUI() {
   // Escape key closes any open modal
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
-    ['checkout-modal', 'login-modal', 'orders-modal'].forEach(closeModal);
+    ['login-modal', 'orders-modal'].forEach(closeModal);
     closeCart();
   });
 }
