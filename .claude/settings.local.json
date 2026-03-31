@@ -7,7 +7,8 @@
       "Bash(node -e \"import\\(''square''\\).then\\(m => { const pkg = m.default || m; console.log\\(''SquareEnvironment:'', pkg.SquareEnvironment\\); }\\)\")",
       "Bash(find node_modules/square -name CatalogListRequest*)",
       "Bash(xargs grep:*)",
-      "WebFetch(domain:developer.squareup.com)"
+      "WebFetch(domain:developer.squareup.com)",
+      "Bash(grep -rn \"main.css?v=\" *.html)"
     ]
   }
 }

@@ -6,8 +6,8 @@
   <title>Corporate Gifting — A Slice of G</title>
   <meta name="description" content="Close the deal. Keep the client. Send the cake. Rum cake gifting subscriptions and on-demand orders for realtors and professionals."/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/main.css?v=9"/>
-  <link rel="stylesheet" href="css/gifting.css?v=3"/>
+  <link rel="stylesheet" href="css/main.css?v=10"/>
+  <link rel="stylesheet" href="css/gifting.css?v=4"/>
 </head>
 <body class="page-gifting">
 
@@ -38,8 +38,10 @@
       closing gift says more than a thank-you card ever could.
     </p>
     <div class="gifting-hero-btns">
-      <button id="btn-learn-more" class="btn-gifting-primary">See the Plans</button>
-      <button id="btn-get-brochure-hero" class="btn-gifting-ghost">Get the Brochure</button>
+      <a href="#open-house" class="btn-gifting-ghost">Open House Treat Trays</a>
+      <a href="#plans" class="btn-gifting-ghost">Powerhouse Gifting</a>
+      <a href="#new-agent" class="btn-gifting-ghost">New Agent Program</a>
+      <a href="#on-demand" class="btn-gifting-ghost">On-Demand Gifting</a>
     </div>
   </section>
 
@@ -53,8 +55,8 @@
           <span class="step-num">01</span>
           <h3>Choose Your Plan</h3>
           <p>
-            Select a monthly or quarterly subscription based on how often you
-            close. Prepay for your cakes at a better rate than on-demand
+            Select a plan based on how often you close.
+            Prepay for your gifts at a better rate than on-demand
             — and never scramble for a last-minute gift again.
           </p>
         </div>
@@ -80,11 +82,83 @@
     </div>
   </section>
 
-  <!-- ── Plans ─────────────────────────────────────────────── -->
+  <!-- ── Open House Treat Trays ─────────────────────────── -->
+  <section class="open-house-section" id="open-house">
+    <div class="open-house-inner">
+      <span class="section-eyebrow" style="color: var(--gold);">Open House Ready</span>
+      <h2>The treat table that<br><em>does the talking for you.</em></h2>
+      <p class="open-house-intro">
+        Fresh-made rum cupcakes and rum cookies, portioned and presentation-ready.
+        Your logo on every allergen card. Zero effort on your end.
+      </p>
+
+      <div class="open-house-grid">
+
+        <!-- The Showcase -->
+        <div class="open-house-card">
+          <div class="open-house-card-header">
+            <span class="open-house-card-eyebrow">For the Intimate Showing</span>
+            <h3>The Showcase</h3>
+          </div>
+          <p class="open-house-card-desc">
+            Twenty guests. Thirty mini rum cupcakes and twenty individually wrapped rum cookies
+            — portioned, presentation-ready, and impossible to ignore. Comes with a branded
+            allergen card carrying your logo so every guest knows exactly who brought the good stuff.
+          </p>
+          <div class="open-house-card-includes">
+            <div class="open-house-include-row"><span class="oi-icon">◆</span><span>30 mini rum cupcakes</span></div>
+            <div class="open-house-include-row"><span class="oi-icon">◆</span><span>20 individually wrapped rum cookies</span></div>
+            <div class="open-house-include-row"><span class="oi-icon">◆</span><span>Branded allergen card with your logo</span></div>
+            <div class="open-house-include-row"><span class="oi-icon">◆</span><span>Pickup — Downtown Toronto or Woodbine &amp; Steeles</span></div>
+          </div>
+          <div class="open-house-card-footer">
+            <div class="open-house-notice">24 hours notice required</div>
+            <div class="open-house-price">$165</div>
+          </div>
+          <button class="btn-open-house-book" onclick="openOpenHouseModal('The Showcase', 165)">Book This Tray</button>
+        </div>
+
+        <!-- The Open House -->
+        <div class="open-house-card open-house-card-featured">
+          <div class="open-house-featured-badge">Best for Open Houses</div>
+          <div class="open-house-card-header">
+            <span class="open-house-card-eyebrow">For the Room That Needs to Remember You</span>
+            <h3>The Open House</h3>
+          </div>
+          <p class="open-house-card-desc">
+            Fifty guests. Seventy-five mini rum cupcakes and fifty individually wrapped rum cookies,
+            with a branded allergen card and an optional branded tray liner for the full table
+            presentation. This is the spread that gets photographed, shared, and talked about
+            on the drive home.
+          </p>
+          <div class="open-house-card-includes">
+            <div class="open-house-include-row"><span class="oi-icon">◆</span><span>75 mini rum cupcakes</span></div>
+            <div class="open-house-include-row"><span class="oi-icon">◆</span><span>50 individually wrapped rum cookies</span></div>
+            <div class="open-house-include-row"><span class="oi-icon">◆</span><span>Branded allergen card with your logo</span></div>
+            <div class="open-house-include-row"><span class="oi-icon oi-icon-gold">◆</span><span>Optional branded tray liner included</span></div>
+            <div class="open-house-include-row"><span class="oi-icon">◆</span><span>Pickup — Downtown Toronto or Woodbine &amp; Steeles</span></div>
+          </div>
+          <div class="open-house-card-footer">
+            <div class="open-house-notice">48 hours notice required</div>
+            <div class="open-house-price">$340</div>
+          </div>
+          <button class="btn-open-house-book" onclick="openOpenHouseModal('The Open House', 340)">Book This Tray</button>
+        </div>
+
+      </div>
+
+      <p class="open-house-footnote">
+        All trays are made fresh to order. Your logo is printed on every allergen card at no additional charge.
+        Branded tray liner available on The Open House tray — just send us your logo when you book.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── Powerhouse Gifting Plans ───────────────────────── -->
   <section class="gifting-packages" id="plans">
     <div class="gifting-packages-inner">
       <div class="gifting-packages-header">
-        <span class="section-eyebrow" style="color: var(--gold);">Gifting Plans</span>
+        <span class="section-eyebrow" style="color: var(--gold);">Powerhouse Gifting Solutions</span>
         <h2>Prepay. <em>Redeem on your schedule.</em></h2>
         <p class="gifting-packages-sub">Never miss a moment. Never pay full retail. Ontario only.</p>
       </div>
@@ -156,14 +230,15 @@
 
           <div class="pkg-price-block">
             <span class="pkg-price-main">$520<span class="pkg-price-period"> / quarter</span></span>
-            <span class="pkg-per-gift">$130 per gift &middot; 4 gifts/quarter &middot; billed every 3 months</span>
-            <span class="pkg-per-gift" style="margin-top: 4px;">$2,080/year total &middot; auto-renews</span>
+            <span class="pkg-per-gift">$130 per gift &middot; 4 gifts/quarter</span>
           </div>
 
           <div class="pkg-save-badge">Save $55/gift &middot; $880 over the year vs on-demand</div>
 
           <ul class="pkg-features">
             <li>4 gifts per quarter (16/year)</li>
+            <li>Billed every 3 months &middot; auto-renews</li>
+            <li>$2,080 / year total</li>
             <li>Custom branded box + card every time</li>
             <li>Fully branded packaging option</li>
             <li>Priority fulfillment</li>
@@ -180,7 +255,6 @@
 
       </div>
 
-      <!-- Setup fee note -->
       <div class="pkg-setup-note">
         <strong>+$75 one-time setup fee</strong> applies to all three plans &middot; On-demand orders have no setup fee
       </div>
@@ -188,8 +262,111 @@
     </div>
   </section>
 
+  <!-- ── New Agent Gift Program ────────────────────────── -->
+  <section class="new-agent-section" id="new-agent">
+    <div class="new-agent-inner">
+      <div class="new-agent-header">
+        <div class="new-agent-tag">New Agents Only</div>
+        <span class="section-eyebrow" style="color: var(--gold);">New Agent Gift Program</span>
+        <h2>Just licensed.<br><em>Start strong.</em></h2>
+        <p class="new-agent-sub">
+          3 gifts · 6 month validity · No setup fee.
+          A lower-commitment way to start gifting strategically from day one.
+          Ready to grow? Upgrade to The Closer or The Partner at any time — your remaining gift balance transfers over.
+        </p>
+      </div>
+
+      <div class="new-agent-card">
+        <div class="new-agent-card-top">
+          <div class="new-agent-highlights">
+            <span class="new-agent-highlight-pill">3 Gifts</span>
+            <span class="new-agent-highlight-pill">6 Month Validity</span>
+            <span class="new-agent-highlight-pill">No Setup Fee</span>
+          </div>
+          <div class="new-agent-price-row">
+            <div>
+              <span class="new-agent-price">$420</span>
+              <span class="new-agent-price-sub">total &middot; $140 per gift &middot; valid 6 months from purchase</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="new-agent-payment-section">
+          <div class="new-agent-payment-label">Payment Options</div>
+          <div class="new-agent-payment-grid">
+            <div class="new-agent-payment-option">
+              <div class="nap-type">Pay in full</div>
+              <div class="nap-amount">$420</div>
+              <div class="nap-when">Due today</div>
+            </div>
+            <div class="new-agent-payment-option">
+              <div class="nap-type">2 installments</div>
+              <div class="nap-amount">$210</div>
+              <div class="nap-when">Today + 30 days</div>
+            </div>
+            <div class="new-agent-payment-option">
+              <div class="nap-type">3 installments</div>
+              <div class="nap-amount">$140</div>
+              <div class="nap-when">Today, 30, 60 days</div>
+            </div>
+          </div>
+          <p class="new-agent-payment-note">Gifts are released as each installment clears. Square invoices sent automatically.</p>
+        </div>
+
+        <div class="new-agent-details-grid">
+          <div>
+            <div class="new-agent-detail-label">What's Included</div>
+            <ul class="new-agent-includes">
+              <li class="nai-yes">6-inch artisan Jamaican rum bundt cake</li>
+              <li class="nai-yes">3 individually wrapped rum rings</li>
+              <li class="nai-yes">Premium cardstock thank-you note, signed with a personal message</li>
+              <li class="nai-yes">Premium gift box packaging — ribbon tied, presentation-ready</li>
+              <li class="nai-yes">Allergen info card included in every box</li>
+              <li class="nai-no">Custom branded box (available on paid plans)</li>
+              <li class="nai-no">Gifting portal access (available on paid plans)</li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="new-agent-detail-label">Shipping &amp; Lead Time</div>
+            <div class="new-agent-shipping-grid">
+              <div class="nas-row">
+                <div>
+                  <div class="nas-name">Standard — 2-day shipping via Canada Post</div>
+                  <div class="nas-sub">72-hour lead time required</div>
+                </div>
+                <div class="nas-price nas-included">Included</div>
+              </div>
+              <div class="nas-row">
+                <div>
+                  <div class="nas-name">Priority upgrade — next-day processing</div>
+                  <div class="nas-sub">Available on request &middot; charged separately</div>
+                </div>
+                <div class="nas-price">+$10</div>
+              </div>
+              <div class="nas-row">
+                <div>
+                  <div class="nas-name">Downtown Toronto delivery</div>
+                  <div class="nas-sub">72-hour lead time required</div>
+                </div>
+                <div class="nas-price">$20</div>
+              </div>
+            </div>
+
+            <div class="new-agent-upgrade-note">
+              Ready to grow? Upgrade to <strong>The Closer</strong> or <strong>The Partner</strong> plan at any time — your remaining gift balance transfers over.
+              <span class="new-agent-upgrade-pill">Upgrades anytime</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-new-agent-apply" id="btn-new-agent-apply">Apply Now — New Agents Only</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ── On-Demand ───────────────────────────────────────── -->
-  <section class="on-demand-section">
+  <section class="on-demand-section" id="on-demand">
     <div class="on-demand-inner">
       <span class="section-eyebrow">No Commitment</span>
       <h2>On-Demand Orders</h2>
@@ -208,7 +385,6 @@
       </div>
     </div>
   </section>
-
 
   <!-- ── Brochure CTA ───────────────────────────────────── -->
   <section class="gifting-cta-section">
@@ -243,15 +419,148 @@
       <button class="gifting-modal-close" id="btn-close-brochure">✕</button>
       <h3>Get the Brochure</h3>
       <p>Enter your email and we'll send the full gifting guide right over.</p>
-      <input
-        type="email"
-        class="gifting-modal-input"
-        id="brochure-email"
-        placeholder="your@email.com"
-        autocomplete="email"
-      />
+      <input type="email" class="gifting-modal-input" id="brochure-email" placeholder="your@email.com" autocomplete="email"/>
       <button class="btn-gifting-primary" id="btn-brochure-submit" style="width:100%">Send Me the Brochure</button>
       <p class="gifting-modal-status" id="brochure-status"></p>
+    </div>
+  </div>
+
+  <!-- ── New Agent Modal ───────────────────────────────── -->
+  <div class="gifting-modal-overlay" id="new-agent-modal">
+    <div class="gifting-modal-box gifting-modal-box-wide">
+      <button class="gifting-modal-close" id="btn-close-new-agent">✕</button>
+      <div id="new-agent-form-view">
+        <h3>New Agent Gift Program</h3>
+        <p>Complete the form below to apply. We'll review your details and send your Square invoice within 24 hours.</p>
+
+        <form id="new-agent-form">
+          <div class="gifting-modal-row">
+            <div class="gifting-modal-field">
+              <label class="gifting-modal-label">First Name *</label>
+              <input type="text" class="gifting-modal-input" name="first_name" required placeholder="First name"/>
+            </div>
+            <div class="gifting-modal-field">
+              <label class="gifting-modal-label">Last Name *</label>
+              <input type="text" class="gifting-modal-input" name="last_name" required placeholder="Last name"/>
+            </div>
+          </div>
+
+          <div class="gifting-modal-field">
+            <label class="gifting-modal-label">Email Address *</label>
+            <input type="email" class="gifting-modal-input" name="email" required placeholder="your@email.com" autocomplete="email"/>
+          </div>
+
+          <div class="gifting-modal-field">
+            <label class="gifting-modal-label">Phone Number *</label>
+            <input type="tel" class="gifting-modal-input" name="phone" required placeholder="(416) 555-1234"/>
+          </div>
+
+          <div class="gifting-modal-row">
+            <div class="gifting-modal-field">
+              <label class="gifting-modal-label">RECO Registration Number *</label>
+              <input type="text" class="gifting-modal-input" name="reco_number" required placeholder="e.g. 4812345"/>
+            </div>
+            <div class="gifting-modal-field">
+              <label class="gifting-modal-label">License Issue Date *</label>
+              <input type="date" class="gifting-modal-input" name="license_date" required/>
+            </div>
+          </div>
+
+          <div class="gifting-modal-field">
+            <label class="gifting-modal-label">Payment Preference *</label>
+            <select class="gifting-modal-input" name="payment_option" required>
+              <option value="">Select…</option>
+              <option value="full">Pay in full — $420 due today</option>
+              <option value="2x">2 installments — $210 today + $210 in 30 days</option>
+              <option value="3x">3 installments — $140 today, 30, and 60 days</option>
+            </select>
+          </div>
+
+          <div class="gifting-modal-checkbox-group">
+            <input type="checkbox" id="new-agent-confirm" name="confirmed" required/>
+            <label for="new-agent-confirm">
+              I confirm I obtained my real estate license within the past 12 months and understand this offer is for new registrants only.
+            </label>
+          </div>
+
+          <button type="submit" class="btn-gifting-primary" id="btn-new-agent-submit" style="width:100%; margin-top:8px;">Submit Application</button>
+          <p class="gifting-modal-status" id="new-agent-status"></p>
+        </form>
+      </div>
+
+      <div id="new-agent-success-view" style="display:none; text-align:center; padding: 24px 0;">
+        <div style="font-size:40px; color: var(--gold); margin-bottom:16px;">✓</div>
+        <h3>Application Received</h3>
+        <p>Thank you! We'll review your details and send your Square invoice within 24 hours.</p>
+        <button class="btn-gifting-primary" onclick="closeNewAgentModal()" style="margin-top:24px;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Open House Booking Modal ──────────────────────── -->
+  <div class="gifting-modal-overlay" id="open-house-modal">
+    <div class="gifting-modal-box">
+      <button class="gifting-modal-close" id="btn-close-open-house">✕</button>
+      <div id="open-house-form-view">
+        <h3 id="oh-modal-title">Book a Tray</h3>
+        <p id="oh-modal-pkg">—</p>
+
+        <form id="open-house-form">
+          <input type="hidden" name="tray_name" id="oh-tray-name"/>
+          <input type="hidden" name="tray_price" id="oh-tray-price"/>
+
+          <div class="gifting-modal-row">
+            <div class="gifting-modal-field">
+              <label class="gifting-modal-label">First Name *</label>
+              <input type="text" class="gifting-modal-input" name="first_name" required placeholder="First name"/>
+            </div>
+            <div class="gifting-modal-field">
+              <label class="gifting-modal-label">Last Name *</label>
+              <input type="text" class="gifting-modal-input" name="last_name" required placeholder="Last name"/>
+            </div>
+          </div>
+
+          <div class="gifting-modal-field">
+            <label class="gifting-modal-label">Email Address *</label>
+            <input type="email" class="gifting-modal-input" name="email" required placeholder="your@email.com"/>
+          </div>
+
+          <div class="gifting-modal-row">
+            <div class="gifting-modal-field">
+              <label class="gifting-modal-label">Pickup Date *</label>
+              <input type="date" class="gifting-modal-input" name="pickup_date" required/>
+            </div>
+            <div class="gifting-modal-field">
+              <label class="gifting-modal-label">Pickup Location *</label>
+              <select class="gifting-modal-input" name="pickup_location" required>
+                <option value="">Select…</option>
+                <option value="downtown">Downtown Toronto</option>
+                <option value="woodbine">Woodbine &amp; Steeles</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="gifting-modal-field">
+            <label class="gifting-modal-label">Your Logo (send after booking)</label>
+            <p style="font-family:'Cormorant Garamond',serif; font-size:15px; color:rgba(255,255,255,0.45); margin:4px 0 0;">Email your logo to <a href="mailto:order@asliceofg.com" style="color:var(--gold);">order@asliceofg.com</a> after submitting — we'll print it on every allergen card.</p>
+          </div>
+
+          <div class="gifting-modal-field">
+            <label class="gifting-modal-label">Special Notes</label>
+            <textarea class="gifting-modal-input" name="notes" rows="2" placeholder="Flavour preferences, dietary notes, etc."></textarea>
+          </div>
+
+          <button type="submit" class="btn-gifting-primary" style="width:100%; margin-top:8px;">Submit Booking Request</button>
+          <p class="gifting-modal-status" id="open-house-status"></p>
+        </form>
+      </div>
+
+      <div id="open-house-success-view" style="display:none; text-align:center; padding: 24px 0;">
+        <div style="font-size:40px; color: var(--gold); margin-bottom:16px;">✓</div>
+        <h3>Booking Request Received</h3>
+        <p>We'll confirm your order and send your invoice within 24 hours.<br>Don't forget to email your logo to <a href="mailto:order@asliceofg.com" style="color:var(--gold);">order@asliceofg.com</a>.</p>
+        <button class="btn-gifting-primary" onclick="closeOpenHouseModal()" style="margin-top:24px;">Close</button>
+      </div>
     </div>
   </div>
 
