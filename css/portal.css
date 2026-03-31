@@ -1,0 +1,661 @@
+/* ============================================================
+   A Slice of G — portal.css
+   Realtor Gifting Portal styles
+   ============================================================ */
+
+/* ── Base ─────────────────────────────────────────────────── */
+
+.page-portal {
+  background: var(--cream);
+  min-height: 100vh;
+}
+
+/* ── Panel system ─────────────────────────────────────────── */
+
+.portal-panel {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+}
+
+#panel-dashboard {
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0;
+}
+
+/* ── Portal Card ──────────────────────────────────────────── */
+
+.portal-card {
+  background: var(--forest-deep);
+  border: 1px solid rgba(201,169,110,0.15);
+  padding: 56px 48px;
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.portal-card-wide {
+  max-width: 720px;
+}
+
+.portal-logo {
+  font-family: 'Cormorant SC', serif;
+  font-size: 18px;
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+
+.portal-heading {
+  font-family: 'Cormorant SC', serif;
+  font-size: 36px;
+  font-weight: 300;
+  color: var(--warm-white);
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.portal-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.portal-sub a { color: var(--gold); }
+
+.portal-sub-sm {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.portal-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  display: block; margin-bottom: 6px; margin-top: 12px;
+}
+
+.portal-footer-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: rgba(255,255,255,0.3);
+  text-align: center;
+  margin-top: 24px;
+}
+.portal-footer-note a { color: var(--gold); }
+
+/* ── Inputs (shared across portal) ───────────────────────── */
+
+.portal-card input[type="email"],
+.portal-card input[type="password"],
+.portal-card input[type="text"],
+.portal-card input[type="tel"],
+.portal-card input[type="date"],
+.portal-card select,
+.portal-card textarea,
+.portal-modal-inner input[type="text"],
+.portal-modal-inner input[type="date"],
+.portal-modal-inner input[type="tel"],
+.portal-modal-inner select,
+.portal-modal-inner textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,169,110,0.2);
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  color: var(--warm-white);
+  margin-bottom: 12px;
+  transition: border-color 0.2s;
+}
+
+.portal-card input::placeholder,
+.portal-modal-inner input::placeholder,
+.portal-card textarea::placeholder,
+.portal-modal-inner textarea::placeholder {
+  color: rgba(255,255,255,0.2);
+}
+
+.portal-card input:focus,
+.portal-modal-inner input:focus,
+.portal-card select:focus,
+.portal-modal-inner select:focus,
+.portal-card textarea:focus,
+.portal-modal-inner textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.portal-card select option { background: var(--forest-deep); }
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+
+.btn-portal-primary {
+  width: 100%;
+  padding: 15px;
+  background: var(--gold);
+  color: var(--forest-deep);
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  border: none; cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 8px;
+}
+.btn-portal-primary:hover { background: var(--gold-light); }
+.btn-portal-primary:disabled {
+  background: rgba(201,169,110,0.3);
+  color: rgba(4,13,10,0.4);
+  cursor: not-allowed;
+}
+
+.btn-portal-ghost {
+  width: 100%;
+  padding: 14px;
+  background: transparent;
+  color: rgba(255,255,255,0.4);
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.12);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  margin-top: 8px;
+}
+.btn-portal-ghost:hover { border-color: rgba(201,169,110,0.4); color: var(--gold); }
+
+.btn-portal-ghost.btn-sm {
+  width: auto; padding: 10px 20px; font-size: 9px;
+}
+
+.btn-google {
+  width: 100%;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px;
+  background: rgba(255,255,255,0.06);
+  color: var(--warm-white);
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.12em;
+  border: 1px solid rgba(255,255,255,0.15);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  margin-bottom: 4px;
+}
+.btn-google:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+
+.btn-large { padding: 18px 48px; font-size: 11px; width: auto; }
+
+/* ── Divider ──────────────────────────────────────────────── */
+
+.portal-divider {
+  display: flex; align-items: center; gap: 16px;
+  margin: 20px 0;
+}
+.portal-divider::before,
+.portal-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.1);
+}
+.portal-divider span {
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+}
+
+/* ── Status messages ──────────────────────────────────────── */
+
+.portal-status {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  min-height: 22px;
+  margin-top: 10px;
+  line-height: 1.5;
+  text-align: center;
+}
+.portal-status.error   { color: #e07070; }
+.portal-status.success { color: var(--gold); }
+
+/* ── Setup steps indicator ────────────────────────────────── */
+
+.setup-steps {
+  display: flex; gap: 0;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(201,169,110,0.12);
+  padding-bottom: 24px;
+}
+
+.setup-step {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  padding-right: 24px;
+  transition: color 0.2s;
+}
+
+.setup-step.active { color: var(--gold); }
+
+.portal-card h2 {
+  font-family: 'Cormorant SC', serif;
+  font-size: 28px; font-weight: 300;
+  color: var(--warm-white);
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+/* ── Checkbox row ─────────────────────────────────────────── */
+
+.portal-checkbox-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin: 12px 0 20px;
+}
+
+.portal-checkbox-row input[type="checkbox"] {
+  width: auto; margin: 0; flex-shrink: 0;
+  margin-top: 2px;
+  accent-color: var(--gold);
+}
+
+.portal-checkbox-row label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.5;
+}
+
+/* ── Plan selection ───────────────────────────────────────── */
+
+.plan-select-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.plan-select-card {
+  border: 1px solid rgba(201,169,110,0.15);
+  padding: 20px;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  position: relative;
+}
+
+.plan-select-card:hover { border-color: rgba(201,169,110,0.35); }
+
+.plan-select-card.selected {
+  border-color: var(--gold);
+  background: rgba(201,169,110,0.06);
+}
+
+.plan-select-badge {
+  font-family: 'Jost', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 4px 10px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.plan-select-badge.new-agent {
+  background: rgba(201,169,110,0.15);
+  color: var(--gold);
+  border: 1px solid rgba(201,169,110,0.25);
+}
+
+.plan-select-name {
+  font-family: 'Cormorant SC', serif;
+  font-size: 20px; font-weight: 400;
+  color: var(--warm-white);
+  margin-bottom: 6px;
+}
+
+.plan-select-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.plan-select-price span {
+  font-size: 14px;
+  color: rgba(255,255,255,0.4);
+}
+
+.plan-select-detail {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.5;
+}
+
+.installment-options {
+  display: flex; flex-direction: column; gap: 10px;
+  padding: 16px;
+  border: 1px solid rgba(201,169,110,0.15);
+  margin-bottom: 16px;
+}
+
+.installment-options label {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  color: rgba(255,255,255,0.6);
+  cursor: pointer;
+}
+
+.installment-options input[type="radio"] {
+  width: auto; margin: 0;
+  accent-color: var(--gold);
+}
+
+/* ── Pending panel ────────────────────────────────────────── */
+
+.pending-icon {
+  font-size: 48px;
+  color: var(--gold);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ── Dashboard ────────────────────────────────────────────── */
+
+.dashboard-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 48px;
+  background: var(--forest-deep);
+  border-bottom: 1px solid rgba(201,169,110,0.12);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dashboard-welcome {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  color: rgba(255,255,255,0.55);
+}
+
+.dashboard-welcome span { color: var(--warm-white); font-weight: 400; }
+
+.dashboard-plan {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 4px;
+}
+
+.balance-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  width: 100%;
+  border-bottom: 1px solid rgba(201,169,110,0.1);
+}
+
+.balance-card {
+  padding: 32px 48px;
+  border-right: 1px solid rgba(201,169,110,0.1);
+  background: var(--forest-deep);
+}
+.balance-card:last-child { border-right: none; }
+
+.balance-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 12px;
+}
+
+.balance-number {
+  font-family: 'Cormorant SC', serif;
+  font-size: 48px; font-weight: 300;
+  color: var(--warm-white);
+  line-height: 1;
+}
+
+/* ── Redeem CTA ───────────────────────────────────────────── */
+
+.redeem-cta {
+  padding: 40px 48px;
+  display: flex; align-items: center; gap: 24px;
+  background: var(--cream);
+  width: 100%; box-sizing: border-box;
+  border-bottom: 1px solid rgba(4,13,10,0.08);
+}
+
+.redeem-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: rgba(4,13,10,0.45);
+}
+
+/* ── Orders section ───────────────────────────────────────── */
+
+.orders-section {
+  padding: 40px 48px;
+  width: 100%; box-sizing: border-box;
+  background: var(--cream);
+  flex: 1;
+}
+
+.orders-heading {
+  font-family: 'Cormorant SC', serif;
+  font-size: 22px; font-weight: 400;
+  color: var(--forest-deep);
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(4,13,10,0.08);
+}
+
+.orders-empty {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  color: rgba(4,13,10,0.4);
+  line-height: 1.6;
+}
+
+.order-row {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(4,13,10,0.06);
+}
+
+.order-row-main {
+  display: flex; align-items: center; gap: 24px;
+  flex-wrap: wrap;
+}
+
+.order-recipient {
+  font-family: 'Cormorant SC', serif;
+  font-size: 18px; font-weight: 400;
+  color: var(--forest-deep);
+  flex: 1;
+}
+
+.order-date {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: rgba(4,13,10,0.4);
+}
+
+.order-status {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 5px 12px;
+}
+
+.status-pending   { background: rgba(201,169,110,0.12); color: var(--gold); }
+.status-confirmed { background: rgba(126,186,126,0.1);  color: #7eba7e; }
+.status-shipped   { background: rgba(100,160,220,0.12); color: #64a0dc; }
+.status-delivered { background: rgba(126,186,126,0.15); color: #5cad5c; }
+
+.order-tracking {
+  margin-top: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  color: rgba(4,13,10,0.5);
+  display: flex; align-items: center; gap: 8px;
+}
+
+.tracking-label { color: rgba(4,13,10,0.35); }
+
+.tracking-number {
+  color: var(--gold);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.order-address {
+  margin-top: 6px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: rgba(4,13,10,0.45);
+}
+
+/* ── Redeem modal ─────────────────────────────────────────── */
+
+.portal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(4,13,10,0.8);
+  z-index: 500;
+}
+
+.portal-modal {
+  position: fixed; inset: 0;
+  z-index: 501;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.portal-modal-inner {
+  background: var(--forest-deep);
+  border: 1px solid rgba(201,169,110,0.2);
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex; flex-direction: column;
+}
+
+.modal-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 36px 20px;
+  border-bottom: 1px solid rgba(201,169,110,0.12);
+  position: sticky; top: 0;
+  background: var(--forest-deep);
+  z-index: 10;
+}
+
+.modal-header h2 {
+  font-family: 'Cormorant SC', serif;
+  font-size: 26px; font-weight: 300;
+  color: var(--warm-white);
+}
+
+.modal-close {
+  background: none; border: none;
+  color: rgba(255,255,255,0.3);
+  font-size: 18px; cursor: pointer;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--gold); }
+
+.modal-body { padding: 28px 36px; flex: 1; }
+
+.form-section { margin-bottom: 28px; }
+
+.form-section-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 1px solid rgba(201,169,110,0.12);
+  display: block;
+}
+
+.priority-row {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 8px;
+}
+
+.priority-row input[type="checkbox"] {
+  width: auto;
+  accent-color: var(--gold);
+}
+
+.priority-row label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ── Greeting cards ───────────────────────────────────────── */
+
+.greeting-options {
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.greeting-card {
+  display: flex; align-items: flex-start; gap: 14px;
+  border: 1px solid rgba(201,169,110,0.15);
+  padding: 16px 18px;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.greeting-card:has(input:checked) {
+  border-color: var(--gold);
+  background: rgba(201,169,110,0.04);
+}
+
+.greeting-card input[type="radio"] {
+  width: auto; flex-shrink: 0; margin-top: 3px;
+  accent-color: var(--gold);
+}
+
+.greeting-title {
+  font-family: 'Cormorant SC', serif;
+  font-size: 16px; font-weight: 400;
+  color: var(--warm-white);
+  margin-bottom: 4px;
+}
+
+.greeting-preview {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+.modal-footer {
+  padding: 20px 36px 28px;
+  border-top: 1px solid rgba(201,169,110,0.12);
+}
