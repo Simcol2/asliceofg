@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>A Slice of G — Artisan Rum Cakes</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/main.css?v=7"/>
+  <link rel="stylesheet" href="css/main.css?v=9"/>
 </head>
 <body class="page-home">
 
@@ -21,6 +21,9 @@
     </ul>
     <div class="nav-right">
       <a href="catering.html" class="nav-cta">View Catering</a>
+      <button class="nav-cart" id="btn-open-cart">
+        Bag <span class="cart-count" id="cart-count" data-count="0">0</span>
+      </button>
     </div>
   </nav>
 
@@ -162,6 +165,44 @@
     <a href="shop.html" class="slogan-cta">Order Your Cake</a>
   </section>
 
+  <!-- ── Cart Overlay + Drawer ──────────────────────────────── -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-drawer-header">
+      <span class="cart-drawer-title">Your Bag</span>
+      <button class="cart-close-btn" id="cart-close-btn">✕</button>
+    </div>
+    <div class="cart-drawer-items" id="cart-items">
+      <p class="cart-empty">Your bag is empty.</p>
+    </div>
+    <div class="cart-drawer-footer">
+      <div class="cart-subtotal">
+        <span class="cart-subtotal-label">Subtotal</span>
+        <span class="cart-subtotal-amount" id="cart-total">$0.00</span>
+      </div>
+      <div class="fulfillment-select" id="fulfillment-select">
+        <div class="fulfillment-options">
+          <button class="fulfillment-btn active" data-type="PICKUP">Pickup</button>
+          <button class="fulfillment-btn" data-type="SHIPMENT">Shipping</button>
+        </div>
+        <div class="fulfillment-datetime" id="fulfillment-datetime">
+          <div class="fulfillment-datetime-row" id="fulfillment-datetime-row">
+            <div class="fulfillment-field">
+              <label class="fulfillment-date-label" id="fulfillment-date-label" for="fulfillment-date">Pickup date</label>
+              <input type="date" class="fulfillment-date-input" id="fulfillment-date" />
+            </div>
+            <div class="fulfillment-field" id="fulfillment-time-field">
+              <label class="fulfillment-date-label" for="fulfillment-time">Time</label>
+              <input type="time" class="fulfillment-date-input" id="fulfillment-time" value="12:00" />
+            </div>
+          </div>
+          <p class="fulfillment-shipping-note" id="fulfillment-shipping-note">Shipping address collected at checkout.</p>
+        </div>
+      </div>
+      <button class="btn-checkout-main" id="btn-checkout-main" disabled>Checkout</button>
+    </div>
+  </div>
+
   <footer>
     <div class="footer-logo">A Slice of G</div>
     <div class="footer-center">
@@ -174,5 +215,6 @@
     </div>
   </footer>
 
+  <script src="js/cart-drawer.js"></script>
 </body>
 </html>

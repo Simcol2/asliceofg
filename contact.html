@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact — A Slice of G</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/main.css?v=9"/>
+  <style>
+    .contact-section {
+      min-height: calc(100vh - 73px);
+      background: var(--forest-deep);
+      display: flex; align-items: center; justify-content: center;
+      padding: 120px 40px 80px;
+    }
+    .contact-inner {
+      width: 100%; max-width: 600px;
+    }
+    .contact-eyebrow {
+      font-family: 'Jost', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 18px; display: block;
+    }
+    .contact-title {
+      font-family: 'Cormorant SC', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300; color: var(--warm-white);
+      line-height: 1; margin-bottom: 14px;
+    }
+    .contact-title em {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; color: var(--gold);
+    }
+    .contact-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; color: rgba(255,255,255,0.45);
+      margin-bottom: 48px; line-height: 1.6;
+    }
+    .contact-form-group { margin-bottom: 18px; }
+    .contact-form-group label {
+      display: block;
+      font-family: 'Jost', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.3); margin-bottom: 8px;
+    }
+    .contact-form-group input,
+    .contact-form-group select,
+    .contact-form-group textarea {
+      width: 100%; padding: 13px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,169,110,0.18);
+      font-family: 'Jost', sans-serif;
+      font-size: 14px; color: var(--warm-white);
+      transition: border-color 0.2s;
+    }
+    .contact-form-group input::placeholder,
+    .contact-form-group textarea::placeholder {
+      color: rgba(255,255,255,0.2);
+    }
+    .contact-form-group input:focus,
+    .contact-form-group select:focus,
+    .contact-form-group textarea:focus {
+      outline: none; border-color: var(--gold);
+    }
+    .contact-form-group select option { background: var(--forest-deep); }
+    .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn-contact-submit {
+      width: 100%; padding: 17px;
+      background: var(--gold); color: var(--forest-deep);
+      font-family: 'Jost', sans-serif;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      border: none; cursor: pointer; margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .btn-contact-submit:hover { background: var(--gold-light); }
+    .btn-contact-submit:disabled { background: rgba(201,169,110,0.3); cursor: not-allowed; }
+    .contact-status {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 16px; text-align: center;
+      margin-top: 14px; min-height: 24px;
+    }
+    .contact-status.success { color: var(--gold); }
+    .contact-status.error   { color: var(--coral); }
+    .contact-details-row {
+      display: flex; gap: 48px; margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(201,169,110,0.12);
+    }
+    .contact-detail-item { }
+    .contact-detail-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 9px; font-weight: 700;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(255,255,255,0.25); margin-bottom: 6px;
+    }
+    .contact-detail-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; color: rgba(255,255,255,0.65);
+      text-decoration: none;
+    }
+    .contact-detail-value:hover { color: var(--gold); }
+    @media (max-width: 768px) {
+      .contact-form-row { grid-template-columns: 1fr; }
+      .contact-details-row { flex-direction: column; gap: 24px; }
+      .contact-section { padding: 100px 24px 64px; }
+    }
+  </style>
+</head>
+<body class="page-contact">
+
+  <nav>
+    <a href="index.html" class="nav-logo">A Slice of G</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop All</a></li>
+      <li><a href="catering.html">Catering</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="https://www.instagram.com/_sliceofg/" target="_blank">Instagram</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="shop.html" class="nav-cta">Shop All</a>
+    </div>
+  </nav>
+
+  <section class="contact-section">
+    <div class="contact-inner">
+      <span class="contact-eyebrow">Get in Touch</span>
+      <h1 class="contact-title">Say <em>Hello.</em></h1>
+      <p class="contact-sub">Questions about orders, catering, or custom requests — we'd love to hear from you.</p>
+
+      <form id="contact-form">
+        <div class="contact-form-row">
+          <div class="contact-form-group">
+            <label>First Name *</label>
+            <input type="text" name="first_name" required placeholder="First name"/>
+          </div>
+          <div class="contact-form-group">
+            <label>Last Name *</label>
+            <input type="text" name="last_name" required placeholder="Last name"/>
+          </div>
+        </div>
+
+        <div class="contact-form-group">
+          <label>Email Address *</label>
+          <input type="email" name="email" required placeholder="your@email.com"/>
+        </div>
+
+        <div class="contact-form-group">
+          <label>Subject</label>
+          <select name="subject">
+            <option value="order">Order Inquiry</option>
+            <option value="catering">Catering / Events</option>
+            <option value="custom">Custom Order</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="contact-form-group">
+          <label>Message *</label>
+          <textarea name="message" rows="5" required placeholder="Tell us what you're looking for…"></textarea>
+        </div>
+
+        <button type="submit" class="btn-contact-submit" id="contact-submit-btn">Send Message</button>
+        <p class="contact-status" id="contact-status"></p>
+      </form>
+
+      <div class="contact-details-row">
+        <div class="contact-detail-item">
+          <div class="contact-detail-label">Email</div>
+          <a href="mailto:order@asliceofg.com" class="contact-detail-value">order@asliceofg.com</a>
+        </div>
+        <div class="contact-detail-item">
+          <div class="contact-detail-label">Instagram</div>
+          <a href="https://www.instagram.com/_sliceofg/" target="_blank" class="contact-detail-value">@_sliceofg</a>
+        </div>
+        <div class="contact-detail-item">
+          <div class="contact-detail-label">Location</div>
+          <span class="contact-detail-value">Toronto, Ontario</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">A Slice of G</div>
+    <div class="footer-center">
+      <div class="footer-slogan">Not all rum cakes wear black.</div>
+      <div class="footer-tag">Small Batch · Artisan Rum Cakes</div>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:order@asliceofg.com">order@asliceofg.com</a><br>
+      asliceofg.com
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init('MJ301FjlzSsErNvcg');
+
+    document.getElementById('contact-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const form   = e.target;
+      const btn    = document.getElementById('contact-submit-btn');
+      const status = document.getElementById('contact-status');
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+      status.textContent = '';
+      status.className = 'contact-status';
+
+      const params = {
+        to_email:   'simone.cole2@gmail.com',
+        reply_to:   form.querySelector('[name="email"]').value,
+        first_name: form.querySelector('[name="first_name"]').value,
+        last_name:  form.querySelector('[name="last_name"]').value,
+        email:      form.querySelector('[name="email"]').value,
+        subject:    form.querySelector('[name="subject"]').value,
+        message:    form.querySelector('[name="message"]').value,
+      };
+
+      try {
+        await emailjs.send('service_z6rd8xm', 'template_contact', params);
+        status.textContent = 'Message sent — we\'ll be in touch soon.';
+        status.className = 'contact-status success';
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        status.textContent = 'Something went wrong. Email us directly at order@asliceofg.com';
+        status.className = 'contact-status error';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
+    });
+  </script>
+
+</body>
+</html>

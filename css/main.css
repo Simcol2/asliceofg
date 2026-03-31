@@ -117,14 +117,15 @@ nav {
   display: inline-block; transition: all 0.2s;
   cursor: pointer; font-family: 'Jost', sans-serif;
 }
-.btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+.btn-ghost:
+hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
 
 /* ── Marquee Band ────────────────────────────────────────── */
 
 .band { background: var(--gold); padding: 16px 0; overflow: hidden; white-space: nowrap; }
 .band-inner {
   display: inline-flex; gap: 52px;
-  animation: marquee 20s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -1144,9 +1145,35 @@ footer {
   nav { padding: 16px 24px; }
   .nav-links { display: none; }
 
-  .hero-arch { display: none; }
-  .hero-content { padding: 0 32px; max-width: 100%; }
+  .hero {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 110px;
+    padding-bottom: 0;
+    min-height: 100svh;
+  }
+  .hero-arch {
+    display: block;
+    position: relative;
+    top: auto; right: auto;
+    transform: none;
+    width: 240px; height: 310px;
+    margin: 36px auto 0;
+    animation: none;
+    order: 2;
+  }
+  .hero-content {
+    padding: 0 32px;
+    max-width: 100%;
+    text-align: center;
+    order: 1;
+  }
   .hero-h1 { font-size: 52px; }
+  .palm { display: none; }
+  .eyebrow { justify-content: center; }
+  .hero-btns { justify-content: center; }
+  .hero-detail { text-align: center; }
 
   .intro { padding: 72px 24px; }
   .products-section { padding: 40px 24px 72px; }
