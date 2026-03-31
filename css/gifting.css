@@ -97,7 +97,7 @@
 /* ── How It Works ────────────────────────────────────────── */
 
 .how-it-works {
-  padding: 100px 80px;
+  padding: 52px 80px;
   background: var(--cream);
 }
 
@@ -114,10 +114,10 @@
 
 .how-it-works h2 {
   font-family: 'Cormorant SC', serif;
-  font-size: clamp(32px, 4vw, 52px);
+  font-size: clamp(28px, 3.5vw, 44px);
   font-weight: 300;
   color: var(--forest-deep);
-  margin-bottom: 56px;
+  margin-bottom: 32px;
   line-height: 1.1;
 }
 
@@ -162,7 +162,7 @@
 /* ── Subscription Packages ───────────────────────────────── */
 
 .gifting-packages {
-  padding: 100px 80px;
+  padding: 64px 80px;
   background: var(--forest-deep);
 }
 
@@ -782,16 +782,22 @@
 /* ── New Agent Section ───────────────────────────────────────── */
 
 .new-agent-section {
-  padding: 56px 80px 80px;
+  padding: 56px 80px;
   background: #ffffff;
 }
 
 .new-agent-inner {
-  max-width: 900px; margin: 0 auto;
+  max-width: 1100px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 64px;
+  align-items: start;
 }
 
 .new-agent-header {
-  text-align: center; margin-bottom: 48px;
+  text-align: left;
+  position: sticky;
+  top: 32px;
 }
 
 .new-agent-tag {
@@ -825,7 +831,7 @@
   font-size: 18px;
   color: rgba(4,13,10,0.6);
   line-height: 1.65;
-  max-width: 600px; margin: 0 auto;
+  max-width: 100%;
 }
 
 .new-agent-card {
