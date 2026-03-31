@@ -290,9 +290,11 @@
 }
 
 .catering-card-feeds {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 14px; color: rgba(255,255,255,0.35);
-  margin-bottom: 24px; font-style: italic;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--warm-white);
+  margin-bottom: 24px;
 }
 
 .catering-card-price {
@@ -791,6 +793,75 @@
   font-size: 16px; color: rgba(7,20,16,0.6); line-height: 2;
 }
 
+/* ── Featured card variant ───────────────────────────────── */
+
+.catering-card-featured {
+  background: var(--forest-up);
+  border-top: 2px solid var(--gold);
+  position: relative;
+}
+
+.catering-card-badge {
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  background: var(--gold);
+  color: var(--forest-deep);
+  font-family: 'Jost', sans-serif;
+  font-size: 8px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  padding: 5px 18px;
+  white-space: nowrap;
+}
+
+/* ── Carousel ────────────────────────────────────────────── */
+
+.pkg-carousel {
+  position: relative;
+}
+
+.carousel-slide {
+  margin-bottom: 0;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(4,13,10,0.7);
+  border: 1px solid rgba(201,169,110,0.3);
+  color: var(--gold);
+  font-size: 32px; line-height: 1;
+  width: 52px; height: 52px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+.carousel-arrow:hover {
+  background: rgba(201,169,110,0.15);
+  border-color: var(--gold);
+}
+
+.carousel-prev { left: -26px; }
+.carousel-next { right: -26px; }
+
+.carousel-dots {
+  display: flex; justify-content: center; gap: 10px;
+  margin-top: 28px;
+}
+
+.carousel-dot {
+  width: 10px; height: 10px;
+  background: rgba(201,169,110,0.25);
+  border: 1px solid rgba(201,169,110,0.3);
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+.carousel-dot.active {
+  background: var(--gold);
+  border-color: var(--gold);
+}
+
 /* ── Responsive ──────────────────────────────────────────── */
 
 @media (max-width: 1024px) {
@@ -813,4 +884,7 @@
   .gift-contents { grid-template-columns: 1fr; }
   .catering-modal-body { padding: 24px 20px; }
   .catering-cta { padding: 80px 24px; }
+  .carousel-prev { left: 0; }
+  .carousel-next { right: 0; }
+  .carousel-arrow { width: 40px; height: 40px; font-size: 24px; }
 }

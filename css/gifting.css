@@ -9,7 +9,7 @@
   position: relative;
   background: var(--forest-deep);
   overflow: hidden;
-  padding: 160px 80px 110px;
+  padding: 100px 80px 72px;
   text-align: center;
 }
 
@@ -522,7 +522,7 @@
 }
 
 @media (max-width: 768px) {
-  .gifting-hero { padding: 120px 24px 80px; }
+  .gifting-hero { padding: 90px 24px 56px; }
   .how-it-works { padding: 72px 24px; }
   .gifting-packages { padding: 72px 24px; }
   .on-demand-section { padding: 72px 24px; }

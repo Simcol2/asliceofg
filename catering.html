@@ -7,7 +7,7 @@
   <meta name="description" content="Signature rum cakes, rum rings, and rum cake sandwiches for events that expect culture on the plate."/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/main.css?v=9"/>
-  <link rel="stylesheet" href="css/catering.css?v=2"/>
+  <link rel="stylesheet" href="css/catering.css?v=3"/>
 </head>
 <body class="page-catering">
 
@@ -15,7 +15,6 @@
   <nav>
     <a href="index.html" class="nav-logo">A Slice of G</a>
     <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
       <li><a href="shop.html">Shop All</a></li>
       <li><a href="catering.html" class="active">Catering</a></li>
       <li><a href="gifting.html">Corporate Gifting</a></li>
@@ -37,52 +36,15 @@
     <a href="#packages" class="catering-hero-cta">View Packages</a>
   </section>
 
-  <!-- ── Packages ─────────────────────────────────────────── -->
+  <!-- ── Section 2: Catering Packages ─────────────────────── -->
   <section class="catering-section catering-section-dark" id="packages">
     <div class="catering-inner">
 
-      <span class="catering-section-eyebrow">01 — Packages</span>
-      <h2 class="catering-section-title">Pick Your Spread</h2>
+      <span class="catering-section-eyebrow">02 — Packages</span>
+      <h2 class="catering-section-title">Catering Packages</h2>
       <p class="catering-section-sub">One piece per guest. Mix of rum rings, cake squares, and icing sandwiches. Packages priced below individual retail.</p>
 
-      <!-- Featured: 50 People -->
-      <div class="catering-featured" style="margin-top: 56px;">
-        <div class="catering-featured-visual">
-          <img src="/public/images/rumcake.png" alt="A Slice of G Catering Display"/>
-          <span class="catering-featured-bg-num">50</span>
-        </div>
-        <div class="catering-featured-content">
-          <span class="catering-featured-label">Most Popular</span>
-          <h3 class="catering-featured-title">The Celebration</h3>
-          <p class="catering-featured-feeds">Serves 50 guests — one piece per person</p>
-
-          <div class="catering-featured-price">$525</div>
-          <span class="catering-savings-badge">Save $130</span>
-
-          <ul class="catering-pkg-items">
-            <li><span class="pkg-item-name">Rum Rings (Island flavour)</span><span class="pkg-item-qty">20</span></li>
-            <li><span class="pkg-item-name">Rum Cake Squares</span><span class="pkg-item-qty">15</span></li>
-            <li><span class="pkg-item-name">Rum Cake Icing Sandwiches</span><span class="pkg-item-qty">15</span></li>
-          </ul>
-
-          <div class="catering-buffer-box">
-            <div class="catering-buffer-row">
-              <span class="catering-buffer-title">Add 10% Buffer</span>
-              <span class="catering-buffer-price">+$52.50</span>
-            </div>
-            <p class="catering-buffer-desc">5 extra pieces for $577.50 total. Recommended for events where seconds are likely.</p>
-          </div>
-
-          <button class="btn-catering-book" onclick="openBookingModal('The Celebration', 50, 525, 52.50)">Book This Package</button>
-
-          <p class="catering-pkg-total">Individual value: $655 &nbsp;|&nbsp; <strong>You save $130</strong></p>
-        </div>
-      </div>
-
-      <!-- Additional Packages -->
-      <div class="catering-divider"><span class="catering-divider-text">Additional Options</span></div>
-
-      <div class="catering-cards-grid">
+      <div class="catering-cards-grid" style="margin-top: 56px;">
         <!-- 20 People -->
         <div class="catering-card">
           <div class="catering-card-label">Intimate Gatherings</div>
@@ -100,6 +62,26 @@
             <div class="catering-card-buffer-price">+$21.50 &nbsp;|&nbsp; $236.50</div>
           </div>
           <button class="btn-catering-book" onclick="openBookingModal('The Ultimate Centerpiece', 20, 215, 21.50)">Book Now</button>
+        </div>
+
+        <!-- 50 People -->
+        <div class="catering-card catering-card-featured">
+          <div class="catering-card-badge">Most Popular</div>
+          <div class="catering-card-label">Celebrations</div>
+          <div class="catering-card-num">50</div>
+          <div class="catering-card-subtitle">The Celebration</div>
+          <p class="catering-card-feeds">Serves 50 guests</p>
+          <div class="catering-card-price">$525</div>
+          <ul class="catering-card-items">
+            <li><span>Rum Rings</span><span class="ci-qty">20</span></li>
+            <li><span>Rum Cake Squares</span><span class="ci-qty">15</span></li>
+            <li><span>Icing Sandwiches</span><span class="ci-qty">15</span></li>
+          </ul>
+          <div class="catering-card-buffer">
+            <div class="catering-card-buffer-label">+10% Buffer (5 extra)</div>
+            <div class="catering-card-buffer-price">+$52.50 &nbsp;|&nbsp; $577.50</div>
+          </div>
+          <button class="btn-catering-book" onclick="openBookingModal('The Celebration', 50, 525, 52.50)">Book Now</button>
         </div>
 
         <!-- 100 People -->
@@ -120,24 +102,130 @@
           </div>
           <button class="btn-catering-book" onclick="openBookingModal('The Grand Affair', 100, 1020, 102)">Book Now</button>
         </div>
+      </div>
 
-        <!-- Custom -->
-        <div class="catering-card">
-          <div class="catering-card-label">Bespoke</div>
-          <div class="catering-card-num" style="font-size:40px; letter-spacing:0.04em;">Custom</div>
-          <div class="catering-card-subtitle">Tailored to You</div>
-          <p class="catering-card-feeds">Any quantity</p>
-          <div class="catering-card-price" style="font-size:28px; letter-spacing:0.04em;">Request Quote</div>
-          <ul class="catering-card-items">
-            <li><span>Your selection</span><span class="ci-qty">—</span></li>
-            <li><span>Custom ratios</span><span class="ci-qty">—</span></li>
-            <li><span>Branding options</span><span class="ci-qty">—</span></li>
-          </ul>
-          <div class="catering-card-buffer">
-            <div class="catering-card-buffer-label">Contact for pricing</div>
-            <div class="catering-card-buffer-price">Personalized quote</div>
+    </div>
+  </section>
+
+  <!-- ── Section 3: Pick Your Spread (Carousel) ─────────── -->
+  <section class="catering-section catering-section-dark" id="spread" style="padding-top: 0;">
+    <div class="catering-inner">
+
+      <span class="catering-section-eyebrow">03 — Details</span>
+      <h2 class="catering-section-title">Pick Your Spread</h2>
+      <p class="catering-section-sub">A closer look at what each package includes.</p>
+
+      <div class="pkg-carousel" style="margin-top: 48px;">
+        <button class="carousel-arrow carousel-prev" id="carousel-prev" aria-label="Previous package">‹</button>
+
+        <div class="carousel-slides" id="carousel-slides">
+
+          <!-- Slide 1: 20 Guests -->
+          <div class="catering-featured carousel-slide" data-index="0">
+            <div class="catering-featured-visual">
+              <img src="/public/images/rumcake.png" alt="A Slice of G — 20 Guest Package"/>
+              <span class="catering-featured-bg-num">20</span>
+            </div>
+            <div class="catering-featured-content">
+              <span class="catering-featured-label">Intimate Gatherings</span>
+              <h3 class="catering-featured-title">The Ultimate Centerpiece</h3>
+              <p class="catering-featured-feeds">Serves 20 guests — one piece per person</p>
+
+              <div class="catering-featured-price">$215</div>
+
+              <ul class="catering-pkg-items">
+                <li><span class="pkg-item-name">Rum Rings (Island flavour)</span><span class="pkg-item-qty">7</span></li>
+                <li><span class="pkg-item-name">Rum Cake Squares</span><span class="pkg-item-qty">7</span></li>
+                <li><span class="pkg-item-name">Rum Cake Icing Sandwiches</span><span class="pkg-item-qty">6</span></li>
+              </ul>
+
+              <div class="catering-buffer-box">
+                <div class="catering-buffer-row">
+                  <span class="catering-buffer-title">Add 10% Buffer</span>
+                  <span class="catering-buffer-price">+$21.50</span>
+                </div>
+                <p class="catering-buffer-desc">2 extra pieces for $236.50 total.</p>
+              </div>
+
+              <button class="btn-catering-book" onclick="openBookingModal('The Ultimate Centerpiece', 20, 215, 21.50)">Book This Package</button>
+              <p class="catering-pkg-total">Individual value: $268 &nbsp;|&nbsp; <strong>You save $53</strong></p>
+            </div>
           </div>
-          <button class="btn-catering-book" onclick="openBookingModal('Custom Package', 0, 0, 0)">Request Quote</button>
+
+          <!-- Slide 2: 50 Guests -->
+          <div class="catering-featured carousel-slide" data-index="1" style="display:none;">
+            <div class="catering-featured-visual">
+              <img src="/public/images/rumcake.png" alt="A Slice of G — 50 Guest Package"/>
+              <span class="catering-featured-bg-num">50</span>
+            </div>
+            <div class="catering-featured-content">
+              <span class="catering-featured-label">Most Popular</span>
+              <h3 class="catering-featured-title">The Celebration</h3>
+              <p class="catering-featured-feeds">Serves 50 guests — one piece per person</p>
+
+              <div class="catering-featured-price">$525</div>
+              <span class="catering-savings-badge">Save $130</span>
+
+              <ul class="catering-pkg-items">
+                <li><span class="pkg-item-name">Rum Rings (Island flavour)</span><span class="pkg-item-qty">20</span></li>
+                <li><span class="pkg-item-name">Rum Cake Squares</span><span class="pkg-item-qty">15</span></li>
+                <li><span class="pkg-item-name">Rum Cake Icing Sandwiches</span><span class="pkg-item-qty">15</span></li>
+              </ul>
+
+              <div class="catering-buffer-box">
+                <div class="catering-buffer-row">
+                  <span class="catering-buffer-title">Add 10% Buffer</span>
+                  <span class="catering-buffer-price">+$52.50</span>
+                </div>
+                <p class="catering-buffer-desc">5 extra pieces for $577.50 total. Recommended for events where seconds are likely.</p>
+              </div>
+
+              <button class="btn-catering-book" onclick="openBookingModal('The Celebration', 50, 525, 52.50)">Book This Package</button>
+              <p class="catering-pkg-total">Individual value: $655 &nbsp;|&nbsp; <strong>You save $130</strong></p>
+            </div>
+          </div>
+
+          <!-- Slide 3: 100 Guests -->
+          <div class="catering-featured carousel-slide" data-index="2" style="display:none;">
+            <div class="catering-featured-visual">
+              <img src="/public/images/rumcake.png" alt="A Slice of G — 100 Guest Package"/>
+              <span class="catering-featured-bg-num">100</span>
+            </div>
+            <div class="catering-featured-content">
+              <span class="catering-featured-label">Grand Events</span>
+              <h3 class="catering-featured-title">The Grand Affair</h3>
+              <p class="catering-featured-feeds">Serves 100 guests — one piece per person</p>
+
+              <div class="catering-featured-price">$1,020</div>
+              <span class="catering-savings-badge">Save $290</span>
+
+              <ul class="catering-pkg-items">
+                <li><span class="pkg-item-name">Rum Rings (Island flavour)</span><span class="pkg-item-qty">40</span></li>
+                <li><span class="pkg-item-name">Rum Cake Squares</span><span class="pkg-item-qty">30</span></li>
+                <li><span class="pkg-item-name">Rum Cake Icing Sandwiches</span><span class="pkg-item-qty">30</span></li>
+              </ul>
+
+              <div class="catering-buffer-box">
+                <div class="catering-buffer-row">
+                  <span class="catering-buffer-title">Add 10% Buffer</span>
+                  <span class="catering-buffer-price">+$102</span>
+                </div>
+                <p class="catering-buffer-desc">10 extra pieces for $1,122 total.</p>
+              </div>
+
+              <button class="btn-catering-book" onclick="openBookingModal('The Grand Affair', 100, 1020, 102)">Book This Package</button>
+              <p class="catering-pkg-total">Individual value: $1,310 &nbsp;|&nbsp; <strong>You save $290</strong></p>
+            </div>
+          </div>
+
+        </div><!-- /carousel-slides -->
+
+        <button class="carousel-arrow carousel-next" id="carousel-next" aria-label="Next package">›</button>
+
+        <div class="carousel-dots" id="carousel-dots">
+          <button class="carousel-dot active" data-index="0" aria-label="Package 1"></button>
+          <button class="carousel-dot" data-index="1" aria-label="Package 2"></button>
+          <button class="carousel-dot" data-index="2" aria-label="Package 3"></button>
         </div>
       </div>
 
@@ -148,7 +236,7 @@
   <section class="catering-section catering-section-dark" id="pricing">
     <div class="catering-inner">
       <div style="text-align:center;">
-        <span class="catering-section-eyebrow">02 — À La Carte</span>
+        <span class="catering-section-eyebrow">04 — À La Carte</span>
         <h2 class="catering-section-title">Individual Pricing</h2>
         <p class="catering-section-sub" style="margin: 0 auto;">Custom configurations. Package rates reflect preferred pricing.</p>
       </div>
@@ -407,7 +495,7 @@
   <script>
     // ── EmailJS config ────────────────────────────────────────
     const EMAILJS_SERVICE_ID  = 'service_z6rd8xm';
-    const EMAILJS_ADMIN_TPL   = 'template_catering_admin';   // you create this
+    const EMAILJS_ADMIN_TPL   = 'template_vuemssf';
     const EMAILJS_CONFIRM_TPL = 'template_catering_confirm'; // you create this
     const EMAILJS_PUBLIC_KEY  = 'MJ301FjlzSsErNvcg';
 
@@ -518,6 +606,39 @@
         btn.disabled = false;
       }
     });
+  </script>
+
+  <script>
+    // ── Package Carousel ─────────────────────────────────────
+    (function () {
+      const slides   = document.querySelectorAll('.carousel-slide');
+      const dots     = document.querySelectorAll('.carousel-dot');
+      const prevBtn  = document.getElementById('carousel-prev');
+      const nextBtn  = document.getElementById('carousel-next');
+      let current    = 0;
+      let timer      = null;
+
+      function showSlide(idx) {
+        slides[current].style.display = 'none';
+        dots[current].classList.remove('active');
+        current = (idx + slides.length) % slides.length;
+        slides[current].style.display = '';
+        dots[current].classList.add('active');
+      }
+
+      function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => showSlide(current + 1), 10000);
+      }
+
+      prevBtn.addEventListener('click', () => { showSlide(current - 1); startTimer(); });
+      nextBtn.addEventListener('click', () => { showSlide(current + 1); startTimer(); });
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => { showSlide(+dot.dataset.index); startTimer(); });
+      });
+
+      startTimer();
+    })();
   </script>
 
 </body>

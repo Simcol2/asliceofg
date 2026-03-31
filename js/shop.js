@@ -53,10 +53,10 @@ async function loadShop() {
 
 // ─── Filter Bar ───────────────────────────────────────────────────────────────
 const ALLOWED_CATEGORIES = [
-  'rum infused bites',
-  'dinner parties',
+  'cakes',
+  'cookies',
+  'bite sizes',
   'g totes',
-  'gift wrap accessories',
 ];
 
 function renderFilterBar(allowed) {
