@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "compress": "node scripts/compress-images.js"
+    "compress": "node scripts/compress-images.js",
+    "ship": "git add . && git commit -m 'updates' && git push"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
