@@ -568,6 +568,10 @@ footer {
   font-size: 16px; font-style: italic;
   color: rgba(7,20,16,0.5); line-height: 1.6;
   margin-bottom: 20px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .product-rule { width: 20px; height: 1px; background: var(--coral); margin-bottom: 16px; }

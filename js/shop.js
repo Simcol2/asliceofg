@@ -29,14 +29,23 @@ async function loadShop() {
     if (!catalogRes.ok) throw new Error('Catalog unavailable');
 
     const { items } = await catalogRes.json();
-    allItems = items || [];
 
-    // Only render filter bar if we got categories
     if (categoriesRes.ok) {
       const { categories } = await categoriesRes.json();
-      if (categories && categories.length > 0) {
-        renderFilterBar(categories);
-      }
+
+      // Filter to only the 4 A Slice of G categories
+      const allowed = (categories || []).filter(cat =>
+        ALLOWED_CATEGORIES.some(name => cat.name.toLowerCase().trim() === name)
+      );
+
+      const allowedIds = new Set(allowed.map(cat => cat.id));
+
+      // Only show items that belong to an allowed category
+      allItems = (items || []).filter(item => item.categoryId && allowedIds.has(item.categoryId));
+
+      if (allowed.length > 0) renderFilterBar(allowed);
+    } else {
+      allItems = items || [];
     }
 
     renderItems(allItems);
@@ -52,18 +61,14 @@ const ALLOWED_CATEGORIES = [
   'rum infused bites',
   'dinner parties',
   'g totes',
-  'gift wrap and accessories',
+  'gift wrap accessories',
 ];
 
-function renderFilterBar(categories) {
+function renderFilterBar(allowed) {
   const bar = document.getElementById('filter-bar');
   if (!bar) return;
 
-  // Only show the 4 approved categories (case-insensitive match)
-  const allowed = categories.filter(cat =>
-    ALLOWED_CATEGORIES.some(name => cat.name.toLowerCase().trim() === name)
-  );
-
+  // allowed is already filtered — just render buttons
   allowed.forEach(cat => {
     const btn = document.createElement('button');
     btn.className = 'filter-btn';
