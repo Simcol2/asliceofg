@@ -971,10 +971,10 @@
 
 .nas-row {
   display: flex; justify-content: space-between; align-items: center;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(201,169,110,0.1);
-  padding: 14px 16px; gap: 16px;
+  border-bottom: 1px solid rgba(201,169,110,0.1);
+  padding: 12px 0; gap: 16px;
 }
+.nas-row:last-child { border-bottom: none; }
 
 .nas-name {
   font-family: 'Jost', sans-serif;
@@ -1009,14 +1009,14 @@
 .new-agent-upgrade-note {
   font-family: 'Cormorant Garamond', serif;
   font-size: 16px;
-  color: rgba(255,255,255,0.4);
+  color: rgba(4,13,10,0.5);
   line-height: 1.6;
   padding: 16px;
   background: rgba(201,169,110,0.04);
   border: 1px solid rgba(201,169,110,0.1);
 }
 
-.new-agent-upgrade-note strong { color: rgba(255,255,255,0.6); }
+.new-agent-upgrade-note strong { color: rgba(4,13,10,0.75); }
 
 .new-agent-upgrade-pill {
   display: inline-block;
@@ -1108,4 +1108,5 @@
   .new-agent-card-top { padding: 24px; }
   .new-agent-payment-section { padding: 24px; }
   .new-agent-details-grid > div { padding: 24px; }
+  .new-agent-inner { grid-template-columns: 1fr; }
 }
