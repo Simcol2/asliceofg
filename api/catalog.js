@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       });
 
     const items = objects
-      .filter(o => o.type === 'ITEM' && !o.isDeleted)
+      .filter(o => o.type === 'ITEM' && !o.isDeleted && !o.itemData?.isArchived)
       .map(item => {
         const data = item.itemData;
         return {
@@ -47,7 +47,7 @@ export default async function handler(req, res) {
         };
       });
 
-    res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');
+    res.setHeader('Cache-Control', 'no-store');
     return res.status(200).json({ items });
 
   } catch (error) {
