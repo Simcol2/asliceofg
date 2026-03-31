@@ -3,7 +3,7 @@ let cart = [];      // [{ variationId, name, priceCents, currency, quantity }]
 let customer = null; // { customerId, email, givenName, familyName }
 let allItems = [];
 let activeCategory = 'all';
-let fulfillmentType = 'PICKUP'; // 'PICKUP' or 'DELIVERY'
+let fulfillmentType = 'PICKUP'; // 'PICKUP' or 'SHIPMENT'
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', async () => {
@@ -270,7 +270,7 @@ async function startCheckout() {
       body: JSON.stringify({
         cartItems: cart.map(c => ({ variationId: c.variationId, quantity: c.quantity })),
         fulfillmentType,
-        fulfillmentDate: document.getElementById('fulfillment-date')?.value || null,
+        fulfillmentDateTime: buildFulfillmentDateTime(),
       }),
     });
 
@@ -397,6 +397,17 @@ function signOut() {
   updateCustomerBar();
 }
 
+// ─── Fulfillment Helpers ──────────────────────────────────────────────────────
+function buildFulfillmentDateTime() {
+  if (fulfillmentType === 'SHIPMENT') return null;
+  const dateVal = document.getElementById('fulfillment-date')?.value;
+  const timeVal = document.getElementById('fulfillment-time')?.value || '12:00';
+  if (!dateVal) return null;
+  // Parse in local time so the ISO string carries the correct UTC offset
+  const dt = new Date(`${dateVal}T${timeVal}:00`);
+  return isNaN(dt.getTime()) ? null : dt.toISOString();
+}
+
 // ─── Cart Persistence ─────────────────────────────────────────────────────────
 function saveCartToStorage() {
   try {
@@ -518,8 +529,11 @@ function bindUI() {
       fulfillmentType = btn.dataset.type;
       document.querySelectorAll('.fulfillment-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const label = document.getElementById('fulfillment-date-label');
-      if (label) label.textContent = fulfillmentType === 'PICKUP' ? 'Pickup date' : 'Delivery date';
+      const isPickup = fulfillmentType === 'PICKUP';
+      const datetimeEl = document.getElementById('fulfillment-datetime');
+      const shippingNote = document.getElementById('fulfillment-shipping-note');
+      if (datetimeEl) datetimeEl.style.display = isPickup ? 'block' : 'none';
+      if (shippingNote) shippingNote.style.display = isPickup ? 'none' : 'block';
     });
   });
 
@@ -530,6 +544,10 @@ function bindUI() {
     tomorrow.setDate(tomorrow.getDate() + 1);
     dateInput.min = tomorrow.toISOString().split('T')[0];
   }
+
+  // Hide shipping note by default (pickup is default)
+  const shippingNote = document.getElementById('fulfillment-shipping-note');
+  if (shippingNote) shippingNote.style.display = 'none';
 
   // Login
   document.getElementById('btn-login')?.addEventListener('click', () => openModal('login-modal'));

@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { cartItems, fulfillmentType, fulfillmentDate } = req.body;
+  const { cartItems, fulfillmentType, fulfillmentDateTime } = req.body;
 
   if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
     return res.status(400).json({ error: 'Cart is empty' });
@@ -26,31 +26,36 @@ export default async function handler(req, res) {
     }
   }
 
-  const type = fulfillmentType === 'DELIVERY' ? 'DELIVERY' : 'PICKUP';
+  const type = fulfillmentType === 'SHIPMENT' ? 'SHIPMENT' : 'PICKUP';
 
-  // Build a noon timestamp on the requested date (or tomorrow if none given)
-  let scheduledDate = fulfillmentDate ? new Date(fulfillmentDate) : new Date();
-  if (!fulfillmentDate) scheduledDate.setDate(scheduledDate.getDate() + 1);
-  scheduledDate.setUTCHours(12, 0, 0, 0);
-  const scheduledAt = scheduledDate.toISOString();
-
-  const fulfillment = type === 'PICKUP'
-    ? {
-        type: 'PICKUP',
-        pickupDetails: {
-          scheduleType: 'SCHEDULED',
-          pickupAt: scheduledAt,
-          recipient: { displayName: 'Customer' },
-        },
-      }
-    : {
-        type: 'DELIVERY',
-        deliveryDetails: {
-          scheduleType: 'SCHEDULED',
-          deliverAt: scheduledAt,
-          recipient: { displayName: 'Customer' },
-        },
-      };
+  // Build fulfillment object — recipient.displayName is required for PICKUP/DELIVERY.
+  // For SHIPMENT, Square collects the address on their hosted checkout page.
+  let fulfillment;
+  if (type === 'SHIPMENT') {
+    fulfillment = {
+      type: 'SHIPMENT',
+      shipmentDetails: {
+        recipient: { displayName: 'Customer' },
+      },
+    };
+  } else {
+    // PICKUP — use the customer-selected date/time, fall back to tomorrow at noon
+    let scheduledAt = fulfillmentDateTime;
+    if (!scheduledAt) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setUTCHours(17, 0, 0, 0); // noon EST as UTC fallback
+      scheduledAt = tomorrow.toISOString();
+    }
+    fulfillment = {
+      type: 'PICKUP',
+      pickupDetails: {
+        scheduleType: 'SCHEDULED',
+        pickupAt: scheduledAt,
+        recipient: { displayName: 'Customer' },
+      },
+    };
+  }
 
   try {
     const response = await client.checkout.paymentLinks.create({

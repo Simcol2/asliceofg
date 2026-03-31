@@ -803,6 +803,23 @@ footer {
 .fulfillment-btn:hover { border-color: rgba(201,169,110,0.5); color: rgba(255,255,255,0.7); }
 .fulfillment-btn.active { background: rgba(201,169,110,0.12); border-color: var(--gold); color: var(--gold); }
 
+.fulfillment-datetime { margin-top: 12px; }
+
+.fulfillment-datetime-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.fulfillment-field { display: flex; flex-direction: column; gap: 6px; }
+
+.fulfillment-shipping-note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  font-style: italic;
+}
+
 .fulfillment-date-wrap { display: flex; flex-direction: column; gap: 6px; }
 
 .fulfillment-date-label {

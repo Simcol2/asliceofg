@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Shop All — A Slice of G</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/main.css?v=5"/>
+  <link rel="stylesheet" href="css/main.css?v=6"/>
 </head>
 <body class="page-shop">
 
@@ -85,10 +85,22 @@
       <div class="fulfillment-select" id="fulfillment-select">
         <div class="fulfillment-options">
           <button class="fulfillment-btn active" data-type="PICKUP">Pickup</button>
-          <button class="fulfillment-btn" data-type="DELIVERY">Delivery</button>
+          <button class="fulfillment-btn" data-type="SHIPMENT">Shipping</button>
         </div>
-        <label class="fulfillment-date-label" id="fulfillment-date-label" for="fulfillment-date">Pickup date</label>
-        <input type="date" class="fulfillment-date-input" id="fulfillment-date" />
+        <!-- Date + time shown for pickup; hidden for shipping -->
+        <div class="fulfillment-datetime" id="fulfillment-datetime">
+          <div class="fulfillment-datetime-row">
+            <div class="fulfillment-field">
+              <label class="fulfillment-date-label" for="fulfillment-date">Pickup date</label>
+              <input type="date" class="fulfillment-date-input" id="fulfillment-date" />
+            </div>
+            <div class="fulfillment-field">
+              <label class="fulfillment-date-label" for="fulfillment-time">Time</label>
+              <input type="time" class="fulfillment-date-input" id="fulfillment-time" value="12:00" />
+            </div>
+          </div>
+        </div>
+        <p class="fulfillment-shipping-note" id="fulfillment-shipping-note">Your shipping address will be collected at checkout.</p>
       </div>
 
       <button class="btn-checkout-main" id="btn-checkout-main" disabled>Checkout</button>
