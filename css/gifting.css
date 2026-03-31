@@ -432,33 +432,39 @@
 /* ── On-Demand ────────────────────────────────────────────── */
 
 .on-demand-section {
-  padding: 100px 80px;
-  background: var(--cream);
+  padding: 0 80px 64px;
+  background: var(--forest-deep);
 }
 
 .on-demand-inner {
-  max-width: 800px; margin: 0 auto; text-align: center;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.on-demand-section .on-demand-header {
+  text-align: center;
+  padding: 48px 0 32px;
 }
 
 .on-demand-section h2 {
   font-family: 'Cormorant SC', serif;
-  font-size: clamp(30px, 4vw, 46px);
+  font-size: clamp(24px, 3vw, 36px);
   font-weight: 300;
-  color: var(--forest-deep);
-  margin-bottom: 16px;
+  color: var(--warm-white);
+  margin-bottom: 10px;
 }
 
-.on-demand-section p {
+.on-demand-section .on-demand-intro {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 19px;
-  color: rgba(4,13,10,0.6);
-  line-height: 1.65;
-  margin-bottom: 40px;
+  font-size: 18px;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+  max-width: 560px; margin: 0 auto;
 }
 
 .on-demand-card {
-  background: var(--forest-deep);
-  padding: 48px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,169,110,0.15);
+  padding: 36px 48px;
   display: flex; align-items: center; justify-content: space-between; gap: 32px;
   flex-wrap: wrap;
 }
@@ -615,13 +621,18 @@
 /* ── Hero anchor buttons ────────────────────────────────────── */
 
 .gifting-hero-btns {
-  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+  display: flex; gap: 10px; justify-content: center; flex-wrap: nowrap;
+}
+
+.gifting-hero-btns .btn-gifting-ghost {
+  padding: 12px 18px;
+  white-space: nowrap;
 }
 
 /* ── Open House Section ──────────────────────────────────────── */
 
 .open-house-section {
-  padding: 96px 80px;
+  padding: 80px 80px 48px;
   background: var(--cream);
 }
 
@@ -771,8 +782,8 @@
 /* ── New Agent Section ───────────────────────────────────────── */
 
 .new-agent-section {
-  padding: 96px 80px;
-  background: var(--forest-deep);
+  padding: 56px 80px 80px;
+  background: #ffffff;
 }
 
 .new-agent-inner {
@@ -798,7 +809,7 @@
   font-family: 'Cormorant SC', serif;
   font-size: clamp(32px, 4vw, 52px);
   font-weight: 300;
-  color: var(--warm-white);
+  color: var(--forest-deep);
   margin-bottom: 14px;
   line-height: 1.1;
 }
@@ -812,14 +823,14 @@
 .new-agent-sub {
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(4,13,10,0.6);
   line-height: 1.65;
   max-width: 600px; margin: 0 auto;
 }
 
 .new-agent-card {
   border: 1px solid rgba(201,169,110,0.3);
-  background: rgba(255,255,255,0.03);
+  background: var(--forest-deep);
 }
 
 .new-agent-card-top {

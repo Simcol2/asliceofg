@@ -117,6 +117,8 @@ async function startCheckout() {
 
   try {
     const fulfillmentDateTime = buildFulfillmentDateTime();
+    const orderNote = (document.getElementById('order-note')?.value || '').trim();
+
     const res = await fetch('/api/checkout', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -124,6 +126,7 @@ async function startCheckout() {
         cartItems: cart.map(c => ({ variationId: c.variationId, quantity: c.quantity })),
         fulfillmentType,
         fulfillmentDateTime,
+        ...(orderNote ? { orderNote } : {}),
       }),
     });
     const data = await res.json();

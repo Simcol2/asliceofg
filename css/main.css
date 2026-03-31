@@ -863,6 +863,36 @@ footer {
 .btn-checkout-main:hover:not(:disabled) { background: var(--gold-light); }
 .btn-checkout-main:disabled { background: rgba(201,169,110,0.3); color: rgba(4,13,10,0.4); cursor: not-allowed; }
 
+/* ── Order Note Field ─────────────────────────────────────── */
+.order-note-field {
+  margin-bottom: 16px;
+}
+.order-note-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 8px;
+}
+.order-note-optional {
+  font-weight: 400; letter-spacing: 0; text-transform: none;
+  color: rgba(255,255,255,0.2);
+}
+.order-note-input {
+  width: 100%; box-sizing: border-box;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,169,110,0.18);
+  color: var(--warm-white);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  padding: 10px 12px;
+  resize: none;
+  transition: border-color 0.2s;
+}
+.order-note-input::placeholder { color: rgba(255,255,255,0.2); }
+.order-note-input:focus { outline: none; border-color: rgba(201,169,110,0.45); }
+
 /* ── Order Confirmation Panel (inside cart drawer) ───────── */
 
 .cart-drawer-body {

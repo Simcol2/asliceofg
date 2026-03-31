@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { cartItems, fulfillmentType, fulfillmentDateTime } = req.body;
+  const { cartItems, fulfillmentType, fulfillmentDateTime, orderNote } = req.body;
 
   if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
     return res.status(400).json({ error: 'Cart is empty' });
@@ -67,6 +67,7 @@ export default async function handler(req, res) {
           quantity: String(item.quantity),
         })),
         fulfillments: [fulfillment],
+        ...(orderNote ? { referenceId: orderNote.slice(0, 40), note: orderNote } : {}),
       },
       checkoutOptions: {
         enableCoupon: false,
