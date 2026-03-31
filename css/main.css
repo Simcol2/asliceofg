@@ -1311,3 +1311,82 @@ footer {
 .confirm-back-link:hover {
   color: var(--color-text-primary);
 }
+
+/* ── Hamburger & Mobile Menu ──────────────────────────────── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px 4px;
+  margin-left: 16px;
+  z-index: 301;
+  position: relative;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px; height: 1.5px;
+  background: var(--warm-white);
+  transition: transform 0.25s, opacity 0.2s;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+
+.nav-mobile-menu {
+  display: none;
+  position: fixed; inset: 0;
+  background: var(--forest-deep);
+  z-index: 300;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 80px 24px 48px;
+}
+.nav-mobile-menu.open { display: flex; }
+
+.nav-mobile-close {
+  position: absolute; top: 24px; right: 24px;
+  background: none; border: none;
+  color: rgba(255,255,255,0.35); font-size: 20px;
+  cursor: pointer; transition: color 0.2s;
+}
+.nav-mobile-close:hover { color: var(--gold); }
+
+.nav-mobile-menu a {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(201,169,110,0.08);
+  width: 100%; text-align: center;
+  transition: color 0.2s;
+}
+.nav-mobile-menu a:last-child { border-bottom: none; }
+.nav-mobile-menu a.active,
+.nav-mobile-menu a:hover { color: var(--gold); }
+
+.nav-mobile-cta {
+  margin-top: 32px;
+  display: inline-block;
+  font-family: 'Jost', sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--forest-deep);
+  background: var(--gold);
+  text-decoration: none;
+  padding: 14px 36px;
+  border: none;
+}
+
+@media (max-width: 768px) {
+  .nav-hamburger { display: flex; }
+  .nav-cta { display: none; }
+}

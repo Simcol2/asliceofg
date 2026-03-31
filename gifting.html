@@ -8,6 +8,11 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/main.css?v=10"/>
   <link rel="stylesheet" href="css/gifting.css?v=7"/>
+  <link rel="manifest" href="/manifest.json"/>
+  <meta name="theme-color" content="#040D0A"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+  <meta name="apple-mobile-web-app-title" content="A Slice of G"/>
 </head>
 <body class="page-gifting">
 
@@ -25,7 +30,21 @@
     <div class="nav-right">
       <a href="contact.html" class="nav-cta">Get in Touch</a>
     </div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <div class="nav-mobile-menu" id="nav-mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">✕</button>
+    <a href="shop.html">Shop All</a>
+    <a href="catering.html">Catering</a>
+    <a href="gifting.html" class="active">Corporate Gifting</a>
+    <a href="about.html">About</a>
+    <a href="https://www.instagram.com/_sliceofg/" target="_blank">Instagram</a>
+    <a href="contact.html">Contact</a>
+    <a href="contact.html" class="nav-mobile-cta">Get in Touch</a>
+  </div>
 
   <!-- ── Hero ───────────────────────────────────────────── -->
   <section class="gifting-hero">
@@ -558,5 +577,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="js/gifting.js"></script>
+  <script src="/js/nav.js"></script>
 </body>
 </html>
