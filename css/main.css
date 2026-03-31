@@ -124,7 +124,7 @@ nav {
 .band { background: var(--gold); padding: 16px 0; overflow: hidden; white-space: nowrap; }
 .band-inner {
   display: inline-flex; gap: 52px;
-  animation: marquee 55s linear infinite;
+  animation: marquee 120s linear infinite;
 }
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -251,10 +251,12 @@ footer {
 }
 
 .hero-detail {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: flex-start; gap: 10px;
   font-size: 10px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 50px;
+  max-width: 420px;
+  flex-wrap: wrap;
 }
 .detail-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--coral); flex-shrink: 0; }
 
