@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { cartItems, fulfillmentType } = req.body;
+  const { cartItems } = req.body;
 
   if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
     return res.status(400).json({ error: 'Cart is empty' });
@@ -26,26 +26,6 @@ export default async function handler(req, res) {
     }
   }
 
-  // Build the fulfillment — pass the type and SCHEDULED but NO specific time.
-  // Square's hosted checkout will prompt the customer to select the date/time.
-  const type = fulfillmentType === 'DELIVERY' ? 'DELIVERY' : 'PICKUP';
-
-  const fulfillment = type === 'PICKUP'
-    ? {
-        type: 'PICKUP',
-        pickupDetails: {
-          scheduleType: 'SCHEDULED',
-          // No pickupAt — Square will ask the customer to choose
-        },
-      }
-    : {
-        type: 'DELIVERY',
-        deliveryDetails: {
-          scheduleType: 'SCHEDULED',
-          // No deliverAt — Square will ask the customer to choose
-        },
-      };
-
   try {
     const response = await client.checkout.paymentLinks.create({
       idempotencyKey: crypto.randomUUID(),
@@ -55,7 +35,6 @@ export default async function handler(req, res) {
           catalogObjectId: item.variationId,
           quantity: String(item.quantity),
         })),
-        fulfillments: [fulfillment],
       },
       checkoutOptions: {
         enableCoupon: false,
