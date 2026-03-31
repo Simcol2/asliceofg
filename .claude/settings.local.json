@@ -8,7 +8,18 @@
       "Bash(find node_modules/square -name CatalogListRequest*)",
       "Bash(xargs grep:*)",
       "WebFetch(domain:developer.squareup.com)",
-      "Bash(grep -rn \"main.css?v=\" *.html)"
+      "Bash(grep -rn \"main.css?v=\" *.html)",
+      "Bash(cp 'gift portal/firebase.init.js' js/firebase-init.js)",
+      "Bash(cp 'gift portal/portal-auth.js' js/portal-auth.js)",
+      "Bash(cp 'gift portal/portal-profile.js' js/portal-profile.js)",
+      "Bash(cp 'gift portal/portal-dashboard.js' js/portal-dashboard.js)",
+      "Bash(cp 'gift portal/portal-redeem.js' js/portal-redeem.js)",
+      "Bash(npm install:*)",
+      "Bash(curl -s \"https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=A+Slice+of+G+Toronto&inputtype=textquery&fields=place_id,name,formatted_address&key=AIzaSyCddzBQcvkIt_P8emDXTGS2--ERS0upBmg\")",
+      "Bash(for f:*)",
+      "Bash(do)",
+      "Bash(sed -i 's|<link rel=\"\"manifest\"\" href=\"\"/manifest.json\"\"/>|<link rel=\"\"icon\"\" href=\"\"/public/images/logo.png\"\" type=\"\"image/png\"\"/>\\\\n  <link rel=\"\"apple-touch-icon\"\" href=\"\"/public/images/icon-192.png\"\"/>\\\\n  <link rel=\"\"manifest\"\" href=\"\"/manifest.json\"\"/>|' \"/c/Users/simon/OneDrive/Desktop/G/asliceofg/$f\")",
+      "Bash(done)"
     ]
   }
 }

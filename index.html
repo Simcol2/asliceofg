@@ -6,6 +6,8 @@
   <title>A Slice of G — Artisan Rum Cakes</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/main.css?v=10"/>
+  <link rel="icon" href="/public/images/logo.png" type="image/png"/>
+  <link rel="apple-touch-icon" href="/public/images/icon-192.png"/>
   <link rel="manifest" href="/manifest.json"/>
   <meta name="theme-color" content="#040D0A"/>
   <meta name="apple-mobile-web-app-capable" content="yes"/>
@@ -136,6 +138,26 @@
     <a href="shop.html" class="slogan-cta">Order Your Cake</a>
   </section>
 
+  <!-- ── Google Reviews ───────────────────────────────────────── -->
+  <section class="reviews-section">
+    <div class="reviews-inner">
+      <div class="reviews-header">
+        <span class="reviews-eyebrow">What People Are Saying</span>
+        <div class="reviews-rating-row" id="reviews-rating-row">
+          <span class="reviews-stars">★★★★★</span>
+          <span class="reviews-score" id="reviews-score">5.0</span>
+          <span class="reviews-count" id="reviews-count">on Google</span>
+        </div>
+      </div>
+      <div class="reviews-grid" id="reviews-grid">
+        <div class="reviews-loading">Loading reviews…</div>
+      </div>
+      <a href="https://g.co/kgs/rHjKXKJ" target="_blank" rel="noopener" class="reviews-cta">
+        See All Reviews on Google
+      </a>
+    </div>
+  </section>
+
   <!-- ── Cart Overlay + Drawer ──────────────────────────────── -->
   <div class="cart-overlay" id="cart-overlay"></div>
   <div class="cart-drawer" id="cart-drawer">
@@ -193,5 +215,31 @@
 
   <script src="js/cart-drawer.js"></script>
   <script src="/js/nav.js"></script>
+  <script>
+    fetch('/api/reviews').then(r => r.json()).then(({ reviews, rating, totalRatings }) => {
+      const scoreEl = document.getElementById('reviews-score');
+      const countEl = document.getElementById('reviews-count');
+      const gridEl  = document.getElementById('reviews-grid');
+      if (scoreEl && rating) scoreEl.textContent = rating.toFixed(1);
+      if (countEl && totalRatings) countEl.textContent = `${totalRatings} Google reviews`;
+      if (!reviews?.length) { gridEl.innerHTML = ''; return; }
+      gridEl.innerHTML = reviews.map(rv => `
+        <div class="review-card">
+          <div class="review-card-top">
+            <div class="review-author-info">
+              ${rv.avatar ? `<img src="${rv.avatar}" alt="${rv.author}" class="review-avatar" loading="lazy"/>` : `<div class="review-avatar-placeholder">${rv.author.charAt(0)}</div>`}
+              <div>
+                <div class="review-author">${rv.author}</div>
+                <div class="review-time">${rv.time}</div>
+              </div>
+            </div>
+            <div class="review-stars">${'★'.repeat(rv.rating)}${'☆'.repeat(5 - rv.rating)}</div>
+          </div>
+          <p class="review-text">${rv.text.length > 180 ? rv.text.slice(0, 180) + '…' : rv.text}</p>
+        </div>`).join('');
+    }).catch(() => {
+      document.getElementById('reviews-grid').innerHTML = '';
+    });
+  </script>
 </body>
 </html>
