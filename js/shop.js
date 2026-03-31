@@ -254,18 +254,6 @@ function closeCart() {
 async function startCheckout() {
   if (!cart.length) return;
 
-  const dateInput = document.getElementById('fulfillment-date');
-  const selectedDate = dateInput?.value;
-
-  if (!selectedDate) {
-    dateInput?.focus();
-    dateInput?.setAttribute('required', 'required');
-    // Brief shake to draw attention
-    dateInput?.classList.add('input-error');
-    setTimeout(() => dateInput?.classList.remove('input-error'), 800);
-    return;
-  }
-
   const btn = document.getElementById('btn-checkout-main');
   const originalText = btn.textContent;
   btn.disabled = true;
@@ -278,7 +266,6 @@ async function startCheckout() {
       body: JSON.stringify({
         cartItems: cart.map(c => ({ variationId: c.variationId, quantity: c.quantity })),
         fulfillmentType,
-        fulfillmentDate: selectedDate,
       }),
     });
 

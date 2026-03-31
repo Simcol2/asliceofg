@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { cartItems, fulfillmentType, fulfillmentDate } = req.body;
+  const { cartItems, fulfillmentType } = req.body;
 
   if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
     return res.status(400).json({ error: 'Cart is empty' });
@@ -26,30 +26,25 @@ export default async function handler(req, res) {
     }
   }
 
-  // Build fulfillment object for the order
-  const fulfillments = [];
-  if (fulfillmentType && fulfillmentDate) {
-    // Construct an RFC 3339 timestamp for the requested date (noon local time)
-    const scheduleTime = new Date(`${fulfillmentDate}T12:00:00`).toISOString();
+  // Build the fulfillment — pass the type and SCHEDULED but NO specific time.
+  // Square's hosted checkout will prompt the customer to select the date/time.
+  const type = fulfillmentType === 'DELIVERY' ? 'DELIVERY' : 'PICKUP';
 
-    if (fulfillmentType === 'PICKUP') {
-      fulfillments.push({
+  const fulfillment = type === 'PICKUP'
+    ? {
         type: 'PICKUP',
         pickupDetails: {
           scheduleType: 'SCHEDULED',
-          pickupAt: scheduleTime,
+          // No pickupAt — Square will ask the customer to choose
         },
-      });
-    } else if (fulfillmentType === 'DELIVERY') {
-      fulfillments.push({
+      }
+    : {
         type: 'DELIVERY',
         deliveryDetails: {
           scheduleType: 'SCHEDULED',
-          deliverAt: scheduleTime,
+          // No deliverAt — Square will ask the customer to choose
         },
-      });
-    }
-  }
+      };
 
   try {
     const response = await client.checkout.paymentLinks.create({
@@ -60,7 +55,7 @@ export default async function handler(req, res) {
           catalogObjectId: item.variationId,
           quantity: String(item.quantity),
         })),
-        ...(fulfillments.length > 0 && { fulfillments }),
+        fulfillments: [fulfillment],
       },
       checkoutOptions: {
         enableCoupon: false,
@@ -83,7 +78,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ url });
 
   } catch (error) {
-    console.error('Checkout error:', error);
+    console.error('Checkout error:', error?.message || error);
     return res.status(500).json({ error: 'Failed to create checkout session' });
   }
 }
