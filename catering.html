@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catering — A Slice of G</title>
+  <meta name="description" content="Signature rum cakes, rum rings, and rum cake sandwiches for events that expect culture on the plate."/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/main.css?v=7"/>
+  <link rel="stylesheet" href="css/catering.css?v=1"/>
+</head>
+<body class="page-catering">
+
+  <!-- ── Navigation ──────────────────────────────────────── -->
+  <nav>
+    <a href="index.html" class="nav-logo">A Slice of G</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop All</a></li>
+      <li><a href="catering.html" class="active">Catering</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="https://www.instagram.com/_sliceofg/" target="_blank">Instagram</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="shop.html" class="nav-cta">Shop All</a>
+    </div>
+  </nav>
+
+  <!-- ── Hero ────────────────────────────────────────────── -->
+  <section class="catering-hero">
+    <div class="catering-hero-grid"></div>
+    <div class="catering-hero-eyebrow">Events & Catering</div>
+    <h1>Bold Flavour.<br><em>Decadence Delivered.</em></h1>
+    <p class="catering-hero-sub">Signature Rum Cakes, Rum Rings, and Rum Cake Sandwiches for events that expect culture on the plate.</p>
+    <a href="#packages" class="catering-hero-cta">View Packages</a>
+  </section>
+
+  <!-- ── Packages ─────────────────────────────────────────── -->
+  <section class="catering-section catering-section-dark" id="packages">
+    <div class="catering-inner">
+
+      <span class="catering-section-eyebrow">01 — Packages</span>
+      <h2 class="catering-section-title">Pick Your Spread</h2>
+      <p class="catering-section-sub">One piece per guest. Mix of rum rings, cake squares, and icing sandwiches. Packages priced below individual retail.</p>
+
+      <!-- Featured: 50 People -->
+      <div class="catering-featured" style="margin-top: 56px;">
+        <div class="catering-featured-visual">
+          <img src="/public/images/rumcake.png" alt="A Slice of G Catering Display"/>
+          <span class="catering-featured-bg-num">50</span>
+        </div>
+        <div class="catering-featured-content">
+          <span class="catering-featured-label">Most Popular</span>
+          <h3 class="catering-featured-title">The Celebration</h3>
+          <p class="catering-featured-feeds">Serves 50 guests — one piece per person</p>
+
+          <div class="catering-featured-price">$525</div>
+          <span class="catering-savings-badge">Save $130</span>
+
+          <ul class="catering-pkg-items">
+            <li><span class="pkg-item-name">Rum Rings (Island flavour)</span><span class="pkg-item-qty">20</span></li>
+            <li><span class="pkg-item-name">Rum Cake Squares</span><span class="pkg-item-qty">15</span></li>
+            <li><span class="pkg-item-name">Rum Cake Icing Sandwiches</span><span class="pkg-item-qty">15</span></li>
+          </ul>
+
+          <div class="catering-buffer-box">
+            <div class="catering-buffer-row">
+              <span class="catering-buffer-title">Add 10% Buffer</span>
+              <span class="catering-buffer-price">+$52.50</span>
+            </div>
+            <p class="catering-buffer-desc">5 extra pieces for $577.50 total. Recommended for events where seconds are likely.</p>
+          </div>
+
+          <button class="btn-catering-book" onclick="openBookingModal('The Celebration', 50, 525, 52.50)">Book This Package</button>
+
+          <p class="catering-pkg-total">Individual value: $655 &nbsp;|&nbsp; <strong>You save $130</strong></p>
+        </div>
+      </div>
+
+      <!-- Additional Packages -->
+      <div class="catering-divider"><span class="catering-divider-text">Additional Options</span></div>
+
+      <div class="catering-cards-grid">
+        <!-- 20 People -->
+        <div class="catering-card">
+          <div class="catering-card-label">Intimate Gatherings</div>
+          <div class="catering-card-num">20</div>
+          <div class="catering-card-subtitle">The Ultimate Centerpiece</div>
+          <p class="catering-card-feeds">Serves 20 guests</p>
+          <div class="catering-card-price">$215</div>
+          <ul class="catering-card-items">
+            <li><span>Rum Rings</span><span class="ci-qty">7</span></li>
+            <li><span>Rum Cake Squares</span><span class="ci-qty">7</span></li>
+            <li><span>Icing Sandwiches</span><span class="ci-qty">6</span></li>
+          </ul>
+          <div class="catering-card-buffer">
+            <div class="catering-card-buffer-label">+10% Buffer (2 extra)</div>
+            <div class="catering-card-buffer-price">+$21.50 &nbsp;|&nbsp; $236.50</div>
+          </div>
+          <button class="btn-catering-book" onclick="openBookingModal('The Ultimate Centerpiece', 20, 215, 21.50)">Book Now</button>
+        </div>
+
+        <!-- 100 People -->
+        <div class="catering-card">
+          <div class="catering-card-label">Grand Events</div>
+          <div class="catering-card-num">100</div>
+          <div class="catering-card-subtitle">The Grand Affair</div>
+          <p class="catering-card-feeds">Serves 100 guests</p>
+          <div class="catering-card-price">$1,020</div>
+          <ul class="catering-card-items">
+            <li><span>Rum Rings</span><span class="ci-qty">40</span></li>
+            <li><span>Rum Cake Squares</span><span class="ci-qty">30</span></li>
+            <li><span>Icing Sandwiches</span><span class="ci-qty">30</span></li>
+          </ul>
+          <div class="catering-card-buffer">
+            <div class="catering-card-buffer-label">+10% Buffer (10 extra)</div>
+            <div class="catering-card-buffer-price">+$102 &nbsp;|&nbsp; $1,122</div>
+          </div>
+          <button class="btn-catering-book" onclick="openBookingModal('The Grand Affair', 100, 1020, 102)">Book Now</button>
+        </div>
+
+        <!-- Custom -->
+        <div class="catering-card">
+          <div class="catering-card-label">Bespoke</div>
+          <div class="catering-card-num" style="font-size:40px; letter-spacing:0.04em;">Custom</div>
+          <div class="catering-card-subtitle">Tailored to You</div>
+          <p class="catering-card-feeds">Any quantity</p>
+          <div class="catering-card-price" style="font-size:28px; letter-spacing:0.04em;">Request Quote</div>
+          <ul class="catering-card-items">
+            <li><span>Your selection</span><span class="ci-qty">—</span></li>
+            <li><span>Custom ratios</span><span class="ci-qty">—</span></li>
+            <li><span>Branding options</span><span class="ci-qty">—</span></li>
+          </ul>
+          <div class="catering-card-buffer">
+            <div class="catering-card-buffer-label">Contact for pricing</div>
+            <div class="catering-card-buffer-price">Personalized quote</div>
+          </div>
+          <button class="btn-catering-book" onclick="openBookingModal('Custom Package', 0, 0, 0)">Request Quote</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── À La Carte ────────────────────────────────────────── -->
+  <section class="catering-section catering-section-dark" id="pricing">
+    <div class="catering-inner">
+      <div style="text-align:center;">
+        <span class="catering-section-eyebrow">02 — À La Carte</span>
+        <h2 class="catering-section-title">Individual Pricing</h2>
+        <p class="catering-section-sub" style="margin: 0 auto;">Custom configurations. Package rates reflect preferred pricing.</p>
+      </div>
+
+      <div class="alcarte-grid">
+        <div class="alcarte-cell">
+          <div class="alcarte-name">Rum Rings</div>
+          <div class="alcarte-desc">Island flavour · Non-alcoholic</div>
+          <div class="alcarte-price">$4.50</div>
+          <div class="alcarte-unit">per piece</div>
+        </div>
+        <div class="alcarte-cell">
+          <div class="alcarte-name">Rum Cake Squares</div>
+          <div class="alcarte-desc">Rich rum flavour · Alcohol bakes out</div>
+          <div class="alcarte-price">$3.00</div>
+          <div class="alcarte-unit">per piece</div>
+        </div>
+        <div class="alcarte-cell">
+          <div class="alcarte-name">Icing Sandwiches</div>
+          <div class="alcarte-desc">Double-layer · Decadent</div>
+          <div class="alcarte-price">$8.00</div>
+          <div class="alcarte-unit">per piece</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Gift Bags ─────────────────────────────────────────── -->
+  <section class="catering-section catering-section-cream" id="gifts">
+    <div class="catering-inner">
+      <div class="gift-layout">
+        <div>
+          <span class="gift-tagline">Corporate &amp; Events</span>
+          <h2 class="gift-title">"Grown Folks<br><em>Loot Bags"</em></h2>
+          <p class="gift-desc">Individually wrapped gourmet gift bags for conference swag, wedding favours, and corporate events. Elegantly packaged and ready to impress.</p>
+
+          <div class="gift-contents">
+            <div class="gift-item">
+              <div class="gift-icon">◈</div>
+              <div>
+                <div class="gift-item-title">Island Ring</div>
+                <p class="gift-item-desc">Non-alcoholic · Subtle sweetness</p>
+              </div>
+            </div>
+            <div class="gift-item">
+              <div class="gift-icon">◈</div>
+              <div>
+                <div class="gift-item-title">Rum Cake Square</div>
+                <p class="gift-item-desc">Signature flavour · All ages suitable</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="gift-note">Minimum order 25 bags. Custom labeling available for corporate branding.</p>
+        </div>
+
+        <div class="gift-pricing-box">
+          <div class="gift-price-label">Per Guest</div>
+          <div class="gift-price">$10</div>
+          <span class="gift-price-suffix">per bag · includes both items</span>
+          <div class="gift-minimum">Minimum 25 bags</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Delivery Strip ───────────────────────────────────── -->
+  <div class="catering-section catering-section-dark" style="padding: 0;">
+    <div class="delivery-strip">
+      <div class="delivery-cell">
+        <div class="delivery-icon">◈</div>
+        <div class="delivery-label">Pickup</div>
+        <div class="delivery-value free">Complimentary</div>
+      </div>
+      <div class="delivery-cell">
+        <div class="delivery-icon">◈</div>
+        <div class="delivery-label">GTA Delivery</div>
+        <div class="delivery-value">$20</div>
+      </div>
+      <div class="delivery-cell">
+        <div class="delivery-icon">◈</div>
+        <div class="delivery-label">Lead Time</div>
+        <div class="delivery-value">48–72 hrs</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Dietary Info ──────────────────────────────────────── -->
+  <section class="catering-section catering-section-dark" style="padding-top: 64px; padding-bottom: 64px;">
+    <div class="catering-info-box">
+      <span class="catering-section-eyebrow" style="text-align:center; display:block; margin-bottom:20px;">Dietary Information</span>
+      <p class="catering-info-text">Contains gluten, eggs, and dairy. Alcohol bakes out during production — trace amounts may remain. Suitable for all ages and professional settings. Cake bites carry the rum flavour; island rings do not.</p>
+      <div class="catering-nut-badge">◆ &nbsp; Completely Nut-Free Facility</div>
+    </div>
+  </section>
+
+  <!-- ── CTA / Contact ────────────────────────────────────── -->
+  <section class="catering-cta" id="contact">
+    <div class="catering-cta-bg">G</div>
+    <span class="catering-section-eyebrow" style="position:relative;">Let's Talk</span>
+    <h2>Let's Make Your<br>Event <em>Memorable</em></h2>
+    <p class="catering-cta-sub">We recommend 1–2 weeks advance notice for large orders.<br>50% deposit required to confirm your date.</p>
+    <a href="mailto:order@asliceofg.com" class="btn-catering-email">Email Us Directly</a>
+
+    <div class="catering-contact-row">
+      <div class="catering-contact-item">
+        <div class="catering-contact-label">Email</div>
+        <a href="mailto:order@asliceofg.com" class="catering-contact-value">order@asliceofg.com</a>
+      </div>
+      <div class="catering-contact-item">
+        <div class="catering-contact-label">Instagram</div>
+        <a href="https://www.instagram.com/_sliceofg/" target="_blank" class="catering-contact-value">@_sliceofg</a>
+      </div>
+      <div class="catering-contact-item">
+        <div class="catering-contact-label">Location</div>
+        <span class="catering-contact-value">Toronto, Ontario</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-logo">A Slice of G</div>
+    <div class="footer-center">
+      <div class="footer-slogan">Not all rum cakes wear black.</div>
+      <div class="footer-tag">Small Batch · Artisan Rum Cakes</div>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:order@asliceofg.com">order@asliceofg.com</a><br>
+      asliceofg.com
+    </div>
+  </footer>
+
+  <!-- ── Booking Modal ─────────────────────────────────────── -->
+  <div class="catering-modal-overlay" id="booking-modal">
+    <div class="catering-modal-box">
+      <div class="catering-modal-header">
+        <span class="catering-modal-title">Event Booking Request</span>
+        <button class="catering-modal-close" onclick="closeBookingModal()">✕</button>
+      </div>
+
+      <!-- Form View -->
+      <div class="catering-modal-body" id="catering-form-view">
+        <p class="catering-modal-package" id="modal-package-name">Package</p>
+
+        <div class="catering-deposit-notice">
+          <h4>◆ 50% Deposit Required to Confirm</h4>
+          <p>A 50% deposit is required to secure your event date. You will receive a Square Invoice via email within 24 hours.</p>
+          <div class="catering-deposit-amount" id="modal-deposit-amount">$0.00</div>
+        </div>
+
+        <form id="catering-order-form" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST">
+          <input type="hidden" name="package_name" id="form-package-name"/>
+          <input type="hidden" name="package_size" id="form-package-size"/>
+          <input type="hidden" name="base_price" id="form-base-price"/>
+          <input type="hidden" name="deposit_amount" id="form-deposit-amount"/>
+
+          <div class="catering-form-row">
+            <div class="catering-form-group">
+              <label>First Name *</label>
+              <input type="text" name="first_name" required/>
+            </div>
+            <div class="catering-form-group">
+              <label>Last Name *</label>
+              <input type="text" name="last_name" required/>
+            </div>
+          </div>
+
+          <div class="catering-form-row">
+            <div class="catering-form-group">
+              <label>Email Address *</label>
+              <input type="email" name="email" required/>
+            </div>
+            <div class="catering-form-group">
+              <label>Phone Number *</label>
+              <input type="tel" name="phone" required placeholder="(416) 555-1234"/>
+            </div>
+          </div>
+
+          <div class="catering-form-row">
+            <div class="catering-form-group">
+              <label>Event Date *</label>
+              <input type="date" name="event_date" required/>
+            </div>
+            <div class="catering-form-group">
+              <label>Event Type *</label>
+              <select name="event_type" required>
+                <option value="">Select…</option>
+                <option value="corporate">Corporate Event</option>
+                <option value="wedding">Wedding</option>
+                <option value="birthday">Birthday</option>
+                <option value="anniversary">Anniversary</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="catering-form-group">
+            <label>Event Location / Venue</label>
+            <input type="text" name="venue" placeholder="Venue name and address"/>
+          </div>
+
+          <div class="catering-form-row">
+            <div class="catering-form-group">
+              <label>Fulfillment *</label>
+              <select name="delivery_method" required>
+                <option value="pickup">In-Store Pickup (Free)</option>
+                <option value="delivery">GTA Delivery (+$20)</option>
+              </select>
+            </div>
+            <div class="catering-form-group">
+              <label>Preferred Pickup / Delivery Time</label>
+              <input type="time" name="delivery_time"/>
+            </div>
+          </div>
+
+          <div class="catering-checkbox-group">
+            <input type="checkbox" name="add_buffer" id="add-buffer" onchange="updateDepositDisplay()"/>
+            <label for="add-buffer">Add 10% buffer (<span id="buffer-display">+$0</span>) — Ensures extra pieces for all guests</label>
+          </div>
+
+          <div class="catering-form-group">
+            <label>Special Requests / Dietary Notes</label>
+            <textarea name="message" rows="3" placeholder="Allergies, custom branding, special instructions…"></textarea>
+          </div>
+
+          <button type="submit" class="btn-catering-submit">Submit Booking Request</button>
+
+          <p class="catering-form-footnote">You will receive a Square Invoice for the 50% deposit within 24 hours.<br>Your date is confirmed upon payment receipt.</p>
+        </form>
+      </div>
+
+      <!-- Success View -->
+      <div class="catering-success" id="catering-success-view">
+        <div class="catering-success-icon">✓</div>
+        <h3>Booking Request Received</h3>
+        <p>Thank you for choosing A Slice of G for your event.</p>
+        <p>We've sent a confirmation to your email with your event details.</p>
+
+        <div class="catering-next-steps">
+          <h4>Next Steps</h4>
+          <ol>
+            <li>Check your email for booking confirmation</li>
+            <li>Receive Square Invoice for 50% deposit within 24 hours</li>
+            <li>Pay deposit to secure your date</li>
+            <li>Receive final confirmation and pickup / delivery details</li>
+          </ol>
+        </div>
+
+        <button class="btn-catering-book" onclick="closeBookingModal()" style="margin-top: 28px;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentPkg = {};
+
+    function openBookingModal(name, size, price, buffer) {
+      currentPkg = { name, size, price, buffer };
+
+      const depositBase = price / 2;
+      const label = name + (size > 0 ? ` — ${size} Guests` : '');
+
+      document.getElementById('modal-package-name').textContent = label;
+      document.getElementById('modal-deposit-amount').textContent =
+        price > 0 ? `$${depositBase.toFixed(2)} deposit` : 'Contact us for quote';
+
+      document.getElementById('form-package-name').value = name;
+      document.getElementById('form-package-size').value = size;
+      document.getElementById('form-base-price').value = price;
+      document.getElementById('form-deposit-amount').value = depositBase;
+      document.getElementById('buffer-display').textContent = buffer > 0 ? `+$${buffer.toFixed(2)}` : '+$0';
+
+      document.getElementById('add-buffer').checked = false;
+
+      // Reset to form view
+      document.getElementById('catering-form-view').style.display = 'block';
+      document.getElementById('catering-success-view').classList.remove('active');
+
+      document.getElementById('booking-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeBookingModal() {
+      document.getElementById('booking-modal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function updateDepositDisplay() {
+      const withBuffer = document.getElementById('add-buffer').checked;
+      const base = currentPkg.price;
+      const total = base + (withBuffer ? currentPkg.buffer : 0);
+      const deposit = total / 2;
+      document.getElementById('modal-deposit-amount').textContent =
+        base > 0 ? `$${deposit.toFixed(2)} deposit` : 'Contact us for quote';
+    }
+
+    // Close on overlay click or Escape
+    document.getElementById('booking-modal').addEventListener('click', e => {
+      if (e.target === e.currentTarget) closeBookingModal();
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeBookingModal();
+    });
+
+    // Handle form submission via Formspree
+    document.getElementById('catering-order-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const form = e.target;
+      const btn = form.querySelector('.btn-catering-submit');
+      btn.textContent = 'Sending…';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' },
+        });
+
+        if (res.ok) {
+          document.getElementById('catering-form-view').style.display = 'none';
+          document.getElementById('catering-success-view').classList.add('active');
+        } else {
+          btn.textContent = 'Something went wrong — try emailing us directly';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Something went wrong — try emailing us directly';
+        btn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
