@@ -35,7 +35,7 @@ export function showCorrectPanel(user, profile) {
 function populateDashboard(profile) {
   document.getElementById('dash-first-name').textContent = profile.firstName || '';
   document.getElementById('dash-plan-name').textContent = PLAN_LABELS[profile.plan] || profile.plan;
-  document.getElementById('dash-gifts-remaining').textContent = profile.giftsRemaining ?? '—';
+  document.getElementById('dash-gifts-remaining').textContent = profile.giftsRemaining ?? '';
   document.getElementById('dash-gifts-used').textContent = (profile.giftsTotal - profile.giftsRemaining) || 0;
 
   const statusEl = document.getElementById('dash-status');

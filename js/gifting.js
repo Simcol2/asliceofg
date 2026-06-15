@@ -97,7 +97,7 @@ async function handleBrochureSubmit() {
     link.click();
     document.body.removeChild(link);
 
-    statusEl.textContent = 'Check your inbox — the brochure is on its way.';
+    statusEl.textContent = 'Check your inbox the brochure is on its way.';
     statusEl.className = 'gifting-modal-status success';
     emailInput.value = '';
     setTimeout(closeBrochureModal, 3200);
@@ -147,7 +147,7 @@ async function handleNewAgentSubmit(e) {
     license_date:   form.querySelector('[name="license_date"]').value,
     payment_option: form.querySelector('[name="payment_option"]').value,
     package_name:   'New Agent Gift Program',
-    confirmed:      'Yes — confirmed new registrant',
+    confirmed:      'Yes confirmed new registrant',
   };
 
   try {
@@ -167,7 +167,7 @@ async function handleNewAgentSubmit(e) {
 // ── Open House Modal ─────────────────────────────────────────
 function openOpenHouseModal(name, price) {
   document.getElementById('oh-modal-title').textContent = name;
-  document.getElementById('oh-modal-pkg').textContent = '$' + price + ' — pickup required';
+  document.getElementById('oh-modal-pkg').textContent = '$' + price + ' pickup required';
   document.getElementById('oh-tray-name').value = name;
   document.getElementById('oh-tray-price').value = price;
   document.getElementById('open-house-form-view').style.display = '';
