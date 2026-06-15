@@ -262,24 +262,24 @@
 }
 
 .catering-card {
-  background: var(--forest-mid);
+  background: var(--cream);
   padding: 48px 36px;
   text-align: center;
   transition: background 0.25s;
 }
-.catering-card:hover { background: var(--forest-up); }
+.catering-card:hover { background: #f0e8db; }
 
 .catering-card-label {
   font-family: 'Jost', sans-serif;
   font-size: 9px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(255,255,255,0.3); margin-bottom: 14px;
+  color: rgba(7,20,16,0.45); margin-bottom: 14px;
 }
 
 .catering-card-num {
   font-family: 'Cormorant SC', serif;
   font-size: 56px; font-weight: 300;
-  color: var(--warm-white); line-height: 1;
+  color: var(--forest-deep); line-height: 1;
   margin-bottom: 6px;
 }
 
@@ -293,14 +293,14 @@
   font-family: 'Jost', sans-serif;
   font-size: 11px; font-weight: 700;
   letter-spacing: 0.16em; text-transform: uppercase;
-  color: var(--warm-white);
+  color: var(--forest-deep);
   margin-bottom: 24px;
 }
 
 .catering-card-price {
   font-family: 'Cormorant SC', serif;
   font-size: 40px; font-weight: 300;
-  color: var(--gold-light); margin-bottom: 24px; line-height: 1;
+  color: var(--gold); margin-bottom: 24px; line-height: 1;
 }
 
 .catering-card-items {
@@ -309,23 +309,23 @@
 .catering-card-items li {
   display: flex; justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-  font-family: 'Jost', sans-serif; font-size: 12px;
-  color: rgba(255,255,255,0.55);
+  border-bottom: 1px solid rgba(7,20,16,0.1);
+  font-family: 'Jost', sans-serif; font-size: 15px; font-weight: 700;
+  color: var(--forest);
 }
 .catering-card-items li:last-child { border-bottom: none; }
 .catering-card-items .ci-qty { color: var(--gold); }
 
 .catering-card-buffer {
-  background: rgba(201,169,110,0.05);
-  border: 1px solid rgba(201,169,110,0.12);
+  background: rgba(201,169,110,0.15);
+  border: 1px solid rgba(201,169,110,0.3);
   padding: 14px; margin-bottom: 24px;
 }
 .catering-card-buffer-label {
   font-family: 'Jost', sans-serif;
   font-size: 9px; font-weight: 700;
   letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(255,255,255,0.3); margin-bottom: 4px;
+  color: rgba(7,20,16,0.5); margin-bottom: 4px;
 }
 .catering-card-buffer-price {
   font-family: 'Cormorant Garamond', serif;
@@ -796,7 +796,7 @@
 /* ── Featured card variant ───────────────────────────────── */
 
 .catering-card-featured {
-  background: var(--forest-up);
+  background: #f0e8db;
   border-top: 2px solid var(--gold);
   position: relative;
 }
