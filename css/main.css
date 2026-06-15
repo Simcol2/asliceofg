@@ -298,14 +298,14 @@ footer {
 .intro-pullquote { border-left: 2px solid var(--gold); padding-left: 20px; margin-bottom: 24px; }
 .intro-pullquote p {
   font-family: 'Playfair Display', serif;
-  font-size: 20px; font-weight: 600;
-  color: rgba(7,20,16,0.8); line-height: 1.7;
+  font-size: 20px; font-weight: 700; font-style: italic;
+  color: var(--coral); line-height: 1.7;
 }
 
 .intro-body {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; line-height: 1.85;
-  color: rgba(7,20,16,0.65);
+  font-size: 20px; font-weight: 600; line-height: 1.55;
+  color: rgba(7,20,16,0.8);
 }
 
 /* ── Allergen / Info Block ───────────────────────────────── */
@@ -416,7 +416,7 @@ footer {
 .slogan-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--coral); display: block; margin-bottom: 24px; position: relative; z-index: 1; }
 .slogan-headline { font-family: 'Playfair Display', serif; font-size: 66px; font-weight: 700; color: var(--forest-deep); line-height: 1.05; margin-bottom: 10px; position: relative; z-index: 1; }
 .slogan-headline em { color: var(--gold); }
-.slogan-sub { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: rgba(7,20,16,0.45); max-width: 520px; margin: 0 auto 44px; line-height: 1.7; position: relative; z-index: 1; }
+.slogan-sub { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--coral); max-width: 520px; margin: 0 auto 44px; line-height: 1.5; position: relative; z-index: 1; }
 .slogan-cta { display: inline-block; padding: 17px 52px; background: var(--forest-deep); color: white; font-size: 13px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; position: relative; z-index: 1; font-family: 'Jost', sans-serif; }
 .slogan-cta:hover { background: var(--emerald); }
 
