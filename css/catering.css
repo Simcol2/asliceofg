@@ -24,7 +24,7 @@
 
 .catering-hero-eyebrow {
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.3em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 24px;
 }
@@ -42,6 +42,7 @@
 .catering-hero h1 em {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic;
+  font-weight: 500;
   color: var(--gold);
 }
 
@@ -59,7 +60,7 @@
   background: var(--gold);
   color: var(--forest-deep);
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.22em; text-transform: uppercase;
   text-decoration: none;
   padding: 16px 44px;
@@ -95,7 +96,7 @@
 
 .catering-section-eyebrow {
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.3em; text-transform: uppercase;
   color: var(--gold);
   display: block; margin-bottom: 16px;
@@ -171,7 +172,7 @@
 
 .catering-featured-label {
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 16px;
 }
@@ -185,7 +186,7 @@
 .catering-featured-feeds {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic; font-size: 17px;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.6);
   margin-bottom: 32px;
 }
 
@@ -201,7 +202,7 @@
   border: 1px solid var(--coral);
   color: var(--coral);
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase;
   padding: 6px 14px; margin-bottom: 32px;
 }
@@ -231,7 +232,7 @@
 }
 .catering-buffer-title {
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase;
   color: var(--gold);
 }
@@ -241,12 +242,12 @@
 }
 .catering-buffer-desc {
   font-family: 'Jost', sans-serif;
-  font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.5;
+  font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.5;
 }
 
 .catering-pkg-total {
   font-family: 'Jost', sans-serif;
-  font-size: 11px; color: rgba(255,255,255,0.35);
+  font-size: 13px; color: rgba(255,255,255,0.6);
   margin-top: 16px; padding-top: 16px;
   border-top: 1px solid rgba(255,255,255,0.08);
 }
@@ -271,7 +272,7 @@
 
 .catering-card-label {
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
   color: rgba(7,20,16,0.45); margin-bottom: 14px;
 }
@@ -291,7 +292,7 @@
 
 .catering-card-feeds {
   font-family: 'Jost', sans-serif;
-  font-size: 11px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.16em; text-transform: uppercase;
   color: var(--forest-deep);
   margin-bottom: 24px;
@@ -323,7 +324,7 @@
 }
 .catering-card-buffer-label {
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.15em; text-transform: uppercase;
   color: rgba(7,20,16,0.5); margin-bottom: 4px;
 }
@@ -338,7 +339,7 @@
   background: var(--forest-deep);
   color: var(--warm-white);
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase;
   border: none; cursor: pointer;
   padding: 14px 32px;
@@ -374,9 +375,9 @@
 
 .alcarte-desc {
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 500;
+  font-size: 13px; font-weight: 500;
   letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(255,255,255,0.3); margin-bottom: 24px;
+  color: rgba(255,255,255,0.6); margin-bottom: 24px;
 }
 
 .alcarte-price {
@@ -387,9 +388,9 @@
 
 .alcarte-unit {
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(255,255,255,0.2); margin-top: 4px;
+  color: rgba(255,255,255,0.6); margin-top: 4px;
 }
 
 /* ── Gift Bags ───────────────────────────────────────────── */
@@ -403,7 +404,7 @@
 
 .gift-tagline {
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.3em; text-transform: uppercase;
   color: var(--coral); margin-bottom: 16px; display: block;
 }
@@ -417,7 +418,9 @@
 
 .gift-title em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic; color: var(--gold);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold);
 }
 
 .gift-desc {
@@ -449,7 +452,7 @@
 
 .gift-item-desc {
   font-family: 'Jost', sans-serif;
-  font-size: 12px; color: rgba(7,20,16,0.45);
+  font-size: 14px; color: rgba(7,20,16,0.6);
 }
 
 .gift-note {
@@ -467,9 +470,9 @@
 
 .gift-price-label {
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(255,255,255,0.3); margin-bottom: 16px;
+  color: rgba(255,255,255,0.6); margin-bottom: 16px;
 }
 
 .gift-price {
@@ -481,7 +484,7 @@
 .gift-price-suffix {
   font-family: 'Cormorant Garamond', serif;
   font-style: italic; font-size: 16px;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.6);
   margin-bottom: 28px; display: block;
 }
 
@@ -490,7 +493,7 @@
   border: 1px solid rgba(201,169,110,0.3);
   color: var(--gold);
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase;
   padding: 10px 22px;
 }
@@ -521,9 +524,9 @@
 
 .delivery-label {
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
-  color: rgba(255,255,255,0.3); margin-bottom: 8px;
+  color: rgba(255,255,255,0.6); margin-bottom: 8px;
 }
 
 .delivery-value {
@@ -549,7 +552,7 @@
   border: 1px solid rgba(201,169,110,0.25);
   padding: 12px 28px;
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--gold);
 }
@@ -584,12 +587,14 @@
 
 .catering-cta h2 em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic; color: var(--gold);
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold);
 }
 
 .catering-cta-sub {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 18px; color: rgba(255,255,255,0.4);
+  font-size: 18px; color: rgba(255,255,255,0.6);
   margin-bottom: 48px; position: relative;
 }
 
@@ -597,7 +602,7 @@
   display: inline-block;
   background: var(--gold); color: var(--forest-deep);
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.22em; text-transform: uppercase;
   text-decoration: none;
   padding: 18px 52px;
@@ -615,9 +620,9 @@
 
 .catering-contact-label {
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.24em; text-transform: uppercase;
-  color: rgba(255,255,255,0.25); margin-bottom: 8px;
+  color: rgba(255,255,255,0.6); margin-bottom: 8px;
 }
 
 .catering-contact-value {
@@ -672,7 +677,7 @@
 
 .catering-modal-package {
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase;
   color: var(--gold); margin-bottom: 24px;
 }
@@ -685,7 +690,7 @@
 
 .catering-deposit-notice h4 {
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.18em; text-transform: uppercase;
   margin-bottom: 8px;
 }
@@ -706,9 +711,9 @@
 .catering-form-group label {
   display: block;
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(7,20,16,0.45); margin-bottom: 8px;
+  color: rgba(7,20,16,0.6); margin-bottom: 8px;
 }
 
 .catering-form-group input,
@@ -746,7 +751,7 @@
   width: 100%; padding: 18px;
   background: var(--forest-deep); color: var(--warm-white);
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.22em; text-transform: uppercase;
   border: none; cursor: pointer;
   transition: background 0.2s;
@@ -784,7 +789,7 @@
 }
 .catering-next-steps h4 {
   font-family: 'Jost', sans-serif;
-  font-size: 9px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.2em; text-transform: uppercase;
   margin-bottom: 14px;
 }

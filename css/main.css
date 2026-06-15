@@ -137,7 +137,7 @@ hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2p
   color: var(--forest-deep);
   display: flex; align-items: center; gap: 22px; flex-shrink: 0;
 }
-.band-item::after { content: '◆'; font-size: 14px; color: rgba(4,13,10,0.35); }
+.band-item::after { content: '◆'; font-size: 14px; color: rgba(4,13,10,0.6); }
 
 /* ── Footer ─────────────────────────────────────────────── */
 
@@ -547,7 +547,7 @@ footer {
   display: flex; align-items: center; justify-content: center;
   font-family: 'Cormorant SC', serif;
   font-size: 36px; font-weight: 700;
-  color: rgba(201,169,110,0.25);
+  color: rgba(201,169,110,0.6);
   letter-spacing: 0.1em;
 }
 
@@ -747,7 +747,7 @@ footer {
 }
 
 .cart-item-remove {
-  background: none; border: none; color: rgba(255,255,255,0.2);
+  background: none; border: none; color: rgba(255,255,255,0.6);
   cursor: pointer; font-size: 14px; padding: 4px;
   transition: color 0.2s; flex-shrink: 0;
 }
@@ -816,8 +816,8 @@ footer {
 
 .fulfillment-shipping-note {
   margin-top: 12px;
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
   font-style: italic;
 }
 
@@ -1019,7 +1019,7 @@ footer {
   transition: border-color 0.2s;
 }
 .modal-input:focus { outline: none; border-color: var(--gold); }
-.modal-input::placeholder { color: rgba(7,20,16,0.3); }
+.modal-input::placeholder { color: rgba(7,20,16,0.6); }
 
 .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
@@ -1353,14 +1353,14 @@ footer {
 .nav-mobile-close {
   position: absolute; top: 24px; right: 24px;
   background: none; border: none;
-  color: rgba(255,255,255,0.35); font-size: 20px;
+  color: rgba(255,255,255,0.6); font-size: 20px;
   cursor: pointer; transition: color 0.2s;
 }
 .nav-mobile-close:hover { color: var(--gold); }
 
 .nav-mobile-menu a {
   font-family: 'Jost', sans-serif;
-  font-size: 11px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.28em; text-transform: uppercase;
   color: rgba(255,255,255,0.7);
   text-decoration: none;
@@ -1377,7 +1377,7 @@ footer {
   margin-top: 32px;
   display: inline-block;
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--forest-deep);
   background: var(--gold);
@@ -1397,7 +1397,7 @@ footer {
 
 .reviews-eyebrow {
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.3em; text-transform: uppercase;
   color: var(--gold); display: block; margin-bottom: 14px;
 }
@@ -1420,8 +1420,8 @@ footer {
 
 .reviews-count {
   font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  color: rgba(4,13,10,0.4);
+  font-size: 13px;
+  color: rgba(4,13,10,0.6);
   letter-spacing: 0.06em;
 }
 
@@ -1435,7 +1435,7 @@ footer {
 .reviews-loading {
   font-family: 'Cormorant Garamond', serif;
   font-size: 18px;
-  color: rgba(4,13,10,0.35);
+  color: rgba(4,13,10,0.6);
   grid-column: 1 / -1;
   text-align: center;
   padding: 32px 0;
@@ -1476,15 +1476,15 @@ footer {
 
 .review-author {
   font-family: 'Jost', sans-serif;
-  font-size: 11px; font-weight: 600;
+  font-size: 13px; font-weight: 600;
   color: var(--warm-white);
   letter-spacing: 0.04em;
 }
 
 .review-time {
   font-family: 'Jost', sans-serif;
-  font-size: 10px;
-  color: rgba(255,255,255,0.3);
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
   margin-top: 2px;
 }
 
@@ -1506,7 +1506,7 @@ footer {
 .reviews-cta {
   display: block; text-align: center;
   font-family: 'Jost', sans-serif;
-  font-size: 10px; font-weight: 700;
+  font-size: 13px; font-weight: 700;
   letter-spacing: 0.22em; text-transform: uppercase;
   color: var(--forest-deep);
   text-decoration: none;
