@@ -150,6 +150,7 @@ footer {
 .footer-center { text-align: center; }
 .footer-slogan { font-family: 'Playfair Display', serif; font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
 .footer-tag { font-size: 13px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--coral-light); }
+.footer-tagline { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.75); margin-top: 16px; line-height: 1.6; }
 .footer-right { text-align: right; font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.9; }
 .footer-right a { color: var(--gold); text-decoration: none; }
 
