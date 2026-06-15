@@ -48,7 +48,7 @@
 
 .gifting-hero h1 em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
   color: var(--gold);
 }
 
@@ -123,7 +123,7 @@
 
 .how-it-works h2 em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
 }
 
 .steps-grid {
@@ -186,7 +186,7 @@
 
 .gifting-packages h2 em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
   color: var(--gold);
 }
 
@@ -261,7 +261,7 @@
 
 .pkg-price-period {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
   font-size: 22px;
   color: rgba(255,255,255,0.5);
 }
@@ -489,7 +489,7 @@
 
 .on-demand-price em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
   color: var(--gold);
 }
 
@@ -537,7 +537,7 @@
 
 .gifting-cta-section h2 em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
   color: var(--gold);
 }
 
@@ -660,7 +660,7 @@
 
 .open-house-section h2 em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
 }
 
 .open-house-grid {
@@ -822,7 +822,7 @@
 
 .new-agent-header h2 em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
   color: var(--gold);
 }
 

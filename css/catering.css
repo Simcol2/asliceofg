@@ -41,7 +41,7 @@
 
 .catering-hero h1 em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
   font-weight: 500;
   color: var(--gold);
 }
@@ -128,7 +128,7 @@
 }
 .catering-divider-text {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic; font-size: 18px;
+  font-size: 18px;
   color: var(--gold);
 }
 
@@ -185,7 +185,7 @@
 
 .catering-featured-feeds {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic; font-size: 17px;
+  font-size: 17px;
   color: rgba(255,255,255,0.6);
   margin-bottom: 32px;
 }
@@ -286,7 +286,7 @@
 
 .catering-card-subtitle {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic; font-size: 20px;
+  font-size: 20px;
   color: var(--forest); margin-bottom: 6px;
 }
 
@@ -418,7 +418,7 @@
 
 .gift-title em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
   font-weight: 500;
   color: var(--gold);
 }
@@ -457,7 +457,7 @@
 
 .gift-note {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic; font-size: 15px;
+  font-size: 15px;
   color: rgba(7,20,16,0.45);
 }
 
@@ -483,7 +483,7 @@
 
 .gift-price-suffix {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic; font-size: 16px;
+  font-size: 16px;
   color: rgba(255,255,255,0.6);
   margin-bottom: 28px; display: block;
 }
@@ -587,7 +587,7 @@
 
 .catering-cta h2 em {
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
   font-weight: 500;
   color: var(--gold);
 }

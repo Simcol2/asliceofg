@@ -148,7 +148,7 @@ footer {
 }
 .footer-logo { font-family: 'Cormorant SC', serif; font-size: 28px; font-weight: 500; letter-spacing: 0.2em; color: var(--gold); }
 .footer-center { text-align: center; }
-.footer-slogan { font-family: 'Playfair Display', serif; font-size: 16px; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+.footer-slogan { font-family: 'Playfair Display', serif; font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
 .footer-tag { font-size: 13px; font-weight: 700; letter-spacing: 0.28em; text-transform: uppercase; color: var(--coral-light); }
 .footer-right { text-align: right; font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.9; }
 .footer-right a { color: var(--gold); text-decoration: none; }
@@ -242,11 +242,11 @@ footer {
   margin-bottom: 28px;
   text-shadow: 0 2px 40px rgba(0,0,0,0.5);
 }
-.hero-h1 em { font-style: italic; color: var(--gold-light); display: block; }
+.hero-h1 em { color: var(--gold-light); display: block; }
 
 .hero-sub {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-style: italic; font-weight: 500;
+  font-size: 20px; font-weight: 500;
   color: rgba(255,255,255,0.55);
   margin-bottom: 10px; line-height: 1.55;
 }
@@ -293,13 +293,13 @@ footer {
   font-size: 54px; font-weight: 400;
   line-height: 1.12; color: var(--forest); margin-bottom: 28px;
 }
-.intro h2 em { font-style: italic; color: var(--emerald); }
+.intro h2 em { color: var(--emerald); }
 
 .intro-pullquote { border-left: 2px solid var(--gold); padding-left: 20px; margin-bottom: 24px; }
 .intro-pullquote p {
   font-family: 'Playfair Display', serif;
-  font-size: 18px; font-style: italic;
-  color: rgba(7,20,16,0.5); line-height: 1.7;
+  font-size: 20px; font-weight: 600;
+  color: rgba(7,20,16,0.8); line-height: 1.7;
 }
 
 .intro-body {
@@ -320,16 +320,16 @@ footer {
 .allergen-row {
   display: flex; align-items: flex-start; gap: 12px;
   font-family: 'Jost', sans-serif;
-  font-size: 14px; font-weight: 400;
-  color: rgba(7,20,16,0.55);
+  font-size: 16px; font-weight: 600;
+  color: rgba(7,20,16,0.85);
   line-height: 1.6;
 }
 
 .allergen-icon {
   flex-shrink: 0;
-  font-size: 13px; font-weight: 700;
+  font-size: 16px; font-weight: 700;
   color: var(--emerald-pop);
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
 .allergen-row strong { font-weight: 700; color: rgba(7,20,16,0.75); }
@@ -363,7 +363,7 @@ footer {
 .flavors-header { text-align: center; margin-bottom: 60px; position: relative; z-index: 1; }
 .flavors-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.32em; text-transform: uppercase; color: var(--coral-light); display: block; margin-bottom: 14px; }
 .flavors-header h2 { font-family: 'Playfair Display', serif; font-size: 50px; font-weight: 400; color: white; }
-.flavors-header p { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: rgba(255,255,255,0.6); margin-top: 10px; }
+.flavors-header p { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: rgba(255,255,255,0.6); margin-top: 10px; }
 
 .flavors-grid {
   display: grid; grid-template-columns: repeat(3,1fr);
@@ -390,8 +390,8 @@ footer {
 }
 
 .flavor-number { font-family: 'Cormorant SC', serif; font-size: 13px; font-weight: 400; letter-spacing: 0.3em; color: rgba(201,169,110,0.45); display: block; margin-bottom: 12px; }
-.flavor-name { font-family: 'Playfair Display', serif; font-size: 30px; font-style: italic; color: white; margin-bottom: 6px; }
-.flavor-desc { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 28px; line-height: 1.65; }
+.flavor-name { font-family: 'Playfair Display', serif; font-size: 30px; color: white; margin-bottom: 6px; }
+.flavor-desc { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: rgba(255,255,255,0.6); margin-bottom: 28px; line-height: 1.65; }
 .flavor-rule { width: 24px; height: 1px; background: var(--coral); margin-bottom: 20px; }
 .flavor-price { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; color: var(--gold-light); }
 .flavor-card.featured .flavor-price { color: var(--coral-light); }
@@ -415,8 +415,8 @@ footer {
 
 .slogan-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: var(--coral); display: block; margin-bottom: 24px; position: relative; z-index: 1; }
 .slogan-headline { font-family: 'Playfair Display', serif; font-size: 66px; font-weight: 700; color: var(--forest-deep); line-height: 1.05; margin-bottom: 10px; position: relative; z-index: 1; }
-.slogan-headline em { font-style: italic; color: var(--gold); }
-.slogan-sub { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-style: italic; color: rgba(7,20,16,0.45); max-width: 520px; margin: 0 auto 44px; line-height: 1.7; position: relative; z-index: 1; }
+.slogan-headline em { color: var(--gold); }
+.slogan-sub { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: rgba(7,20,16,0.45); max-width: 520px; margin: 0 auto 44px; line-height: 1.7; position: relative; z-index: 1; }
 .slogan-cta { display: inline-block; padding: 17px 52px; background: var(--forest-deep); color: white; font-size: 13px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; position: relative; z-index: 1; font-family: 'Jost', sans-serif; }
 .slogan-cta:hover { background: var(--emerald); }
 
@@ -467,14 +467,14 @@ footer {
 
 .shop-hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 62px; font-weight: 700; font-style: italic;
+  font-size: 62px; font-weight: 700;
   color: white; line-height: 1; margin-bottom: 14px;
 }
 .shop-hero h1 span { color: var(--gold-light); }
 
 .shop-hero-sub {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 18px; font-style: italic;
+  font-size: 18px;
   color: rgba(255,255,255,0.6);
 }
 
@@ -562,14 +562,14 @@ footer {
 
 .product-name {
   font-family: 'Playfair Display', serif;
-  font-size: 24px; font-style: italic; font-weight: 400;
+  font-size: 26px; font-weight: 600;
   color: var(--forest); margin-bottom: 8px; line-height: 1.2;
 }
 
 .product-desc {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 16px; font-style: italic;
-  color: rgba(7,20,16,0.5); line-height: 1.6;
+  font-family: 'Jost', sans-serif;
+  font-size: 15px; font-weight: 500;
+  color: rgba(7,20,16,0.75); line-height: 1.6;
   margin-bottom: 20px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -624,7 +624,7 @@ footer {
 }
 .product-loading-text {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-style: italic;
+  font-size: 20px;
   color: rgba(7,20,16,0.4);
   display: flex; align-items: center; justify-content: center; gap: 12px;
 }
@@ -641,7 +641,7 @@ footer {
 .products-empty {
   grid-column: 1 / -1; text-align: center; padding: 80px 20px;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-style: italic; color: rgba(7,20,16,0.4);
+  font-size: 20px; color: rgba(7,20,16,0.4);
 }
 
 /* ── Cart Drawer ─────────────────────────────────────────── */
@@ -697,7 +697,7 @@ footer {
 .cart-empty {
   padding: 60px 0; text-align: center;
   font-family: 'Cormorant Garamond', serif;
-  font-size: 18px; font-style: italic;
+  font-size: 18px;
   color: rgba(255,255,255,0.6);
 }
 
@@ -711,7 +711,7 @@ footer {
 
 .cart-item-name {
   font-family: 'Playfair Display', serif;
-  font-size: 15px; font-style: italic;
+  font-size: 15px;
   color: white; margin-bottom: 4px;
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
@@ -818,7 +818,7 @@ footer {
   margin-top: 12px;
   font-size: 14px;
   color: rgba(255,255,255,0.6);
-  font-style: italic;
+ 
 }
 
 .fulfillment-date-wrap { display: flex; flex-direction: column; gap: 6px; }
@@ -936,7 +936,7 @@ footer {
 .confirm-fulfillment-value {
   font-size: 14px; font-weight: 500;
   font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
+ 
 }
 
 .confirm-note {
@@ -1033,7 +1033,7 @@ footer {
 
 .modal-status {
   min-height: 24px; margin: 12px 0;
-  font-size: 13px; font-style: italic;
+  font-size: 13px;
   color: rgba(7,20,16,0.55);
 }
 .modal-status.error { color: var(--coral); font-style: normal; font-weight: 600; }
@@ -1067,12 +1067,12 @@ footer {
 }
 .success-heading {
   font-family: 'Playfair Display', serif;
-  font-size: 28px; font-style: italic;
+  font-size: 28px;
   color: var(--forest); margin-bottom: 10px;
 }
 .success-sub {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 18px; font-style: italic;
+  font-size: 18px;
   color: rgba(7,20,16,0.5); margin-bottom: 24px;
   line-height: 1.6;
 }
