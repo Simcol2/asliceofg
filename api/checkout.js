@@ -9,6 +9,22 @@ const client = new SquareClient({
     : SquareEnvironment.Sandbox,
 });
 
+function formatFulfillmentLabel(type, dateTime) {
+  if (!dateTime) return null;
+  const dt = new Date(dateTime);
+  const dateStr = dt.toLocaleDateString('en-CA', {
+    weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
+    timeZone: 'America/Toronto',
+  });
+  const timeStr = dt.toLocaleTimeString('en-CA', {
+    hour: 'numeric', minute: '2-digit',
+    timeZone: 'America/Toronto',
+  });
+  return type === 'PICKUP'
+    ? `Pickup: ${dateStr} at ${timeStr}`
+    : `Ships by: ${dateStr}`;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -58,14 +74,25 @@ export default async function handler(req, res) {
   }
 
   try {
+    const fulfillmentLabel = formatFulfillmentLabel(type, fulfillmentDateTime);
+
+    const lineItems = [
+      ...cartItems.map(item => ({
+        catalogObjectId: item.variationId,
+        quantity: String(item.quantity),
+      })),
+      ...(fulfillmentLabel ? [{
+        name: fulfillmentLabel,
+        quantity: '1',
+        basePriceMoney: { amount: BigInt(0), currency: 'CAD' },
+      }] : []),
+    ];
+
     const response = await client.checkout.paymentLinks.create({
       idempotencyKey: crypto.randomUUID(),
       order: {
         locationId: process.env.SQUARE_LOCATION_ID,
-        lineItems: cartItems.map(item => ({
-          catalogObjectId: item.variationId,
-          quantity: String(item.quantity),
-        })),
+        lineItems,
         fulfillments: [fulfillment],
         ...(orderNote ? { referenceId: orderNote.slice(0, 40), note: orderNote } : {}),
       },
