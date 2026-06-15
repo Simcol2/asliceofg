@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact — A Slice of G</title>
+  <title>Contact A Slice of G</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/main.css?v=10"/>
   <link rel="icon" href="/public/images/logo.png" type="image/png"/>
@@ -150,7 +150,7 @@
     <div class="contact-inner">
       <span class="contact-eyebrow">Get in Touch</span>
       <h1 class="contact-title">Say <em>Hello.</em></h1>
-      <p class="contact-sub">Questions about orders, catering, or custom requests — we'd love to hear from you.</p>
+      <p class="contact-sub">Questions about orders, catering, or custom requests we'd love to hear from you.</p>
 
       <form id="contact-form">
         <div class="contact-form-row">
@@ -245,7 +245,7 @@
 
       try {
         await emailjs.send('service_z6rd8xm', 'template_contact', params);
-        status.textContent = 'Message sent — we\'ll be in touch soon.';
+        status.textContent = 'Message sent we\'ll be in touch soon.';
         status.className = 'contact-status success';
         form.reset();
       } catch (err) {

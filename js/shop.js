@@ -63,7 +63,7 @@ function renderFilterBar(allowed) {
   const bar = document.getElementById('filter-bar');
   if (!bar) return;
 
-  // allowed is already filtered — just render buttons
+  // allowed is already filtered just render buttons
   allowed.forEach(cat => {
     const btn = document.createElement('button');
     btn.className = 'filter-btn';
@@ -119,7 +119,7 @@ function renderItems(items) {
               data-price="${v.priceCents}"
               data-currency="${v.currency}"
               data-name="${escapeAttr(v.name)}">
-              ${escapeHtml(v.name)} — $${(v.priceCents / 100).toFixed(2)}
+              ${escapeHtml(v.name)} $${(v.priceCents / 100).toFixed(2)}
             </option>`
           ).join('')}
         </select>`
@@ -157,7 +157,7 @@ function renderItems(items) {
         btn.dataset.variationId = opt.value;
         btn.dataset.price = opt.dataset.price;
         btn.dataset.currency = opt.dataset.currency;
-        btn.dataset.name = `${item.name}${opt.dataset.name !== 'Regular' ? ' — ' + opt.dataset.name : ''}`;
+        btn.dataset.name = `${item.name}${opt.dataset.name !== 'Regular' ? ' ' + opt.dataset.name : ''}`;
         if (priceEl) priceEl.textContent = `$${(parseInt(opt.dataset.price) / 100).toFixed(2)}`;
       });
     }
@@ -254,7 +254,7 @@ function closeCart() {
   document.body.style.overflow = '';
 }
 
-// ─── Checkout Flow — Square Hosted Checkout ───────────────────────────────────
+// ─── Checkout Flow Square Hosted Checkout ───────────────────────────────────
 async function startCheckout() {
   if (!cart.length) return;
 
@@ -320,7 +320,7 @@ function showOrderConfirmation(squareUrl, fulfillmentDateTime) {
       ? dt.toLocaleTimeString('en-CA', { hour: 'numeric', minute: '2-digit' })
       : null;
     fulfillmentLine = isPickup
-      ? `Pickup — ${dateStr} at ${timeStr}`
+      ? `Pickup ${dateStr} at ${timeStr}`
       : `Ship by ${dateStr}`;
   }
 
@@ -337,7 +337,7 @@ function showOrderConfirmation(squareUrl, fulfillmentDateTime) {
 
   const currency = cart[0]?.currency || 'CAD';
 
-  // Inject confirmation panel — replaces drawer content temporarily
+  // Inject confirmation panel replaces drawer content temporarily
   drawer.innerHTML = `
     <div class="cart-drawer-header">
       <span class="cart-drawer-title">Order Summary</span>
@@ -444,7 +444,7 @@ async function loadOrderHistory() {
         <div class="order-card-date">${new Date(o.createdAt).toLocaleDateString('en-CA', { year:'numeric', month:'long', day:'numeric' })}</div>
         <ul class="order-card-items">
           ${o.lineItems.map(li =>
-            `<li>${escapeHtml(li.name)} × ${li.quantity} — $${(li.totalCents / 100).toFixed(2)}</li>`
+            `<li>${escapeHtml(li.name)} × ${li.quantity} $${(li.totalCents / 100).toFixed(2)}</li>`
           ).join('')}
         </ul>
         <div class="order-card-total">$${(o.totalCents / 100).toFixed(2)} ${o.currency}</div>
@@ -496,7 +496,7 @@ function updateFulfillmentUI() {
 function buildFulfillmentDateTime() {
   const dateVal = document.getElementById('fulfillment-date')?.value;
   if (!dateVal) return null;
-  // For shipping, use noon as a neutral time — only the date matters
+  // For shipping, use noon as a neutral time only the date matters
   const timeVal = fulfillmentType === 'PICKUP'
     ? (document.getElementById('fulfillment-time')?.value || '12:00')
     : '12:00';
@@ -617,7 +617,7 @@ function bindUI() {
   document.getElementById('cart-overlay').addEventListener('click', closeCart);
   document.getElementById('cart-close-btn').addEventListener('click', closeCart);
 
-  // Checkout — redirects to Square hosted checkout
+  // Checkout redirects to Square hosted checkout
   document.getElementById('btn-checkout-main').addEventListener('click', startCheckout);
 
   // Fulfillment type toggle
@@ -630,7 +630,7 @@ function bindUI() {
     });
   });
 
-  // Date picker — minimum is tomorrow
+  // Date picker minimum is tomorrow
   const dateInput = document.getElementById('fulfillment-date');
   if (dateInput) {
     const tomorrow = new Date();
