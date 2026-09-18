@@ -35,15 +35,22 @@
       ]
     },
     {
-      "source": "/(.*)\\.css",
+      "source": "/((?!events/).*)\\.css",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
       ]
     },
     {
-      "source": "/(.*)\\.js",
+      "source": "/((?!events/).*)\\.js",
       "headers": [
         { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/events/:path*",
+      "headers": [
+        { "key": "x-vercel-enable-rewrite-caching", "value": "0" },
+        { "key": "Cache-Control", "value": "no-store" }
       ]
     }
   ]
