@@ -8,6 +8,10 @@
       "maxDuration": 10
     }
   },
+  "rewrites": [
+    { "source": "/events", "destination": "https://events-mauve-three.vercel.app/events" },
+    { "source": "/events/:path*", "destination": "https://events-mauve-three.vercel.app/events/:path*" }
+  ],
   "headers": [
     {
       "source": "/(.*)",
