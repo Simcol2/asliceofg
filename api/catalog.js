@@ -27,8 +27,16 @@ export default async function handler(req, res) {
         imageMap[img.id] = img.imageData?.url;
       });
 
+    // Items that exist in Square's API but should never appear on the storefront
+    const BLOCKED_ITEM_NAMES = ['cravins rum cake bites'];
+
     const items = objects
-      .filter(o => o.type === 'ITEM' && !o.isDeleted && !o.itemData?.isArchived)
+      .filter(o =>
+        o.type === 'ITEM' &&
+        !o.isDeleted &&
+        !o.itemData?.isArchived &&
+        !BLOCKED_ITEM_NAMES.includes((o.itemData?.name || '').toLowerCase().trim())
+      )
       .map(item => {
         const data = item.itemData;
         return {
