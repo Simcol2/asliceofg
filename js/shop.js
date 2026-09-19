@@ -28,19 +28,24 @@ async function loadShop() {
     if (categoriesRes.ok) {
       const { categories } = await categoriesRes.json();
 
-      // Filter to only the 4 A Slice of G categories
+      // Filter to only the allowed A Slice of G categories
       const allowed = (categories || []).filter(cat =>
         ALLOWED_CATEGORIES.some(name => cat.name.toLowerCase().trim() === name)
       );
 
       const allowedIds = new Set(allowed.map(cat => cat.id));
 
-      // Only show items that belong to an allowed category
-      allItems = (items || []).filter(item => item.categoryId && allowedIds.has(item.categoryId));
+      // Only show items that belong to an allowed category and have a real price
+      allItems = (items || []).filter(item =>
+        item.categoryId &&
+        allowedIds.has(item.categoryId) &&
+        item.variations.some(v => v.priceCents > 0)
+      );
 
       if (allowed.length > 0) renderFilterBar(allowed);
     } else {
-      allItems = items || [];
+      // If categories can't be loaded, show nothing rather than everything
+      allItems = [];
     }
 
     renderItems(allItems);
