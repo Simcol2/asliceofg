@@ -60,7 +60,6 @@ async function loadShop() {
 const ALLOWED_CATEGORIES = [
   'rum infused bites',
   'cakes',
-  'bite sizes',
   'holiday bites',
   "g's tote",
 ];
