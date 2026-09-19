@@ -28,17 +28,22 @@ async function loadShop() {
     if (categoriesRes.ok) {
       const { categories } = await categoriesRes.json();
 
-      // Show all categories that Square returns and have at least one priced item
-      const allCats = (categories || []);
-      const catIds = new Set(allCats.map(cat => cat.id));
+      // Normalize strips invisible chars, collapses whitespace, lowercases
+      const norm = s => s.replace(/[ ​-‍﻿]/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
+
+      const allowed = (categories || []).filter(cat =>
+        ALLOWED_CATEGORIES.some(name => norm(cat.name) === name)
+      );
+
+      const allowedIds = new Set(allowed.map(cat => cat.id));
 
       allItems = (items || []).filter(item =>
         item.categoryId &&
-        catIds.has(item.categoryId) &&
+        allowedIds.has(item.categoryId) &&
         item.variations.some(v => v.priceCents > 0)
       );
 
-      if (allCats.length > 0) renderFilterBar(allCats);
+      if (allowed.length > 0) renderFilterBar(allowed);
     } else {
       allItems = (items || []).filter(item => item.variations.some(v => v.priceCents > 0));
     }
