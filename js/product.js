@@ -12,15 +12,19 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 async function loadProduct() {
-  const itemId = new URLSearchParams(window.location.search).get('id');
-  if (!itemId) { showError(); return; }
+  const params = new URLSearchParams(window.location.search);
+  const itemId = params.get('id');
+  const itemName = params.get('name');
+  if (!itemId && !itemName) { showError(); return; }
 
   try {
     const res = await fetch('/api/catalog');
     if (!res.ok) throw new Error('Catalog unavailable');
     const { items } = await res.json();
 
-    const item = items.find(i => i.id === itemId);
+    const item = itemId
+      ? items.find(i => i.id === itemId)
+      : items.find(i => i.name.toLowerCase() === decodeURIComponent(itemName).toLowerCase());
     if (!item) { showError(); return; }
 
     currentItem = item;

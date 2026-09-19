@@ -1179,27 +1179,16 @@ footer {
 
   .hero {
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     padding-top: 110px;
-    padding-bottom: 0;
-    min-height: 100svh;
-  }
-  .hero-arch {
-    display: block;
-    position: relative;
-    top: auto; right: auto;
-    transform: none;
-    width: 240px; height: 310px;
-    margin: 36px auto 0;
-    animation: none;
-    order: 2;
+    padding-bottom: 72px;
+    min-height: auto;
   }
   .hero-content {
     padding: 0 32px;
     max-width: 100%;
     text-align: center;
-    order: 1;
   }
   .hero-h1 { font-size: 52px; }
   .palm { display: none; }
