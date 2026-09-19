@@ -28,21 +28,17 @@ async function loadShop() {
     if (categoriesRes.ok) {
       const { categories } = await categoriesRes.json();
 
-      // Filter to only the allowed A Slice of G categories
-      const allowed = (categories || []).filter(cat =>
-        ALLOWED_CATEGORIES.some(name => cat.name.toLowerCase().trim() === name)
-      );
+      // Show all categories that Square returns and have at least one priced item
+      const allCats = (categories || []);
+      const catIds = new Set(allCats.map(cat => cat.id));
 
-      const allowedIds = new Set(allowed.map(cat => cat.id));
-
-      // Only show items that belong to an allowed category and have a real price
       allItems = (items || []).filter(item =>
         item.categoryId &&
-        allowedIds.has(item.categoryId) &&
+        catIds.has(item.categoryId) &&
         item.variations.some(v => v.priceCents > 0)
       );
 
-      if (allowed.length > 0) renderFilterBar(allowed);
+      if (allCats.length > 0) renderFilterBar(allCats);
     } else {
       allItems = (items || []).filter(item => item.variations.some(v => v.priceCents > 0));
     }
