@@ -43,8 +43,11 @@ export default async function handler(req, res) {
           id: item.id,
           name: data.name,
           description: data.description || '',
-          // v42: categories is an array; fall back to legacy categoryId scalar
-          categoryId: data.categories?.[0]?.id || data.categoryId || null,
+          // Collect all category IDs so items with multiple categories are found correctly
+          categoryIds: [
+            ...(data.categories || []).map(c => c.id),
+            ...(data.categoryId ? [data.categoryId] : []),
+          ].filter((id, i, arr) => id && arr.indexOf(id) === i),
           imageUrl: data.imageIds?.length ? imageMap[data.imageIds[0]] : null,
           variations: (data.variations || []).map(v => ({
             id: v.id,

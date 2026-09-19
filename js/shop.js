@@ -38,14 +38,13 @@ async function loadShop() {
       const allowedIds = new Set(allowed.map(cat => cat.id));
 
       allItems = (items || []).filter(item =>
-        item.categoryId &&
-        allowedIds.has(item.categoryId) &&
+        item.categoryIds?.some(id => allowedIds.has(id)) &&
         item.variations.some(v => v.priceCents > 0)
       );
 
       if (allowed.length > 0) renderFilterBar(allowed);
     } else {
-      allItems = (items || []).filter(item => item.variations.some(v => v.priceCents > 0));
+      allItems = (items || []).filter(item => item.categoryIds?.length && item.variations.some(v => v.priceCents > 0));
     }
 
     renderItems(allItems);
@@ -88,7 +87,7 @@ function setCategory(catId, clickedBtn) {
   clickedBtn.classList.add('active');
   const filtered = catId === 'all'
     ? allItems
-    : allItems.filter(item => item.categoryId === catId);
+    : allItems.filter(item => item.categoryIds?.includes(catId));
   renderItems(filtered);
 }
 
