@@ -62,7 +62,7 @@ const ALLOWED_CATEGORIES = [
   'cakes',
   'bite sizes',
   'holiday bites',
-  'g totes',
+  "g's tote",
 ];
 
 function renderFilterBar(allowed) {
