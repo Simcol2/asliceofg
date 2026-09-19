@@ -1624,25 +1624,6 @@ footer {
   transform: scale(1.04);
 }
 
-.thanksgiving-img-placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  color: rgba(201,169,110,0.5);
-  font-family: 'Jost', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-}
-
-.thanksgiving-img-sub {
-  font-size: 12px;
-  opacity: 0.6;
-}
 
 .thanksgiving-card-body {
   padding: 28px 32px 32px;
