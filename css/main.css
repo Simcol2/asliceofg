@@ -1690,3 +1690,194 @@ footer {
   .thanksgiving-card-body { padding: 22px 24px 26px; }
   .thanksgiving-card-title { font-size: 22px; }
 }
+
+/* ── Shop card as link ───────────────────────────────────────────────────── */
+
+a.product-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+}
+
+.product-card-view {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  transition: color 0.2s;
+}
+
+a.product-card:hover .product-card-view { color: var(--gold-light); }
+
+/* ── Product Detail Page (PDP) ───────────────────────────────────────────── */
+
+.pdp-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 108px 48px 80px;
+}
+
+.pdp-breadcrumb {
+  display: inline-block;
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  margin-bottom: 48px;
+  transition: color 0.2s;
+}
+
+.pdp-breadcrumb:hover { color: var(--gold-light); }
+
+.pdp-loading, .pdp-error {
+  padding: 120px 0;
+  text-align: center;
+  color: rgba(4,13,10,0.4);
+}
+
+.pdp-error a { color: var(--gold); }
+
+.pdp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.pdp-arch {
+  width: 100%;
+  aspect-ratio: 3/4;
+  border-radius: 200px 200px 0 0;
+  overflow: hidden;
+  background: var(--forest-mid);
+  box-shadow:
+    0 0 0 4px rgba(201,169,110,0.18),
+    0 0 0 8px rgba(201,169,110,0.06),
+    0 40px 80px rgba(4,13,10,0.25);
+}
+
+.pdp-arch img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.pdp-arch-placeholder {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant SC', serif;
+  font-size: 80px;
+  color: rgba(201,169,110,0.25);
+}
+
+.pdp-info-col { padding-top: 20px; }
+
+.pdp-category {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.pdp-name {
+  font-family: 'Cormorant SC', serif;
+  font-size: clamp(36px, 4.5vw, 54px);
+  font-weight: 600;
+  color: var(--forest-deep);
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+
+.pdp-desc {
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgba(4,13,10,0.6);
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+.pdp-rule {
+  height: 1px;
+  background: rgba(4,13,10,0.1);
+  margin: 28px 0;
+}
+
+.pdp-var-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(4,13,10,0.45);
+  margin-bottom: 10px;
+}
+
+.pdp-select {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.pdp-bottom {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.pdp-price {
+  font-family: 'Cormorant SC', serif;
+  font-size: 42px;
+  font-weight: 600;
+  color: var(--forest-deep);
+  flex-shrink: 0;
+}
+
+.pdp-add-btn {
+  flex: 1;
+  min-width: 160px;
+  background: var(--forest-deep);
+  color: var(--gold);
+  border: none;
+  padding: 16px 32px;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background 0.22s, color 0.22s;
+}
+
+.pdp-add-btn:hover {
+  background: var(--gold);
+  color: var(--forest-deep);
+}
+
+.pdp-allergens {
+  border-top: 1px solid rgba(4,13,10,0.08);
+  padding-top: 24px;
+}
+
+@media (max-width: 900px) {
+  .pdp-grid { grid-template-columns: 1fr; gap: 40px; }
+  .pdp-arch { max-width: 360px; margin: 0 auto; }
+  .pdp-wrap { padding: 88px 24px 60px; }
+  .pdp-breadcrumb { margin-bottom: 32px; }
+  .pdp-bottom { flex-direction: column; align-items: stretch; }
+  .pdp-price { font-size: 36px; }
+  .pdp-add-btn { text-align: center; }
+}

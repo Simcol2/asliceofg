@@ -102,28 +102,15 @@ function renderItems(items) {
     const defaultVar = item.variations[0];
     if (!defaultVar) return;
 
-    const card = document.createElement('div');
+    const card = document.createElement('a');
     card.className = 'product-card';
+    card.href = `product.html?id=${encodeURIComponent(item.id)}`;
 
     const numStr = String(index + 1).padStart(2, '0');
-    const hasVariations = item.variations.length > 1;
 
     const imageHtml = item.imageUrl
       ? `<img src="${item.imageUrl}" alt="${escapeHtml(item.name)}" loading="lazy"/>`
       : `<div class="product-card-arch-placeholder">G</div>`;
-
-    const variationHtml = hasVariations
-      ? `<select class="variation-select" aria-label="Select size">
-          ${item.variations.map(v =>
-            `<option value="${v.id}"
-              data-price="${v.priceCents}"
-              data-currency="${v.currency}"
-              data-name="${escapeAttr(v.name)}">
-              ${escapeHtml(v.name)} $${(v.priceCents / 100).toFixed(2)}
-            </option>`
-          ).join('')}
-        </select>`
-      : '';
 
     card.innerHTML = `
       <div class="product-card-arch">${imageHtml}</div>
@@ -132,35 +119,12 @@ function renderItems(items) {
         <div class="product-name">${escapeHtml(item.name)}</div>
         ${item.description ? `<div class="product-desc">${escapeHtml(item.description)}</div>` : ''}
         <div class="product-rule"></div>
-        ${variationHtml}
         <div class="product-footer">
-          <div class="product-price" id="price-${item.id}">$${(defaultVar.priceCents / 100).toFixed(2)}</div>
-          <button class="btn-add-cart"
-            data-variation-id="${defaultVar.id}"
-            data-name="${escapeAttr(item.name)}"
-            data-price="${defaultVar.priceCents}"
-            data-currency="${defaultVar.currency}">
-            Add to Bag
-          </button>
+          <div class="product-price">$${(defaultVar.priceCents / 100).toFixed(2)}</div>
+          <span class="product-card-view">Shop Now</span>
         </div>
       </div>
     `;
-
-    // Sync variation select → button data + price display
-    const select = card.querySelector('.variation-select');
-    const btn = card.querySelector('.btn-add-cart');
-    const priceEl = card.querySelector(`#price-${item.id}`);
-
-    if (select) {
-      select.addEventListener('change', () => {
-        const opt = select.options[select.selectedIndex];
-        btn.dataset.variationId = opt.value;
-        btn.dataset.price = opt.dataset.price;
-        btn.dataset.currency = opt.dataset.currency;
-        btn.dataset.name = `${item.name}${opt.dataset.name !== 'Regular' ? ' ' + opt.dataset.name : ''}`;
-        if (priceEl) priceEl.textContent = `$${(parseInt(opt.dataset.price) / 100).toFixed(2)}`;
-      });
-    }
 
     grid.appendChild(card);
   });
