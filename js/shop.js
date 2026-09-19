@@ -44,8 +44,7 @@ async function loadShop() {
 
       if (allowed.length > 0) renderFilterBar(allowed);
     } else {
-      // If categories can't be loaded, show nothing rather than everything
-      allItems = [];
+      allItems = (items || []).filter(item => item.variations.some(v => v.priceCents > 0));
     }
 
     renderItems(allItems);
