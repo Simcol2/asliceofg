@@ -1519,165 +1519,567 @@ footer {
   .nav-cta { display: none; }
 }
 
-/* ── Thanksgiving Banner ─────────────────────────────────── */
+/* ============================================================
+   THANKSGIVING CAMPAIGN
+   ============================================================ */
 
-.thanksgiving-banner {
-  background-color: #FFFCF5;
-  background-image:
-    radial-gradient(circle, rgba(4,13,10,0.045) 1px, transparent 1px),
-    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(201,169,110,0.07) 0%, transparent 70%);
-  background-size: 22px 22px, 100% 100%;
-  padding: 80px 48px;
-  position: relative;
+.tg-campaign {
+  background: #F8F1E7;
+  padding: 0 0 96px;
   overflow: hidden;
 }
 
-.thanksgiving-banner::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 50% 60% at 0% 50%, rgba(201,169,110,0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 50% at 100% 30%, rgba(224,112,85,0.04) 0%, transparent 55%);
-  pointer-events: none;
-}
 
-.thanksgiving-inner {
-  max-width: 1200px;
-  margin: 0 auto;
+/* Campaign Hero */
+
+.tg-hero {
+  display: grid;
+  grid-template-columns: 48% 52%;
+  min-height: 680px;
+  background: #F8F1E7;
   position: relative;
 }
 
-.thanksgiving-header {
-  text-align: center;
-  margin-bottom: 56px;
+.tg-hero-copy {
+  padding: 82px 56px 72px max(56px, calc((100vw - 1200px) / 2));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
 }
 
-.thanksgiving-eyebrow {
-  display: inline-block;
+.tg-eyebrow-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 34px;
+}
+
+.tg-eyebrow {
   font-family: 'Jost', sans-serif;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--forest-deep);
+}
+
+.tg-eyebrow-line {
+  display: block;
+  width: 82px;
+  height: 2px;
+  background: var(--gold);
+}
+
+.tg-main-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(70px, 8vw, 116px);
+  line-height: 0.78;
+  font-weight: 600;
+  color: var(--forest-deep);
+  letter-spacing: -0.055em;
+  margin-bottom: 46px;
+}
+
+.tg-main-headline span {
+  display: block;
+  color: var(--gold);
+  font-weight: 400;
+}
+
+.tg-intro {
+  max-width: 430px;
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  line-height: 1.9;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: rgba(4, 13, 10, 0.75);
   margin-bottom: 16px;
 }
 
-.thanksgiving-headline {
-  font-family: 'Cormorant SC', serif;
-  font-size: clamp(32px, 5vw, 52px);
-  font-weight: 600;
-  color: var(--forest-deep);
-  line-height: 1.2;
+.tg-deadline {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--coral);
+  margin-bottom: 34px;
 }
 
-.thanksgiving-headline em {
-  color: var(--gold);
-  font-style: normal;
-}
-
-.thanksgiving-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-}
-
-.thanksgiving-card {
+.tg-main-cta {
+  width: fit-content;
+  min-width: 310px;
   display: flex;
-  flex-direction: column;
-  background: var(--forest-up);
-  border: 1px solid rgba(201,169,110,0.18);
-  border-radius: 4px;
-  overflow: hidden;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+
+  padding: 20px 26px;
+
+  background: var(--forest-deep);
+  color: var(--gold-light);
+
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
   text-decoration: none;
-  color: inherit;
-  transition: border-color 0.25s, transform 0.25s;
+
+  transition:
+    transform 0.22s ease,
+    background 0.22s ease;
 }
 
-.thanksgiving-card:hover {
-  border-color: rgba(201,169,110,0.45);
-  transform: translateY(-3px);
+.tg-main-cta:hover {
+  background: var(--emerald);
+  transform: translateY(-2px);
 }
 
-.thanksgiving-card-img {
-  aspect-ratio: 16/9;
+.tg-arrow {
+  font-size: 24px;
+  line-height: 1;
+}
+
+
+/* Hero Photography */
+
+.tg-hero-visual {
+  position: relative;
+  display: block;
+  min-height: 680px;
+  background: var(--forest-deep);
   overflow: hidden;
-  background: var(--forest-mid);
 }
 
-.thanksgiving-card-img img {
-  width: 100%;
-  height: 100%;
+.tg-hero-visual img {
+  position: absolute;
+  width: 92%;
+  height: 76%;
+  right: -2%;
+  bottom: 0;
   object-fit: cover;
   object-position: center;
-  transition: transform 0.4s ease;
+  z-index: 2;
 }
 
-.thanksgiving-card:hover .thanksgiving-card-img img {
-  transform: scale(1.04);
+.tg-rust-shape {
+  position: absolute;
+  width: 580px;
+  height: 580px;
+  border-radius: 50%;
+  left: -170px;
+  top: -100px;
+  background: #A94424;
+  z-index: 1;
 }
 
+.tg-hero-side-copy {
+  position: absolute;
+  right: 38px;
+  top: 72px;
+  z-index: 4;
 
-.thanksgiving-card-body {
-  padding: 28px 32px 32px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  flex: 1;
+
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.8;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-align: right;
+
+  color: var(--gold-light);
 }
 
-.thanksgiving-card-tag {
+.tg-hero-side-copy::after {
+  content: '';
+  width: 48px;
+  height: 2px;
+  background: var(--gold);
+  margin-top: 14px;
+  margin-left: auto;
+}
+
+
+/* Featured Lazy Susan */
+
+.tg-feature {
+  max-width: 1180px;
+  margin: 72px auto 18px;
+
+  display: grid;
+  grid-template-columns: 44% 56%;
+
+  background: var(--forest-deep);
+  overflow: hidden;
+  border-radius: 48px 0 48px 0;
+
+  color: white;
+  text-decoration: none;
+
+  box-shadow: 0 28px 70px rgba(4, 13, 10, 0.13);
+
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.tg-feature:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 34px 90px rgba(4, 13, 10, 0.18);
+}
+
+.tg-feature-copy {
+  padding: 58px 48px 54px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tg-product-kicker {
   font-family: 'Jost', sans-serif;
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--gold);
+  margin-bottom: 18px;
 }
 
-.thanksgiving-card-title {
-  font-family: 'Cormorant SC', serif;
-  font-size: 26px;
-  font-weight: 600;
-  color: var(--warm-white);
-  line-height: 1.2;
-}
-
-.thanksgiving-card-desc {
-  font-family: 'Jost', sans-serif;
-  font-size: 15px;
+.tg-feature-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(42px, 5vw, 68px);
   font-weight: 400;
-  color: rgba(255,252,245,0.65);
-  line-height: 1.65;
-  flex: 1;
+  line-height: 0.95;
+  color: var(--warm-white);
+  margin-bottom: 28px;
 }
 
-.thanksgiving-card-cta {
-  display: inline-block;
-  margin-top: 8px;
-  font-family: 'Jost', sans-serif;
-  font-size: 13px;
+.tg-small-rule {
+  width: 62px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 24px;
+}
+
+.tg-feature-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
   font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold);
-  border-bottom: 1px solid rgba(201,169,110,0.4);
-  padding-bottom: 2px;
-  transition: color 0.2s, border-color 0.2s;
+  line-height: 1.35;
+  color: rgba(255, 252, 245, 0.78);
+  margin-bottom: 34px;
 }
 
-.thanksgiving-card:hover .thanksgiving-card-cta {
+.tg-feature-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: fit-content;
+
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
   color: var(--gold-light);
-  border-color: var(--gold-light);
+  border-bottom: 1px solid rgba(224, 196, 138, 0.6);
+  padding-bottom: 6px;
 }
+
+.tg-feature-link span {
+  font-size: 20px;
+}
+
+.tg-feature-image {
+  position: relative;
+  min-height: 500px;
+  overflow: hidden;
+
+  border-radius: 260px 0 0 260px;
+}
+
+.tg-feature-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 500px;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+
+  transition: transform 0.45s ease;
+}
+
+.tg-feature:hover .tg-feature-image img {
+  transform: scale(1.025);
+}
+
+
+/* Treat Box */
+
+.tg-treat {
+  max-width: 1180px;
+  margin: 18px auto 0;
+
+  display: grid;
+  grid-template-columns: 48% 34% 18%;
+
+  min-height: 360px;
+
+  background: #EFE0CF;
+  color: var(--forest-deep);
+  text-decoration: none;
+
+  overflow: hidden;
+  border-radius: 0 48px 0 48px;
+
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease;
+}
+
+.tg-treat:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 30px 80px rgba(4, 13, 10, 0.13);
+}
+
+.tg-treat-image {
+  overflow: hidden;
+}
+
+.tg-treat-image img {
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+  object-fit: cover;
+  display: block;
+
+  transition: transform 0.45s ease;
+}
+
+.tg-treat:hover .tg-treat-image img {
+  transform: scale(1.025);
+}
+
+.tg-treat-copy {
+  padding: 46px 38px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tg-treat-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(40px, 4vw, 58px);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--forest-deep);
+  margin-bottom: 20px;
+}
+
+.tg-treat-desc {
+  font-family: 'Jost', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(4, 13, 10, 0.7);
+  margin-bottom: 28px;
+}
+
+.tg-feature-link-dark {
+  color: var(--forest-deep);
+  border-color: rgba(4, 13, 10, 0.35);
+}
+
+.tg-treat-shape {
+  background: #A94424;
+  color: var(--gold-light);
+
+  border-radius: 180px 0 0 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 34px 20px;
+}
+
+.tg-treat-shape span {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 2;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+
+/* Tablet */
+
+@media (max-width: 1000px) {
+
+  .tg-hero {
+    grid-template-columns: 52% 48%;
+  }
+
+  .tg-hero-copy {
+    padding-left: 40px;
+    padding-right: 36px;
+  }
+
+  .tg-main-headline {
+    font-size: 74px;
+  }
+
+  .tg-feature,
+  .tg-treat {
+    margin-left: 28px;
+    margin-right: 28px;
+  }
+
+}
+
+
+/* Mobile */
 
 @media (max-width: 768px) {
-  .thanksgiving-banner { padding: 60px 24px; }
-  .thanksgiving-header { margin-bottom: 40px; }
-  .thanksgiving-cards { grid-template-columns: 1fr; gap: 24px; }
-  .thanksgiving-card-body { padding: 22px 24px 26px; }
-  .thanksgiving-card-title { font-size: 22px; }
+
+  .tg-campaign {
+    padding-bottom: 64px;
+  }
+
+  .tg-hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .tg-hero-copy {
+    padding: 58px 30px 28px;
+  }
+
+  .tg-eyebrow-row {
+    margin-bottom: 28px;
+  }
+
+  .tg-main-headline {
+    font-size: clamp(66px, 20vw, 92px);
+    line-height: 0.82;
+    margin-bottom: 36px;
+  }
+
+  .tg-intro {
+    font-size: 12px;
+    line-height: 1.85;
+    letter-spacing: 0.16em;
+    max-width: 310px;
+  }
+
+  .tg-deadline {
+    font-size: 11px;
+  }
+
+  .tg-main-cta {
+    width: 100%;
+    min-width: 0;
+    padding: 19px 22px;
+  }
+
+  .tg-hero-visual {
+    min-height: 470px;
+    margin-left: 28px;
+  }
+
+  .tg-hero-visual img {
+    width: 100%;
+    height: 82%;
+    right: 0;
+  }
+
+  .tg-rust-shape {
+    width: 380px;
+    height: 380px;
+    left: -130px;
+    top: -70px;
+  }
+
+  .tg-hero-side-copy {
+    right: 24px;
+    top: 26px;
+    font-size: 9px;
+  }
+
+
+  /* Lazy Susan mobile */
+
+  .tg-feature {
+    display: flex;
+    flex-direction: column;
+    margin: 34px 22px 14px;
+    border-radius: 34px 0 34px 0;
+  }
+
+  .tg-feature-copy {
+    padding: 42px 34px 34px;
+  }
+
+  .tg-feature-title {
+    font-size: 46px;
+  }
+
+  .tg-feature-tagline {
+    font-size: 22px;
+  }
+
+  .tg-feature-image {
+    min-height: 300px;
+    border-radius: 180px 0 0 0;
+    margin-left: 24px;
+  }
+
+  .tg-feature-image img {
+    min-height: 300px;
+  }
+
+
+  /* Treat Box mobile */
+
+  .tg-treat {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 14px 22px 0;
+    border-radius: 0 34px 0 34px;
+  }
+
+  .tg-treat-image {
+    min-height: 260px;
+  }
+
+  .tg-treat-image img {
+    min-height: 260px;
+  }
+
+  .tg-treat-copy {
+    padding: 38px 32px 36px;
+  }
+
+  .tg-treat-title {
+    font-size: 46px;
+  }
+
+  .tg-treat-shape {
+    border-radius: 120px 0 0 0;
+    min-height: 160px;
+  }
+
 }
 
 /* ── Shop card as link ───────────────────────────────────────────────────── */

@@ -18,7 +18,7 @@
   <meta name="twitter:image" content="https://asliceofg.com/public/images/rumcake.png"/>
   <link rel="canonical" href="https://asliceofg.com/"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/main.css?v=13"/>
+  <link rel="stylesheet" href="css/main.css?v=14"/>
   <link rel="icon" href="/public/images/logo.png" type="image/png"/>
   <link rel="apple-touch-icon" href="/public/images/icon-192.png"/>
   <link rel="manifest" href="/manifest.json"/>
@@ -116,38 +116,147 @@
 
   </section>
 
-  <!-- ── Thanksgiving Banner ──────────────────────────────── -->
-  <section class="thanksgiving-banner">
-    <div class="thanksgiving-inner">
-      <div class="thanksgiving-header">
-        <span class="thanksgiving-eyebrow">Limited Time</span>
-        <h2 class="thanksgiving-headline">Thanksgiving is coming.<br><em>Bring the good stuff.</em></h2>
-      </div>
-      <div class="thanksgiving-cards">
-        <a href="product.html?name=Thanksgiving+Lazy+Susan+Centerpiece" class="thanksgiving-card">
-          <div class="thanksgiving-card-img thanksgiving-card-img--centerpiece">
-            <img src="/public/images/centerpiece.jpg" alt="Thanksgiving Lazy Susan Centerpiece - rum-infused bites with fall floral arrangement"/>
-          </div>
-          <div class="thanksgiving-card-body">
-            <span class="thanksgiving-card-tag">Rum Infused Bites</span>
-            <h3 class="thanksgiving-card-title">Thanksgiving Lazy Susan Centerpiece</h3>
-            <p class="thanksgiving-card-desc">The showstopper your table deserves. Rum-infused bites arranged beautifully with a fall floral centerpiece.</p>
-            <span class="thanksgiving-card-cta">Shop Now</span>
-          </div>
+  <!-- Thanksgiving Campaign -->
+  <section class="tg-campaign">
+
+    <!-- Campaign Hero -->
+    <div class="tg-hero">
+
+      <div class="tg-hero-copy">
+        <div class="tg-eyebrow-row">
+          <span class="tg-eyebrow">Thanksgiving Drop</span>
+          <span class="tg-eyebrow-line"></span>
+        </div>
+
+        <h2 class="tg-main-headline">
+          Bring
+          <span>the good</span>
+          stuff.
+        </h2>
+
+        <p class="tg-intro">
+          Rum cakes, treats and centrepieces for a more delicious Thanksgiving.
+        </p>
+
+        <p class="tg-deadline">
+          Pre-orders close October 6
+        </p>
+
+        <a href="shop.html" class="tg-main-cta">
+          <span>Shop Thanksgiving</span>
+          <span class="tg-arrow">→</span>
         </a>
-        <a href="product.html?name=Treats+Box" class="thanksgiving-card thanksgiving-card--treat">
-          <div class="thanksgiving-card-img thanksgiving-card-img--treats">
-            <img src="/public/images/treatbox.png" alt="A Slice of G Treats Box - Thanksgiving gift box with rum cake treats"/>
-          </div>
-          <div class="thanksgiving-card-body">
-            <span class="thanksgiving-card-tag">Gift Sets</span>
-            <h3 class="thanksgiving-card-title">Treats Box</h3>
-            <p class="thanksgiving-card-desc">Perfectly curated boxes to share the love. Ideal for hosts, coworkers, and everyone who deserves a sweet thank you.</p>
-            <span class="thanksgiving-card-cta">Shop Now</span>
-          </div>
-        </a>
       </div>
+
+      <a
+        href="product.html?name=Thanksgiving+Lazy+Susan+Centerpiece"
+        class="tg-hero-visual"
+        aria-label="Shop the Thanksgiving Lazy Susan Centerpiece"
+      >
+        <div class="tg-rust-shape"></div>
+
+        <img
+          src="/public/images/centerpiece.jpg"
+          alt="Thanksgiving Lazy Susan Centerpiece with rum-infused bites and fall florals"
+        />
+
+        <div class="tg-hero-side-copy">
+          <span>Good food</span>
+          <span>brings us</span>
+          <span>closer.</span>
+        </div>
+      </a>
+
     </div>
+
+
+    <!-- Lazy Susan Feature -->
+    <a
+      href="product.html?name=Thanksgiving+Lazy+Susan+Centerpiece"
+      class="tg-feature"
+    >
+      <div class="tg-feature-copy">
+
+        <span class="tg-product-kicker">
+          The Thanksgiving
+        </span>
+
+        <h3 class="tg-feature-title">
+          Lazy Susan<br>
+          Centerpiece
+        </h3>
+
+        <div class="tg-small-rule"></div>
+
+        <p class="tg-feature-tagline">
+          Unbutton your pants.<br>
+          Spin the good stuff your way.
+        </p>
+
+        <span class="tg-feature-link">
+          Shop the Centerpiece
+          <span>→</span>
+        </span>
+
+      </div>
+
+      <div class="tg-feature-image">
+        <img
+          src="/public/images/centerpiece.jpg"
+          alt="Thanksgiving Lazy Susan Centerpiece"
+          loading="lazy"
+        />
+      </div>
+    </a>
+
+
+    <!-- Treat Box Feature -->
+    <a
+      href="product.html?name=Treats+Box"
+      class="tg-treat"
+    >
+
+      <div class="tg-treat-image">
+        <img
+          src="/public/images/treatbox.png"
+          alt="A Slice of G Thanksgiving Treat Box"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="tg-treat-copy">
+
+        <span class="tg-product-kicker">
+          The Thanksgiving
+        </span>
+
+        <h3 class="tg-treat-title">
+          Treat Box
+        </h3>
+
+        <p class="tg-treat-desc">
+          A curated box of rum cake treats made for hosts, guests and people
+          pretending they were only going to have one.
+        </p>
+
+        <span class="tg-feature-link tg-feature-link-dark">
+          Shop the Treat Box
+          <span>→</span>
+        </span>
+
+      </div>
+
+      <div class="tg-treat-shape">
+        <span>
+          Bring<br>
+          dessert.<br>
+          Get invited<br>
+          back.
+        </span>
+      </div>
+
+    </a>
+
   </section>
 
   <section class="intro">
