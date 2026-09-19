@@ -189,6 +189,7 @@ footer {
 }
 
 .hero-arch {
+  display: none; /* hidden — restore by removing this line */
   position: absolute; right: 6%; top: 50%;
   transform: translateY(-50%);
   width: 400px; height: 540px;
@@ -1532,7 +1533,11 @@ footer {
 /* ── Thanksgiving Banner ─────────────────────────────────── */
 
 .thanksgiving-banner {
-  background: var(--forest-deep);
+  background-color: #FFFCF5;
+  background-image:
+    radial-gradient(circle, rgba(4,13,10,0.045) 1px, transparent 1px),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(201,169,110,0.07) 0%, transparent 70%);
+  background-size: 22px 22px, 100% 100%;
   padding: 80px 48px;
   position: relative;
   overflow: hidden;
@@ -1543,8 +1548,8 @@ footer {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 80% at 10% 50%, rgba(201,169,110,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 40% 60% at 90% 30%, rgba(224,112,85,0.06) 0%, transparent 55%);
+    radial-gradient(ellipse 50% 60% at 0% 50%, rgba(201,169,110,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 100% 30%, rgba(224,112,85,0.04) 0%, transparent 55%);
   pointer-events: none;
 }
 
@@ -1574,7 +1579,7 @@ footer {
   font-family: 'Cormorant SC', serif;
   font-size: clamp(32px, 5vw, 52px);
   font-weight: 600;
-  color: var(--warm-white);
+  color: var(--forest-deep);
   line-height: 1.2;
 }
 
