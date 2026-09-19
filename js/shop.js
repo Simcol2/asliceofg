@@ -56,6 +56,7 @@ const ALLOWED_CATEGORIES = [
   'cakes',
   'cookies',
   'bite sizes',
+  'holiday bites',
   'g totes',
 ];
 
