@@ -1789,6 +1789,7 @@ a.product-card:hover .product-card-view { color: var(--gold-light); }
   color: rgba(4,13,10,0.6);
   line-height: 1.7;
   margin-bottom: 0;
+  white-space: pre-line;
 }
 
 .pdp-rule {
