@@ -61,7 +61,6 @@ const ALLOWED_CATEGORIES = [
   'rum infused bites',
   'cakes',
   'holiday bites',
-  "g's tote",
 ];
 
 function renderFilterBar(allowed) {
