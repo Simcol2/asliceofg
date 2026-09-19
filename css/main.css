@@ -1528,3 +1528,179 @@ footer {
   .nav-hamburger { display: flex; }
   .nav-cta { display: none; }
 }
+
+/* ── Thanksgiving Banner ─────────────────────────────────── */
+
+.thanksgiving-banner {
+  background: var(--forest-deep);
+  padding: 80px 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.thanksgiving-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 10% 50%, rgba(201,169,110,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 90% 30%, rgba(224,112,85,0.06) 0%, transparent 55%);
+  pointer-events: none;
+}
+
+.thanksgiving-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.thanksgiving-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.thanksgiving-eyebrow {
+  display: inline-block;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+
+.thanksgiving-headline {
+  font-family: 'Cormorant SC', serif;
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 600;
+  color: var(--warm-white);
+  line-height: 1.2;
+}
+
+.thanksgiving-headline em {
+  color: var(--gold);
+  font-style: normal;
+}
+
+.thanksgiving-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.thanksgiving-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--forest-up);
+  border: 1px solid rgba(201,169,110,0.18);
+  border-radius: 4px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.thanksgiving-card:hover {
+  border-color: rgba(201,169,110,0.45);
+  transform: translateY(-3px);
+}
+
+.thanksgiving-card-img {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--forest-mid);
+}
+
+.thanksgiving-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.4s ease;
+}
+
+.thanksgiving-card:hover .thanksgiving-card-img img {
+  transform: scale(1.04);
+}
+
+.thanksgiving-img-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: rgba(201,169,110,0.5);
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.thanksgiving-img-sub {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.thanksgiving-card-body {
+  padding: 28px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.thanksgiving-card-tag {
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.thanksgiving-card-title {
+  font-family: 'Cormorant SC', serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--warm-white);
+  line-height: 1.2;
+}
+
+.thanksgiving-card-desc {
+  font-family: 'Jost', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(255,252,245,0.65);
+  line-height: 1.65;
+  flex: 1;
+}
+
+.thanksgiving-card-cta {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid rgba(201,169,110,0.4);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.thanksgiving-card:hover .thanksgiving-card-cta {
+  color: var(--gold-light);
+  border-color: var(--gold-light);
+}
+
+@media (max-width: 768px) {
+  .thanksgiving-banner { padding: 60px 24px; }
+  .thanksgiving-header { margin-bottom: 40px; }
+  .thanksgiving-cards { grid-template-columns: 1fr; gap: 24px; }
+  .thanksgiving-card-body { padding: 22px 24px 26px; }
+  .thanksgiving-card-title { font-size: 22px; }
+}
