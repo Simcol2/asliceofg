@@ -60,6 +60,7 @@ const ALLOWED_CATEGORIES = [
   'rum infused bites',
   'cakes',
   'holiday bites',
+  'gift wrap accessories',
 ];
 
 function renderFilterBar(allowed) {
