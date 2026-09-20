@@ -112,12 +112,14 @@ function renderItems(items) {
 
     const numStr = String(index + 1).padStart(2, '0');
 
+    const isFlat = item.categoryIds?.some(id => id === 'UTNTK572SXYNFCXC4OG24QPX');
+
     const imageHtml = item.imageUrl
       ? `<img src="${item.imageUrl}" alt="${escapeHtml(item.name)}" loading="lazy"/>`
       : `<div class="product-card-arch-placeholder">G</div>`;
 
     card.innerHTML = `
-      <div class="product-card-arch">${imageHtml}</div>
+      <div class="product-card-arch${isFlat ? ' product-card-arch--flat' : ''}">${imageHtml}</div>
       <div class="product-card-body">
         <span class="product-number">No. ${numStr}</span>
         <div class="product-name">${escapeHtml(item.name)}</div>
