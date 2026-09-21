@@ -547,6 +547,13 @@ footer {
 .product-card-arch--flat {
   border-radius: 4px;
   aspect-ratio: 1 / 1;
+  background: #f5f0ea;
+  margin: 0;
+}
+
+.product-card-arch--flat img {
+  object-fit: contain;
+  padding: 12px;
 }
 
 .product-card-arch-placeholder {
