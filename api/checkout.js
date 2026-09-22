@@ -97,6 +97,7 @@ export default async function handler(req, res) {
         ...(orderNote ? { referenceId: orderNote.slice(0, 40), note: orderNote } : {}),
       },
       checkoutOptions: {
+        redirectUrl: 'https://asliceofg.com/confirmation.html',
         enableCoupon: false,
         enableLoyalty: false,
         acceptedPaymentMethods: {

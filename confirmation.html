@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Order Confirmed | A Slice of G</title>
+  <meta name="robots" content="noindex"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/main.css?v=16"/>
+  <link rel="icon" href="/public/images/logo.png" type="image/png"/>
+  <meta name="theme-color" content="#040D0A"/>
+  <script src="https://apis.google.com/js/platform.js?onload=renderOptIn" async defer></script>
+</head>
+<body class="page-confirmation">
+
+  <nav>
+    <a href="index.html" class="nav-logo">A Slice of G</a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop All</a></li>
+      <li><a href="catering.html">Catering</a></li>
+      <li><a href="gifting.html">Corporate Gifting</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="https://www.instagram.com/_sliceofg/" target="_blank">Instagram</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-right"></div>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="nav-mobile-menu" id="nav-mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+    <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">✕</button>
+    <a href="shop.html">Shop All</a>
+    <a href="catering.html">Catering</a>
+    <a href="gifting.html">Corporate Gifting</a>
+    <a href="about.html">About</a>
+    <a href="https://www.instagram.com/_sliceofg/" target="_blank">Instagram</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <section class="confirmation-section">
+    <div class="confirmation-inner">
+      <div class="confirmation-icon">✓</div>
+      <h1 class="confirmation-title">Order Confirmed</h1>
+      <p class="confirmation-sub">Thank you for your order. You'll receive a confirmation email shortly.</p>
+      <a href="shop.html" class="btn-gold confirmation-cta">Continue Shopping</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">A Slice of G</div>
+    <div class="footer-center">
+      <div class="footer-slogan">Not all rum cakes wear black.</div>
+      <div class="footer-tag">Small Batch · WHAT SWEET YUH</div>
+      <div class="footer-tagline">Every cake is her. Every slice is for you.<br>Made with rum and love.</div>
+    </div>
+    <div class="footer-right">
+      <a href="mailto:order@asliceofg.com">order@asliceofg.com</a><br>
+      asliceofg.com
+    </div>
+  </footer>
+
+  <script src="/js/nav.js"></script>
+  <script>
+    window.renderOptIn = function() {
+      const params = new URLSearchParams(window.location.search);
+      const orderId = params.get('orderId') || '';
+
+      if (!orderId) return;
+
+      fetch('/api/order-confirm?orderId=' + encodeURIComponent(orderId))
+        .then(r => r.ok ? r.json() : null)
+        .then(data => {
+          if (!data || !data.email) return;
+          window.gapi.load('surveyoptin', function() {
+            window.gapi.surveyoptin.render({
+              "merchant_id": 5856492635,
+              "order_id": data.orderId,
+              "email": data.email,
+              "delivery_country": data.country || 'CA',
+              "estimated_delivery_date": data.estimatedDeliveryDate,
+            });
+          });
+        })
+        .catch(() => {});
+    };
+  </script>
+</body>
+</html>
