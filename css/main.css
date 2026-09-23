@@ -2181,12 +2181,12 @@ a.product-card:hover .product-card-view { color: var(--gold-light); }
   width: 100%;
 }
 .pdp-slide {
-  display: none;
+  display: none !important;
   width: 100%;
   height: auto;
 }
 .pdp-slide.active {
-  display: block;
+  display: block !important;
 }
 .pdp-slide-btn {
   position: absolute;
