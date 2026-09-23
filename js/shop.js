@@ -31,9 +31,9 @@ async function loadShop() {
       // Normalize strips invisible chars, collapses whitespace, lowercases
       const norm = s => s.replace(/[ ​-‍﻿]/g, ' ').replace(/\s+/g, ' ').trim().toLowerCase();
 
-      const allowed = (categories || []).filter(cat =>
-        ALLOWED_CATEGORIES.some(name => norm(cat.name) === name)
-      );
+      const allowed = (categories || [])
+        .filter(cat => ALLOWED_CATEGORIES.some(name => norm(cat.name) === name))
+        .sort((a, b) => ALLOWED_CATEGORIES.indexOf(norm(a.name)) - ALLOWED_CATEGORIES.indexOf(norm(b.name)));
 
       const allowedIds = new Set(allowed.map(cat => cat.id));
 
@@ -57,11 +57,11 @@ async function loadShop() {
 
 // ─── Filter Bar ───────────────────────────────────────────────────────────────
 const ALLOWED_CATEGORIES = [
-  'rum infused bites',
-  'cakes',
   'cookies',
+  'cakes',
   'holiday bites',
   'gift wrap accessories',
+  'rum infused bites',
 ];
 
 function renderFilterBar(allowed) {
