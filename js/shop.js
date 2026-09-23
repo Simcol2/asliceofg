@@ -59,6 +59,7 @@ async function loadShop() {
 const ALLOWED_CATEGORIES = [
   'rum infused bites',
   'cakes',
+  'cookies',
   'holiday bites',
   'gift wrap accessories',
 ];
