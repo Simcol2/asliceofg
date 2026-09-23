@@ -11,7 +11,10 @@ export default async function handler(req, res) {
     const r = await fetch(url);
     const data = await r.json();
 
-    if (data.status !== 'OK') throw new Error(data.status);
+    if (data.status !== 'OK') {
+      console.error('Google Places status:', data.status, data.error_message || '');
+      return res.status(500).json({ error: data.status, detail: data.error_message || '' });
+    }
 
     const reviews = (data.result.reviews || [])
       .filter(rv => rv.rating >= 4)
@@ -32,6 +35,6 @@ export default async function handler(req, res) {
     });
   } catch (err) {
     console.error('Reviews error:', err);
-    return res.status(500).json({ error: 'Failed to fetch reviews' });
+    return res.status(500).json({ error: err.message });
   }
 }
