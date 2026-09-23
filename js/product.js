@@ -48,9 +48,36 @@ function renderProduct(item) {
   document.getElementById('pdp-inner').style.display = 'block';
 
   const archEl = document.getElementById('pdp-arch');
-  archEl.innerHTML = item.imageUrl
-    ? `<img src="${escapeAttr(item.imageUrl)}" alt="${escapeAttr(item.name)}" />`
-    : `<div class="pdp-arch-placeholder">G</div>`;
+  const imgs = item.imageUrls?.length ? item.imageUrls : (item.imageUrl ? [item.imageUrl] : []);
+  if (!imgs.length) {
+    archEl.innerHTML = `<div class="pdp-arch-placeholder">G</div>`;
+  } else if (imgs.length === 1) {
+    archEl.innerHTML = `<img src="${escapeAttr(imgs[0])}" alt="${escapeAttr(item.name)}" />`;
+  } else {
+    archEl.innerHTML = `
+      <div class="pdp-slideshow">
+        ${imgs.map((url, i) => `<img src="${escapeAttr(url)}" alt="${escapeAttr(item.name)} ${i + 1}" class="pdp-slide${i === 0 ? ' active' : ''}" />`).join('')}
+        <button class="pdp-slide-btn pdp-slide-prev" aria-label="Previous image">&#8249;</button>
+        <button class="pdp-slide-btn pdp-slide-next" aria-label="Next image">&#8250;</button>
+        <div class="pdp-slide-dots">
+          ${imgs.map((_, i) => `<button class="pdp-dot${i === 0 ? ' active' : ''}" data-index="${i}" aria-label="Image ${i + 1}"></button>`).join('')}
+        </div>
+      </div>
+    `;
+    let current = 0;
+    const slides = archEl.querySelectorAll('.pdp-slide');
+    const dots = archEl.querySelectorAll('.pdp-dot');
+    const goTo = n => {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (n + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    };
+    archEl.querySelector('.pdp-slide-prev').addEventListener('click', () => goTo(current - 1));
+    archEl.querySelector('.pdp-slide-next').addEventListener('click', () => goTo(current + 1));
+    dots.forEach(dot => dot.addEventListener('click', () => goTo(parseInt(dot.dataset.index, 10))));
+  }
 
   document.getElementById('pdp-name').textContent = item.name;
 

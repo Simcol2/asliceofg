@@ -49,6 +49,7 @@ export default async function handler(req, res) {
             ...(data.categoryId ? [data.categoryId] : []),
           ].filter((id, i, arr) => id && arr.indexOf(id) === i),
           imageUrl: data.imageIds?.length ? imageMap[data.imageIds[0]] : null,
+          imageUrls: (data.imageIds || []).map(id => imageMap[id]).filter(Boolean),
           variations: (data.variations || []).map(v => ({
             id: v.id,
             name: v.itemVariationData?.name || 'Regular',

@@ -2175,6 +2175,63 @@ a.product-card:hover .product-card-view { color: var(--gold-light); }
   color: rgba(201,169,110,0.25);
 }
 
+/* ── Product Slideshow ───────────────────────────────── */
+.pdp-slideshow {
+  position: relative;
+  width: 100%;
+}
+.pdp-slide {
+  display: none;
+  width: 100%;
+  height: auto;
+}
+.pdp-slide.active {
+  display: block;
+}
+.pdp-slide-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(4,13,10,0.55);
+  border: none;
+  color: var(--gold);
+  font-size: 32px;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  z-index: 2;
+}
+.pdp-slide-btn:hover { background: rgba(4,13,10,0.85); }
+.pdp-slide-prev { left: 12px; }
+.pdp-slide-next { right: 12px; }
+.pdp-slide-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  z-index: 2;
+}
+.pdp-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.45);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+.pdp-dot.active,
+.pdp-dot:hover { background: var(--gold); }
+
 .pdp-info-col { padding-top: 20px; }
 
 .pdp-category {
