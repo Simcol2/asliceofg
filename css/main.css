@@ -1399,10 +1399,11 @@ footer {
 .reviews-header { text-align: center; margin-bottom: 48px; }
 
 .reviews-eyebrow {
-  font-family: 'Jost', sans-serif;
-  font-size: 13px; font-weight: 700;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--gold); display: block; margin-bottom: 14px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 38px; font-weight: 400;
+  letter-spacing: 0; text-transform: none;
+  color: var(--forest-deep); display: block; margin-bottom: 18px;
+  line-height: 1.2;
 }
 
 .reviews-rating-row {
