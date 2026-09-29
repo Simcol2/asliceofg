@@ -18,7 +18,7 @@
   <meta name="twitter:image" content="https://asliceofg.com/public/images/rumcake.png"/>
   <link rel="canonical" href="https://asliceofg.com/"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/main.css?v=16"/>
+  <link rel="stylesheet" href="css/main.css?v=19"/>
   <link rel="icon" href="/public/images/logo.png" type="image/png"/>
   <link rel="apple-touch-icon" href="/public/images/icon-192.png"/>
   <link rel="manifest" href="/manifest.json"/>
@@ -318,6 +318,7 @@
       <div class="reviews-grid" id="reviews-grid">
         <div class="reviews-loading">Loading reviews…</div>
       </div>
+      <div class="reviews-dots" id="reviews-dots"></div>
       <a href="https://share.google/0AhGjkr6QeOvay7lu" target="_blank" rel="noopener" class="reviews-cta">
         See All Reviews on Google
       </a>
@@ -387,11 +388,13 @@
       const scoreEl = document.getElementById('reviews-score');
       const countEl = document.getElementById('reviews-count');
       const gridEl  = document.getElementById('reviews-grid');
+      const dotsEl  = document.getElementById('reviews-dots');
       if (scoreEl && rating) scoreEl.textContent = rating.toFixed(1);
       if (countEl && totalRatings) countEl.textContent = `${totalRatings} Google reviews`;
       if (!reviews?.length) { gridEl.innerHTML = ''; return; }
-      gridEl.innerHTML = reviews.map(rv => `
-        <div class="review-card">
+
+      gridEl.innerHTML = reviews.map((rv, i) => `
+        <div class="review-card${i === 0 ? ' active' : ''}">
           <div class="review-card-top">
             <div class="review-author-info">
               ${rv.avatar ? `<img src="${rv.avatar}" alt="${rv.author}" class="review-avatar" loading="lazy"/>` : `<div class="review-avatar-placeholder">${rv.author.charAt(0)}</div>`}
@@ -402,8 +405,32 @@
             </div>
             <div class="review-stars">${'★'.repeat(rv.rating)}${'☆'.repeat(5 - rv.rating)}</div>
           </div>
-          <p class="review-text">${rv.text.length > 180 ? rv.text.slice(0, 180) + '…' : rv.text}</p>
+          <p class="review-text">${rv.text.length > 220 ? rv.text.slice(0, 220) + '…' : rv.text}</p>
         </div>`).join('');
+
+      if (dotsEl && reviews.length > 1) {
+        dotsEl.innerHTML = reviews.map((_, i) =>
+          `<button class="reviews-dot${i === 0 ? ' active' : ''}" data-index="${i}" aria-label="Review ${i + 1}"></button>`
+        ).join('');
+      }
+
+      let current = 0;
+      const cards = gridEl.querySelectorAll('.review-card');
+      const dots  = dotsEl ? dotsEl.querySelectorAll('.reviews-dot') : [];
+
+      function goTo(n) {
+        cards[current].classList.remove('active');
+        if (dots[current]) dots[current].classList.remove('active');
+        current = (n + cards.length) % cards.length;
+        cards[current].classList.add('active');
+        if (dots[current]) dots[current].classList.add('active');
+      }
+
+      dots.forEach(dot => dot.addEventListener('click', () => goTo(parseInt(dot.dataset.index, 10))));
+
+      let timer = setInterval(() => goTo(current + 1), 5000);
+      gridEl.addEventListener('mouseenter', () => clearInterval(timer));
+      gridEl.addEventListener('mouseleave', () => { timer = setInterval(() => goTo(current + 1), 5000); });
     }).catch(() => {
       document.getElementById('reviews-grid').innerHTML = '';
     });
