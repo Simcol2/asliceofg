@@ -11,14 +11,24 @@ export default async function handler(req, res) {
     const r = await fetch(url, {
       headers: {
         'X-Goog-Api-Key': key,
-        'X-Goog-FieldMask': 'rating,userRatingCount,reviews',
+        'X-Goog-FieldMask': [
+          'rating',
+          'userRatingCount',
+          'reviews.rating',
+          'reviews.text',
+          'reviews.originalText',
+          'reviews.authorAttribution',
+          'reviews.relativePublishTimeDescription',
+        ].join(','),
       },
     });
 
     const data = await r.json();
+    console.log('Places keys:', Object.keys(data));
+    console.log('Reviews returned:', data.reviews?.length ?? 'field missing');
 
     if (!r.ok) {
-      console.error('Google Places (New) error:', JSON.stringify(data));
+      console.error('Google Places error:', JSON.stringify(data));
       return res.status(500).json({ error: data.error?.message || 'Places API error' });
     }
 
@@ -31,10 +41,9 @@ export default async function handler(req, res) {
         rating: rv.rating,
         text:   rv.text?.text || rv.originalText?.text || '',
         time:   rv.relativePublishTimeDescription || '',
-      }))
-      .filter(rv => rv.text);
+      }));
 
-    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+    res.setHeader('Cache-Control', 'no-store');
     return res.status(200).json({
       reviews,
       rating:       data.rating,
