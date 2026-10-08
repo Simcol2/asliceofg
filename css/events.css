@@ -612,3 +612,67 @@ body.page-events::after{content:"";position:fixed;inset:0;z-index:-1;pointer-eve
    max-width:225px!important;
  }
 }
+
+
+/* ASG mobile cart text clearance and SEO navigation repair v1 */
+/* Reserve space in the normal text flow. The transparent cutout stays above;
+   description and CTAs start below its wheels, without changing desktop. */
+@media (max-width: 539px) {
+  .page-events .ev-mcm-hero .ev-hero-copy > h1 {
+    margin-bottom: 115px !important;
+  }
+}
+@media (min-width: 540px) and (max-width: 780px) {
+  .page-events .ev-mcm-hero .ev-hero-copy > h1 {
+    margin-bottom: 95px !important;
+  }
+}
+/* Present the five independent rental landing pages as tidy, tappable links. */
+.page-events .ev-seo-rental-links {
+  display:block;
+  box-sizing:border-box;
+  max-width:1190px;
+  margin:20px auto;
+  padding:20px clamp(18px,3vw,30px);
+  background:#fff9f0;
+  border:1px solid #ddc6a3;
+  border-radius:16px;
+  color:#163e30;
+}
+.page-events .ev-seo-rental-links h2 {
+  font:600 clamp(23px,2.8vw,34px)/1.15 'Playfair Display',serif;
+  margin:0 0 6px;
+}
+.page-events .ev-seo-rental-links p {
+  font:14px/1.55 'Jost',sans-serif;
+  margin:0 0 15px;
+}
+.page-events .ev-seo-rental-links > div {
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+}
+.page-events .ev-seo-rental-links a {
+  display:inline-flex;
+  align-items:center;
+  max-width:100%;
+  padding:10px 13px;
+  background:#f7ebe1;
+  border:1px solid #ddc9b4;
+  border-radius:9px;
+  color:#064d37;
+  font:600 13px/1.4 'Jost',sans-serif;
+  text-decoration:none;
+  overflow-wrap:anywhere;
+}
+.page-events .ev-seo-rental-links a:hover,
+.page-events .ev-seo-rental-links a:focus-visible {
+  background:#f5ddd3;
+  outline:2px solid #bd765d;
+  outline-offset:1px;
+}
+@media (max-width:780px) {
+  .page-events .ev-seo-rental-links {margin:16px 14px;padding:18px;}
+  .page-events .ev-seo-rental-links > div {display:grid;grid-template-columns:minmax(0,1fr);}
+  .page-events .ev-seo-rental-links a {display:block;width:100%;}
+}
