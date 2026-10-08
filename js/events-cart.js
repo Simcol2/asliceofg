@@ -267,3 +267,32 @@ document.getElementById('ev-slide-next')?.addEventListener('click',()=>{showTrea
 // Slideshow continues automatically; hovering does not stop the rotation.
 // Manual controls are optional, not required for auto-transition.
 startTreatRotation();
+
+// Portion planner only recommends a package: it never changes a customer's cart automatically.
+const evPlannerGuests=document.getElementById('ev-planner-guests');
+const evPlannerPortions=document.getElementById('ev-planner-portions');
+const evPlannerUse=document.getElementById('ev-planner-use');
+function updateEvTreatPlanner(){
+ const guests=Math.max(0,Math.floor(Number(evPlannerGuests?.value)||0));
+ const portions=Number(evPlannerPortions?.value)||1;
+ const portionsNeeded=Math.ceil(guests*portions);
+ const recommended=Math.max(50,Math.ceil(portionsNeeded/50)*50);
+ const available=guests>0&&recommended<=400;
+ document.getElementById('ev-planner-result').textContent=guests?available?`${recommended} treats`:'Custom quantity':'Enter guests';
+ document.getElementById('ev-planner-detail').textContent=guests?available?`${portionsNeeded} portions, rounded up to ${recommended}`:'Over the 400-treat package maximum; please contact us':'Enter the number of expected guests';
+ evPlannerUse.disabled=!available;
+ evPlannerUse.textContent=available?`Use ${recommended}-guest package`:'Choose another amount';
+ evPlannerUse.dataset.guests=String(recommended);
+}
+evPlannerGuests?.addEventListener('input',updateEvTreatPlanner);
+evPlannerPortions?.addEventListener('change',updateEvTreatPlanner);
+evPlannerUse?.addEventListener('click',()=>{
+ const recommended=Number(evPlannerUse.dataset.guests);
+ if(!Number.isInteger(recommended)||recommended<50||recommended>400)return;
+ document.getElementById('ev-package-guests').value=String(recommended);
+ document.querySelector('[data-sweet-choice="treats"]')?.click();
+ document.getElementById('ev-package-guests').value=String(recommended);
+ displayPackage();
+ document.getElementById('ev-package-config').scrollIntoView({behavior:'smooth',block:'start'});
+});
+updateEvTreatPlanner();

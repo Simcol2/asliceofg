@@ -171,3 +171,29 @@ body.ev-wall-detail-open{overflow:hidden}
 .ev-wall-detail-note,.ev-wall-detail-delivery{font-size:12px!important;color:#625e55}
 .ev-wall-detail-delivery{margin-top:14px}
 @media(max-width:600px){.ev-wall-detail-box{padding:23px 18px}.ev-wall-detail-photos img{height:155px}.ev-wall-detail-bottom{gap:10px;flex-wrap:wrap}}
+
+/* Events offer clarity, time policy and low-friction portion planner */
+.page-events .ev-hero-pricing{margin-top:16px;font:600 13px/1.5 'Jost',sans-serif;color:var(--gold-light)}
+.page-events .ev-how-section{background:#fffdf7;padding:65px max(5vw,25px);color:#143f2e}
+.page-events .ev-how-section>h2{font:600 clamp(32px,4vw,52px)/1.14 'Playfair Display',serif;margin:8px 0 30px}
+.page-events .ev-how-section>h2 em{font-weight:400;color:#235f48}
+.page-events .ev-how-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.page-events .ev-how-grid article{padding:22px 17px;border-top:3px solid #0e4731;background:#f6f0e7}
+.page-events .ev-how-grid article>span{font:700 12px 'Jost',sans-serif;color:#c66e56;letter-spacing:.12em}
+.page-events .ev-how-grid h3{font:600 21px 'Playfair Display',serif;margin:10px 0 8px}
+.page-events .ev-how-grid p,.page-events .ev-how-notes p{font:14px/1.6 'Jost',sans-serif;margin:0}
+.page-events .ev-how-notes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 28px;margin-top:24px}
+.page-events .ev-how-notes p{padding-left:14px;border-left:2px solid #d7b77a}
+.page-events .ev-treat-planner{max-width:1160px;margin:15px auto 30px;padding:25px;display:grid;grid-template-columns:1fr 1.2fr;gap:22px;background:#f6f0e7;color:#143f2d}
+.page-events .ev-treat-planner h3{font:600 28px 'Playfair Display',serif;margin:7px 0 10px}
+.page-events .ev-treat-planner p{font:14px/1.55 'Jost',sans-serif}
+.page-events .ev-planner-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end}
+.page-events .ev-planner-fields label{font:600 13px 'Jost',sans-serif;display:flex;flex-direction:column;gap:6px}
+.page-events .ev-planner-fields input,.page-events .ev-planner-fields select{min-width:0;width:100%;padding:12px;border:1px solid #b7a684;color:#143f2d;background:white;font:15px 'Jost',sans-serif}
+.page-events .ev-planner-result{display:flex;flex-direction:column;gap:3px;font:13px 'Jost',sans-serif}
+.page-events .ev-planner-result strong{font:600 23px 'Playfair Display',serif}
+.page-events .ev-planner-result small{font-size:12px;color:#635d52}
+.page-events #ev-planner-use{padding:11px 14px;border:0;background:#0b4933;color:white;font:600 13px 'Jost',sans-serif;cursor:pointer}
+.page-events #ev-planner-use:disabled{opacity:.5;cursor:not-allowed}
+@media(max-width:930px){.page-events .ev-how-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.page-events .ev-treat-planner{grid-template-columns:1fr}}
+@media(max-width:580px){.page-events .ev-how-section{padding:40px 20px}.page-events .ev-how-grid{grid-template-columns:1fr}.page-events .ev-how-notes{grid-template-columns:1fr}.page-events .ev-treat-planner{padding:18px}.page-events .ev-planner-fields{grid-template-columns:1fr 1fr}}
