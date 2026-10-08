@@ -274,7 +274,7 @@ const evPlannerPortions=document.getElementById('ev-planner-portions');
 const evPlannerUse=document.getElementById('ev-planner-use');
 function updateEvTreatPlanner(){
  const guests=Math.max(0,Math.floor(Number(evPlannerGuests?.value)||0));
- const portions=Number(evPlannerPortions?.value)||1;
+ const portions=Number(evPlannerPortions?.value ?? 1);
  const portionsNeeded=Math.ceil(guests*portions);
  const recommended=Math.max(50,Math.ceil(portionsNeeded/50)*50);
  const available=guests>0&&recommended<=400;

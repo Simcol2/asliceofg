@@ -197,3 +197,29 @@ body.ev-wall-detail-open{overflow:hidden}
 .page-events #ev-planner-use:disabled{opacity:.5;cursor:not-allowed}
 @media(max-width:930px){.page-events .ev-how-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.page-events .ev-treat-planner{grid-template-columns:1fr}}
 @media(max-width:580px){.page-events .ev-how-section{padding:40px 20px}.page-events .ev-how-grid{grid-template-columns:1fr}.page-events .ev-how-notes{grid-template-columns:1fr}.page-events .ev-treat-planner{padding:18px}.page-events .ev-planner-fields{grid-template-columns:1fr 1fr}}
+
+/* Compact journey, optional photo moment and practical FAQ */
+.page-events #cart-options.ev-section{padding-top:48px;padding-bottom:46px}
+.page-events #cart-options>.ev-heading{margin-bottom:12px}
+.page-events #cart-options .ev-treat-showcase{margin:12px auto 25px;gap:24px}
+.page-events #cart-options .ev-treat-slideshow{height:340px;width:min(100%,300px)}
+.page-events #cart-options .ev-options{margin-bottom:15px}
+.page-events #cart-options .ev-treat-planner{margin:14px auto 14px}
+.page-events #book-online.ev-section{padding-top:42px}
+.page-events .ev-how-section{padding-top:46px;padding-bottom:42px}
+.page-events .ev-how-grid article{padding:18px 17px}
+.page-events .ev-photo-addon{display:flex;align-items:center;justify-content:space-between;gap:25px;margin-top:17px;padding:19px 22px;background:#fbe1d7;border-left:5px solid #e97e66;color:#173c30}
+.page-events .ev-photo-addon-label{font:700 11px 'Jost',sans-serif;letter-spacing:.17em;color:#9e4a35}
+.page-events .ev-photo-addon h3{font:600 clamp(22px,2vw,27px) 'Playfair Display',serif;margin:5px 0 7px}
+.page-events .ev-photo-addon p{font:14px/1.5 'Jost',sans-serif;margin:0}
+.page-events .ev-photo-addon>a{flex-shrink:0;color:#143f2e;font:700 13px 'Jost',sans-serif;text-decoration:underline;text-underline-offset:4px}
+.page-events .ev-wrapped-note{font:italic 13px 'Jost',sans-serif;color:#756654;margin-left:8px}
+.page-events .ev-faq-accordions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 18px}
+.page-events .ev-faq-accordions details{border:1px solid #d7c4ac;background:#fffdf8;padding:0 17px;align-self:start}
+.page-events .ev-faq-accordions summary{list-style:none;cursor:pointer;position:relative;padding:16px 26px 16px 0;font:600 17px/1.35 'Jost',sans-serif;color:#143f2e}
+.page-events .ev-faq-accordions summary::-webkit-details-marker{display:none}
+.page-events .ev-faq-accordions summary:after{content:'+';position:absolute;right:0;top:14px;font-size:22px;font-weight:400}
+.page-events .ev-faq-accordions details[open] summary:after{content:'−'}
+.page-events .ev-faq-accordions details p{margin:0 0 18px;color:#42554a;font:14px/1.65 'Jost',sans-serif}
+.page-events .ev-faq-accordions details a{text-decoration:underline;color:#145e42}
+@media(max-width:750px){.page-events .ev-photo-addon{flex-direction:column;align-items:flex-start;padding:17px}.page-events .ev-faq-accordions{grid-template-columns:1fr}.page-events #cart-options .ev-treat-slideshow{height:310px;width:min(84vw,275px)}.page-events #cart-options.ev-section{padding-top:36px;padding-bottom:30px}.page-events #book-online.ev-section{padding-top:32px}}
