@@ -86,15 +86,49 @@ async function loadProducts() {
     restoreEventSelections();
     if (!data.products?.length) {list.textContent='Event rentals are not available yet.';return;}
     list.innerHTML=data.products.filter(p=>Number(p.rentalId)!==600).map(p=>`<article class="ev-sq-card">
-      ${p.imageUrl?`<img loading="lazy" src="${escapeHtml(p.imageUrl)}" alt="${escapeHtml(p.name)}">`:'<div class="ev-sq-no-image">A SLICE OF G</div>'}
-      <div class="ev-sq-copy"><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.description)}</p>
+      ${p.imageUrl?`<img loading="lazy" src="${escapeHtml(p.imageUrl)}" alt="${escapeHtml(wallDisplayName(p))}">`:'<div class="ev-sq-no-image">A SLICE OF G</div>'}
+      <div class="ev-sq-copy"><h3>${escapeHtml(wallDisplayName(p))}</h3><p>${escapeHtml(p.rentalId===605?'One feature wall, two example looks. Your own wording and floral colour are included.':p.description)}</p>
       <strong>${p.priceCents!=null?money(p.priceCents):'Price on request'}</strong>
-      <button type="button" data-rental="${p.rentalId}" ${p.bookable?'':'disabled'}>${p.bookable?'Add to Event Cart':'Unavailable'}</button></div>
+      <div class="ev-sq-actions"><button type="button" class="ev-wall-detail-link" data-wall-detail="${p.rentalId}">View details &amp; inclusions</button>
+      <button type="button" data-rental="${p.rentalId}" ${p.bookable?'':'disabled'}>${p.bookable?'Add to Event Cart':'Unavailable'}</button></div></div>
     </article>`).join('');
-    list.addEventListener('click', e=>{const b=e.target.closest('button[data-rental]');if(b)addRental(b.dataset.rental,b);});
+    list.addEventListener('click', e=>{
+      const detail=e.target.closest('button[data-wall-detail]');
+      if(detail){openWallDetail(Number(detail.dataset.wallDetail),detail);return;}
+      const b=e.target.closest('button[data-rental]');if(b)addRental(b.dataset.rental,b);
+    });
     
   } catch(e) {list.textContent=e.message;}
 }
+
+// Product details are shown only when asked for, not in crowded cards.
+// Only the white panel has an owner-confirmed exact inclusions list.
+const wallDetails={
+  604:{title:'The Grand Entrance',intro:'A modular entrance installation with chevron and illuminated white panels and emerald/fuchsia accents.',included:['Modular chevron and illuminated white feature panels','Contrasting emerald and fuchsia semicircle accents'],note:'Shown setup is an example. Confirm any changes to the arrangement before booking.'},
+  605:{title:'Custom White Panel Photo Wall',intro:'Your words, your floral colour, your photo moment. Both shown designs are examples of the same wall.',included:['1 white feature panel','Custom wall text, included in the price','2 stuffed Bobo balloons','1 large floral arrangement','Warm white uplighting','Your choice of floral colour, included in the price'],images:[['https://rsexseihtkaqoxccrylk.supabase.co/storage/v1/object/public/Photos%20from/heygirlhey.png','Hey Girl Hey example'],['https://rsexseihtkaqoxccrylk.supabase.co/storage/v1/object/public/Photos%20from/boyohboy.png','Boy Oh Boy example']],note:'Custom wording and floral colour are included. Other changes to the standard setup can be discussed separately.'},
+  606:{title:'The Pink Chevron Edit',intro:'Walnut chevron panel with a hot-pink arch and tropical floral styling.',included:['Walnut chevron feature panel','Hot-pink arch panel','Tropical floral styling'],note:'The displayed styling is the standard setup; ask us about variations.'},
+  607:{title:'The Ivory Chevron Edit',intro:'Walnut chevron panel with an ivory arch and soft floral styling.',included:['Walnut chevron feature panel','Ivory arch panel','Soft floral styling'],note:'The displayed styling is the standard setup; ask us about variations.'}
+};
+function wallDisplayName(product){return Number(product.rentalId)===605?'Custom White Panel Photo Wall':product.name;}
+let wallDetailReturnFocus=null;
+const wallDetailOverlay=document.createElement('div');
+wallDetailOverlay.className='ev-wall-detail-modal';wallDetailOverlay.hidden=true;
+wallDetailOverlay.innerHTML='<section class="ev-wall-detail-box" role="dialog" aria-modal="true" aria-labelledby="ev-wall-detail-title"><button type="button" class="ev-wall-detail-close" aria-label="Close wall details">×</button><div id="ev-wall-detail-body"></div></section>';
+document.body.appendChild(wallDetailOverlay);
+function closeWallDetail(){wallDetailOverlay.hidden=true;document.body.classList.remove('ev-wall-detail-open');wallDetailReturnFocus?.focus();}
+function openWallDetail(id,origin){
+ const product=productsById.get(id),info=wallDetails[id];if(!product||!info)return;
+ wallDetailReturnFocus=origin;
+ const shots=info.images||[[product.imageUrl,wallDisplayName(product)]];
+ const images=shots.filter(entry=>entry[0]).map(([url,alt])=>`<figure><img src="${escapeHtml(url)}" alt="${escapeHtml(alt)}" loading="lazy"><figcaption>${escapeHtml(alt)}</figcaption></figure>`).join('');
+ document.getElementById('ev-wall-detail-body').innerHTML=`<p class="ev-kicker">What’s included</p><h2 id="ev-wall-detail-title">${escapeHtml(info.title)}</h2><p class="ev-wall-detail-intro">${escapeHtml(info.intro)}</p><div class="ev-wall-detail-photos">${images}</div><h3>Your rental includes</h3><ul>${info.included.map(x=>`<li>${escapeHtml(x)}</li>`).join('')}</ul><p class="ev-wall-detail-note">${escapeHtml(info.note)}</p><div class="ev-wall-detail-bottom"><strong>${product.priceCents!=null?money(product.priceCents):'Price on request'}</strong><button type="button" class="btn-gold" id="ev-wall-detail-add" ${product.bookable?'':'disabled'}>${product.bookable?'Add to Event Cart':'Unavailable'}</button></div><p class="ev-wall-detail-delivery">Delivery, setup, takedown and collection included within the standard service area. The $50 extended-area delivery fee, where applicable, appears at checkout.</p>`;
+ document.getElementById('ev-wall-detail-add').addEventListener('click',()=>{if(addRental(id))closeWallDetail()});
+ wallDetailOverlay.hidden=false;document.body.classList.add('ev-wall-detail-open');wallDetailOverlay.querySelector('.ev-wall-detail-close').focus();
+}
+wallDetailOverlay.querySelector('.ev-wall-detail-close').addEventListener('click',closeWallDetail);
+wallDetailOverlay.addEventListener('click',e=>{if(e.target===wallDetailOverlay)closeWallDetail()});
+wallDetailOverlay.addEventListener('keydown',e=>{if(e.key==='Escape')closeWallDetail();if(e.key==='Tab'){const focusables=[...wallDetailOverlay.querySelectorAll('button:not(:disabled),a[href]')];const first=focusables[0],last=focusables.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+
 // Collect dates in a modal instead of jumping into the catalogue.
 const dateOverlay=document.getElementById('ev-date-dialog');
 const dateInput=document.getElementById('ev-date-input');

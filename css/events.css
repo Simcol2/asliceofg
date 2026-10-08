@@ -145,3 +145,29 @@ body.ev-date-open{overflow:hidden}
 .page-events .ev-cart-detail-row strong{flex-shrink:0;white-space:nowrap;font-variant-numeric:tabular-nums}
 .page-events .ev-cart-detail-total{font-weight:700;border-top:1px solid #e5dbcb;margin-top:5px;padding-top:12px}
 .page-events .ev-cart-edit-package{flex-shrink:0;border:0;background:none;padding:0;color:#9a492f;text-decoration:underline;font:500 12px 'Jost',sans-serif;cursor:pointer}
+
+/* Compact Photo Moment details modal */
+.page-events .ev-sq-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+.page-events .ev-sq-actions button{flex:1 1 160px}
+.page-events .ev-sq-actions .ev-wall-detail-link{background:transparent;color:#0b4933;border:1px solid #0b4933;padding:12px;cursor:pointer;font:600 13px Jost,sans-serif}
+.ev-wall-detail-modal[hidden]{display:none!important}
+.ev-wall-detail-modal{position:fixed;inset:0;z-index:100020;background:rgba(4,26,18,.7);display:flex;align-items:center;justify-content:center;padding:16px}
+body.ev-wall-detail-open{overflow:hidden}
+.ev-wall-detail-box{position:relative;overflow-y:auto;max-height:90dvh;width:min(100%,640px);background:#fffdf7;color:#123e2e;padding:28px 30px;border:1px solid #cfb278;box-shadow:0 16px 70px #0004}
+.ev-wall-detail-box h2{font:600 clamp(25px,4vw,36px)/1.15 'Playfair Display',serif;margin:8px 34px 12px 0}
+.ev-wall-detail-box h3{font:600 20px 'Playfair Display',serif;margin:16px 0 8px}
+.ev-wall-detail-box p,.ev-wall-detail-box li{font:15px/1.55 Jost,sans-serif}
+.ev-wall-detail-box ul{padding-left:20px;list-style:disc}
+.ev-wall-detail-box li{margin:5px 0}
+.ev-wall-detail-close{position:absolute;right:13px;top:8px;font-size:32px;color:#12402f;background:none;border:0;cursor:pointer}
+.ev-wall-detail-photos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}
+.ev-wall-detail-photos figure{margin:0;min-width:0}
+.ev-wall-detail-photos figure:only-child{grid-column:1/-1;max-width:370px;margin:auto}
+.ev-wall-detail-photos img{width:100%;height:205px;object-fit:contain;background:#f7f3ed;display:block}
+.ev-wall-detail-photos figcaption{font:12px Jost,sans-serif;color:#675e53;text-align:center;padding:5px}
+.ev-wall-detail-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-top:20px;border-top:1px solid #ddd0bc;padding-top:18px}
+.ev-wall-detail-bottom strong{font:600 26px 'Playfair Display',serif}
+.ev-wall-detail-bottom button{cursor:pointer}
+.ev-wall-detail-note,.ev-wall-detail-delivery{font-size:12px!important;color:#625e55}
+.ev-wall-detail-delivery{margin-top:14px}
+@media(max-width:600px){.ev-wall-detail-box{padding:23px 18px}.ev-wall-detail-photos img{height:155px}.ev-wall-detail-bottom{gap:10px;flex-wrap:wrap}}
