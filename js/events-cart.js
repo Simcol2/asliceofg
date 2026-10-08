@@ -147,7 +147,17 @@ function refreshGPackageSummary(){
  const elem=document.getElementById('ev-cart-package');if(!elem)return;
  let quote=null;try{if(gPackage)quote=GEventsPricing.calculateGPackage(gPackage)}catch{}
  if(!quote||!selected.has(600)){elem.textContent='';return;}
- elem.innerHTML=`<div class="ev-package-breakdown-row"><span>${quote.guests} guests · ${escapeHtml(quote.kind==='staffed'?quote.hours+' hours staffed service':'treat cart')}</span><strong>${money(quote.addonsCents)}</strong></div>`;
+ const parts=[`<div class="ev-cart-detail-heading"><strong>Treats for ${quote.guests} guests</strong><button type="button" id="ev-cart-edit-package" class="ev-cart-edit-package">Edit selection</button></div>`];
+ for(const line of quote.lines){
+   parts.push(`<div class="ev-cart-detail-row"><span>${escapeHtml(line.name)}<small>${line.quantity} × ${money(line.unitCents)} each</small></span><strong>${money(line.totalCents)}</strong></div>`);
+ }
+ parts.push(`<div class="ev-cart-detail-row ev-cart-detail-total"><span>Treats subtotal</span><strong>${money(quote.treatCents)}</strong></div>`);
+ if(quote.kind==='staffed'){
+   const rate=quote.attendants ? quote.staffCents/quote.attendants : 0;
+   parts.push(`<div class="ev-cart-detail-row"><span>Staffed dessert service<small>${quote.attendants} ${quote.attendants===1?'attendant':'attendants'} × ${quote.hours} hours · ${money(rate)} per attendant</small></span><strong>${money(quote.staffCents)}</strong></div>`);
+ }
+ parts.push(`<div class="ev-cart-detail-row ev-cart-detail-total"><span>Treats &amp; service</span><strong>${money(quote.addonsCents)}</strong></div>`);
+ elem.innerHTML=parts.join('');
 }
 function updatePackageChoice(){displayPackage()}
 packageGuests.addEventListener('change',updatePackageChoice);
@@ -204,6 +214,13 @@ cartLines.addEventListener('click',e=>{
   else if(b.dataset.minus){if(item.quantity<=1){selected.delete(id);if(id===600){gPackage=null;localStorage.removeItem(G_CONFIG_KEY)}}else item.quantity--}
   else if(b.dataset.plus){if(!(id===600&&gPackage))item.quantity++}
   updateCart();
+});
+document.getElementById('ev-cart-package')?.addEventListener('click',e=>{
+ if(!e.target.closest('#ev-cart-edit-package')||!gPackage)return;
+ closeEventCart();
+ const chosen=document.querySelector(`[data-sweet-choice="${gPackage.kind}"]`);
+ chosen?.click();
+ packageForm.scrollIntoView({behavior:'smooth',block:'center'});
 });
 document.getElementById('ev-cart-proceed').addEventListener('click',()=>{if(!selected.size)return;closeEventCart();checkout.click()});
 

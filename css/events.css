@@ -128,3 +128,20 @@ body.ev-date-open{overflow:hidden}
 .page-events .ev-package-breakdown-row{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid #e8e0d2;padding:9px 0;font:14px 'Jost',sans-serif}
 .page-events .ev-package-breakdown-row strong{white-space:nowrap}
 @media(max-width:600px){.page-events .ev-package-controls,.page-events .ev-package-treats{grid-template-columns:1fr}.page-events .ev-package-config{padding:18px}}
+
+
+/* Visible portion descriptions: keep options readable without crowding. */
+.page-events .ev-package-treats label{display:flex;align-items:flex-start;gap:11px}
+.page-events .ev-package-treats label input{flex:0 0 auto;margin-top:5px}
+.page-events .ev-package-treats label span{display:block;min-width:0}
+.page-events .ev-package-treats label small{display:block;margin-top:3px;font:italic 13px/1.45 'Jost',sans-serif;color:#71675c}
+/* Full cart breakdown: each portion, its unit price, staffing and subtotals. */
+.page-events #ev-cart-package:not(:empty){margin:0 0 20px;padding:15px 0 17px;border-bottom:1px solid #d6cbb7}
+.page-events .ev-cart-detail-heading,.page-events .ev-cart-detail-row{display:flex;justify-content:space-between;align-items:flex-start;gap:13px}
+.page-events .ev-cart-detail-heading{font:600 15px 'Jost',sans-serif;margin-bottom:11px;color:#143f2e}
+.page-events .ev-cart-detail-row{padding:7px 0;font:14px/1.45 'Jost',sans-serif;color:#143f2e}
+.page-events .ev-cart-detail-row span{min-width:0}
+.page-events .ev-cart-detail-row small{display:block;color:#71675c;margin-top:3px;font-size:12px}
+.page-events .ev-cart-detail-row strong{flex-shrink:0;white-space:nowrap;font-variant-numeric:tabular-nums}
+.page-events .ev-cart-detail-total{font-weight:700;border-top:1px solid #e5dbcb;margin-top:5px;padding-top:12px}
+.page-events .ev-cart-edit-package{flex-shrink:0;border:0;background:none;padding:0;color:#9a492f;text-decoration:underline;font:500 12px 'Jost',sans-serif;cursor:pointer}
