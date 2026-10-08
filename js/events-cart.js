@@ -1,6 +1,8 @@
 // The Events storefront uses Supabase rental IDs and the existing /rentals cart.
 const STORAGE_KEY = 'asliceofg-cart-items-v2';
 const DATE_KEY = 'asliceofg-rental-dates-v2';
+const G_CONFIG_KEY='asliceofg-g-events-package-v1';
+let gPackage=(()=>{try{return JSON.parse(localStorage.getItem(G_CONFIG_KEY)||'null')}catch{return null}})();
 const selected = new Map();
 const productsById = new Map();
 const list = document.getElementById('square-events-products');
@@ -31,9 +33,11 @@ function restoreEventSelections(){
 function updateCart() {
   let count = 0, total = 0;
   for (const item of selected.values()) { count += item.quantity; total += item.quantity * item.priceCents; }
+  if(gPackage&&selected.has(600)){try{total+=GEventsPricing.calculateGPackage(gPackage).addonsCents}catch{}}
   counter.textContent = `${count} rental item${count===1?'':'s'} · ${money(total)}`;
   checkout.disabled = count === 0;
   persistEventSelections();
+  refreshGPackageSummary();
   document.getElementById('ev-floating-count').textContent=String(count);
   renderEventCart();
 }
@@ -119,23 +123,58 @@ document.getElementById('ev-date-continue')?.addEventListener('click',()=>{
   localStorage.setItem(STORAGE_KEY,JSON.stringify(saved));
   localStorage.setItem(DATE_KEY,JSON.stringify({event,pickup:isoShift(event,-1),dropoff:isoShift(event,1),pickupTime,dropoffTime:`${String(h%24).padStart(2,'0')}:${pickupTime.slice(3)}`,earlyPickupDays:0,extendedReturnDays:0,extraDayFeeCents:0}));
   localStorage.setItem('asliceofg-event-date',event);
+  if(gPackage&&selected.has(600))localStorage.setItem(G_CONFIG_KEY,JSON.stringify(gPackage));
   sessionStorage.setItem('asliceofg-g-events-checkout','1');
   // Open the independent G Events checkout; original rentals checkout is separate.
   window.location.assign('/rentals/g-events-checkout?gEventsCheckout=1');
 });
+const packageForm=document.getElementById('ev-package-config');
+const packageGuests=document.getElementById('ev-package-guests');
+const packageHours=document.getElementById('ev-package-hours');
+let currentPackageKind='treats';
+function displayPackage(){
+ const chosen=[...document.querySelectorAll('.ev-package-treats input:checked')].map(e=>e.value);
+ let quote;const el=document.getElementById('ev-package-breakdown');
+ try{quote=GEventsPricing.calculateGPackage({kind:currentPackageKind,guests:Number(packageGuests.value),treats:chosen,hours:Number(packageHours.value)});}catch(e){el.textContent=e.message;document.getElementById('ev-add-package').disabled=true;return;}
+ document.getElementById('ev-add-package').disabled=false;
+ const base=productsById.get(600)?.priceCents||24900;
+ const rows=[['Cart rental (delivery, setup & collection included)',base],...quote.lines.map(l=>[`${l.quantity} × ${l.name} at ${money(l.unitCents)}`,l.totalCents])];
+ if(quote.staffCents)rows.push([`${quote.attendants} attendant(s), ${quote.hours} hours`,quote.staffCents]);
+ rows.push(['Total package price',base+quote.addonsCents]);
+ el.innerHTML=rows.map(([name,cents])=>`<div class="ev-package-breakdown-row"><span>${escapeHtml(name)}</span><strong>${money(cents)}</strong></div>`).join('');
+}
+function refreshGPackageSummary(){
+ const elem=document.getElementById('ev-cart-package');if(!elem)return;
+ let quote=null;try{if(gPackage)quote=GEventsPricing.calculateGPackage(gPackage)}catch{}
+ if(!quote||!selected.has(600)){elem.textContent='';return;}
+ elem.innerHTML=`<div class="ev-package-breakdown-row"><span>${quote.guests} guests · ${escapeHtml(quote.kind==='staffed'?quote.hours+' hours staffed service':'treat cart')}</span><strong>${money(quote.addonsCents)}</strong></div>`;
+}
+function updatePackageChoice(){displayPackage()}
+packageGuests.addEventListener('change',updatePackageChoice);
+packageHours.addEventListener('change',updatePackageChoice);
+document.querySelectorAll('.ev-package-treats input').forEach(e=>e.addEventListener('change',updatePackageChoice));
 document.querySelectorAll('[data-sweet-choice]').forEach(button=>button.addEventListener('click',()=>{
-  const choice=button.dataset.sweetChoice;
-  const added=addRental(600);
-  const feedback=document.getElementById('ev-cart-feedback');
-  if(!added) return;
-  const messages={
-    cart:'Cart Only added. Your cart is ready below.',
-    treats:'Cart added. A Slice of G treats will be quoted separately based on your event.',
-    staffed:'Cart added. Treats and staffing require a separate quote before your booking is final.'
-  };
-  if(feedback) feedback.textContent=messages[choice]||messages.cart;
-  document.querySelectorAll('[data-sweet-choice]').forEach(b=>b.classList.toggle('ev-chosen',b===button));
+ const kind=button.dataset.sweetChoice;
+ document.querySelectorAll('[data-sweet-choice]').forEach(b=>b.classList.toggle('ev-chosen',b===button));
+ if(kind==='cart'){
+   const previous=selected.get(600);selected.set(600,{...(productsById.get(600)||{}),quantity:previous?.quantity||1});
+   gPackage=null;localStorage.removeItem(G_CONFIG_KEY);packageForm.hidden=true;updateCart();
+   document.getElementById('ev-cart-feedback').textContent='Cart Only selected. Your cart is ready.';return;
+ }
+ currentPackageKind=kind;packageForm.hidden=false;
+ document.getElementById('ev-package-title').textContent=kind==='staffed'?'Build Your Staffed Treat Cart':'Build Your Treat Cart';
+ document.getElementById('ev-package-hours-wrap').hidden=kind!=='staffed';
+ if(gPackage?.kind===kind){packageGuests.value=String(gPackage.guests);packageHours.value=String(gPackage.hours||2);document.querySelectorAll('.ev-package-treats input').forEach(e=>e.checked=gPackage.treats.includes(e.value));}
+ displayPackage();packageForm.scrollIntoView({behavior:'smooth',block:'nearest'});
 }));
+document.getElementById('ev-add-package').addEventListener('click',()=>{
+ const config={kind:currentPackageKind,guests:Number(packageGuests.value),hours:Number(packageHours.value),treats:[...document.querySelectorAll('.ev-package-treats input:checked')].map(e=>e.value)};
+ let quote;try{quote=GEventsPricing.calculateGPackage(config)}catch(e){return;}
+ const item=productsById.get(600);if(!item?.bookable)return;
+ selected.set(600,{...item,quantity:1});gPackage=config;localStorage.setItem(G_CONFIG_KEY,JSON.stringify(config));
+ updateCart();document.getElementById('ev-cart-feedback').textContent=`${quote.guests}-guest package added, total ${money(item.priceCents+quote.addonsCents)}. View your cart to check out.`;
+});
+
 loadProducts();
 
 // Persistent cart review, independent of the date picker.
@@ -148,6 +187,7 @@ function renderEventCart(){
     const line=x.quantity*x.priceCents;total+=line;
     return `<div class="ev-cart-line"><div><div class="ev-cart-line-title">${escapeHtml(x.name)}</div><div class="ev-cart-line-price">${money(line)}</div><button type="button" class="ev-cart-remove" data-remove="${x.rentalId}">Remove</button></div><div class="ev-cart-qty"><button type="button" data-minus="${x.rentalId}" aria-label="Decrease ${escapeHtml(x.name)} quantity">−</button><span>${x.quantity}</span><button type="button" data-plus="${x.rentalId}" aria-label="Increase ${escapeHtml(x.name)} quantity">+</button></div></div>`;
   }).join('')||'<p>Your cart is empty. Explore the rentals and add your favourites.</p>';
+  if(gPackage&&selected.has(600)){try{total+=GEventsPricing.calculateGPackage(gPackage).addonsCents;}catch{}}
   document.getElementById('ev-cart-subtotal').textContent=money(total);
   document.getElementById('ev-cart-proceed').disabled=selected.size===0;
 }
@@ -160,9 +200,9 @@ cartOverlay.addEventListener('keydown',e=>{if(e.key==='Escape')closeEventCart()}
 cartLines.addEventListener('click',e=>{
   const b=e.target.closest('button');if(!b)return;
   const id=Number(b.dataset.remove||b.dataset.minus||b.dataset.plus);const item=selected.get(id);if(!item)return;
-  if(b.dataset.remove){selected.delete(id)}
-  else if(b.dataset.minus){if(item.quantity<=1)selected.delete(id);else item.quantity--}
-  else if(b.dataset.plus){item.quantity++}
+  if(b.dataset.remove){selected.delete(id);if(id===600){gPackage=null;localStorage.removeItem(G_CONFIG_KEY)}}
+  else if(b.dataset.minus){if(item.quantity<=1){selected.delete(id);if(id===600){gPackage=null;localStorage.removeItem(G_CONFIG_KEY)}}else item.quantity--}
+  else if(b.dataset.plus){if(!(id===600&&gPackage))item.quantity++}
   updateCart();
 });
 document.getElementById('ev-cart-proceed').addEventListener('click',()=>{if(!selected.size)return;closeEventCart();checkout.click()});

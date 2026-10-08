@@ -19,7 +19,7 @@
   <div class="ev-heading"><p class="ev-kicker">Make it yours</p><h2>Choose Your <em>Sweet Setup.</em></h2><p>Select a cart option or browse the Photo Moment Displays below.</p></div>
 
   <div class="ev-treat-showcase" aria-label="Discover our Jamaican treats">
-    <div class="ev-treat-showcase-copy"><p class="ev-kicker">The good stuff</p><h3>Because not all <em>rum cakes wear black.</em></h3><p>Our Jamaican rum cakes and sweet treats bring something delicious to your celebration. Choose the cart on its own, or ask about adding A Slice of G treats and dessert service.</p><p class="ev-treat-small">Treats and staffing are arranged separately from the cart rental.</p></div>
+    <div class="ev-treat-showcase-copy"><p class="ev-kicker">The good stuff</p><h3>Because not all <em>rum cakes wear black.</em></h3><p>Our Jamaican rum cakes and sweet treats bring something delicious to your celebration. Choose the cart on its own, or build your treat and staffed-service package with instant pricing.</p><p class="ev-treat-small">Choose your guest count, treats and service hours to see your complete package price.</p></div>
     <div class="ev-treat-slideshow" aria-label="A Slice of G treats photographs">
       <img src="/public/images/rumcake.png" alt="A Slice of G Jamaican rum cake" class="ev-treat-slide is-active" loading="lazy">
       <img src="/public/images/rumring.jpg" alt="A Slice of G Jamaican rum cake rings" class="ev-treat-slide" loading="lazy">
@@ -29,18 +29,35 @@
   <div class="ev-category-heading"><span>01</span><h3>Cart Options</h3></div>
   <div class="ev-options">
     <button type="button" data-sweet-choice="cart" class="ev-option"><span class="ev-number">01</span><h3>Cart Only</h3><p>Our signature cart, ready for your own treats and styling.</p><span class="ev-option-note">$249 · Add to cart</span></button>
-    <button type="button" data-sweet-choice="treats" class="ev-option"><span class="ev-number">02</span><h3>Cart + A Slice of G Treats</h3><p>The cart with Jamaican rum cake treats, selected for your guest count.</p><span class="ev-option-note">Add cart · Treats quoted separately</span></button>
-    <button type="button" data-sweet-choice="staffed" class="ev-option"><span class="ev-number">03</span><h3>Cart + Treats + Staff</h3><p>The cart, Jamaican treats and someone to handle dessert service.</p><span class="ev-option-note">Add cart · Service quoted separately</span></button>
+    <button type="button" data-sweet-choice="treats" class="ev-option"><span class="ev-number">02</span><h3>Cart + A Slice of G Treats</h3><p>The cart with Jamaican rum cake treats, selected for your guest count.</p><span class="ev-option-note">Customize & see price</span></button>
+    <button type="button" data-sweet-choice="staffed" class="ev-option"><span class="ev-number">03</span><h3>Cart + Treats + Staff</h3><p>The cart, Jamaican treats and someone to handle dessert service.</p><span class="ev-option-note">Customize & see price</span></button>
+  </div>
+  
+  <div id="ev-package-config" class="ev-package-config" hidden>
+    <h3 id="ev-package-title">Build Your Sweet Setup</h3>
+    <div class="ev-package-controls">
+      <label>Guest count<select id="ev-package-guests"><option value="50">50 guests</option><option value="100">100 guests</option><option value="150">150 guests</option><option value="200">200 guests</option><option value="250">250 guests</option><option value="300">300 guests</option><option value="350">350 guests</option><option value="400">400 guests</option></select></label>
+      <label id="ev-package-hours-wrap" hidden>Staffed service<select id="ev-package-hours"><option value="2">2 hours</option><option value="4">4 hours</option></select></label>
+    </div>
+    <fieldset class="ev-package-treats"><legend>Choose your treats</legend>
+      <label><input type="checkbox" value="slice" checked> Rum Cake Slices</label>
+      <label><input type="checkbox" value="sandwich" checked> Rum Cake Sandwiches</label>
+      <label><input type="checkbox" value="ice"> Rum Cake Ice Cream Sandwiches</label>
+      <label><input type="checkbox" value="ring"> Rum Rings</label>
+    </fieldset>
+    <div id="ev-package-breakdown" aria-live="polite"></div>
+    <button type="button" class="btn-gold" id="ev-add-package">Add This Setup to Cart</button>
+    <p>Delivery, setup and takedown/collection are included in every base rental price. For anything outside these options, <a href="#inquire">contact us about a custom setup</a>.</p>
   </div>
   <p class="ev-cart-feedback" id="ev-cart-feedback" role="status" aria-live="polite"></p>
   <p class="ev-note"></p>
 </section>
 <section class="ev-section ev-cream" id="book-online"><div class="ev-heading"><p class="ev-kicker">The collection</p><div class="ev-category-heading"><span>02</span><h3>Photo Moment Displays</h3></div><h2>Design Your <em>Photo Moment.</em></h2><p>Add a display to your cart, then secure your reservation with a deposit.</p></div><div id="square-events-products" class="ev-sq-grid" aria-live="polite">Loading event rentals...</div><div class="ev-sq-bar"><span id="square-events-cart">0 rental items  ·  $0.00</span><button type="button" class="btn-gold" id="square-events-checkout" disabled>Check Dates &amp; Checkout</button></div></section>
 
-<section class="ev-section ev-faq"><div class="ev-heading"><p class="ev-kicker">04  ·  The practical bits</p><h2>Sweet, without <em>the scramble.</em></h2></div><div class="ev-faq-grid"><article><h3>Where do you serve?</h3><p>Toronto, Mississauga and the GTA. Delivery and service arrangements depend on the event location.</p></article><article><h3>Can I book the cart without cake?</h3><p>Yes. Choose a bare cart rental and style or stock it your way.</p></article><article><h3>Can you handle serving?</h3><p>Yes. Our fully staffed option takes dessert service off your to-do list.</p></article><article><h3>How does pricing work?</h3><p>We quote the setup you choose and spell out what's included before you book.</p></article></div></section>
+<section class="ev-section ev-faq"><div class="ev-heading"><p class="ev-kicker">04  ·  The practical bits</p><h2>Sweet, without <em>the scramble.</em></h2></div><div class="ev-faq-grid"><article><h3>Where do you serve?</h3><p>Toronto, Mississauga and the GTA. Delivery and service arrangements depend on the event location.</p></article><article><h3>Can I book the cart without cake?</h3><p>Yes. Choose a bare cart rental and style or stock it your way.</p></article><article><h3>Can you handle serving?</h3><p>Yes. Our fully staffed option takes dessert service off your to-do list.</p></article><article><h3>How does pricing work?</h3><p>Prices update as you choose your guests, treats and service. Delivery, setup and collection are included in the base rental prices.</p></article></div></section>
 <section class="ev-contact" id="inquire"><p class="ev-kicker">Let's make it sweet</p><h2>Bring the <em>good stuff.</em></h2><p>Tell us when, where and how many guests. We'll help you choose the cart setup that makes sense.</p><a class="btn-gold" href="mailto:order@asliceofg.com?subject=Rum%20Cake%20Cart%20Event%20Inquiry&body=Event%20date%3A%0AEvent%20location%3A%0AGuest%20count%3A%0AInterested%20in%3A%20Cart%20only%20%2F%20Cart%20%2B%20treats%20%2F%20Staffed%20cart%20%2F%20Cart%20%2B%20photo%20wall%0AAdditional%20details%3A">Inquire About Your Date</a><p class="ev-contact-secondary">Or email <a href="mailto:order@asliceofg.com">order@asliceofg.com</a></p></section>
 <button id="ev-view-cart" type="button" class="ev-floating-cart" aria-label="View event cart" aria-controls="ev-cart-drawer"><span aria-hidden="true">▣</span> View Cart <span id="ev-floating-count" class="ev-cart-count">0</span></button>
-<div id="ev-cart-drawer" class="ev-cart-overlay" hidden><section class="ev-cart-panel" role="dialog" aria-modal="true" aria-labelledby="ev-cart-title"><button type="button" id="ev-cart-close" class="ev-cart-close" aria-label="Close cart">×</button><p class="ev-kicker">Your selections</p><h2 id="ev-cart-title">Your Event Cart</h2><div id="ev-cart-lines" class="ev-cart-lines"></div><div class="ev-cart-bottom"><div class="ev-cart-total"><span>Rental subtotal</span><strong id="ev-cart-subtotal">$0.00</strong></div><p>Delivery, setup and collection included. Treats and staffing arranged separately.</p><button id="ev-cart-proceed" type="button" class="btn-gold">Choose Dates &amp; Checkout</button></div></section></div>
+<div id="ev-cart-drawer" class="ev-cart-overlay" hidden><section class="ev-cart-panel" role="dialog" aria-modal="true" aria-labelledby="ev-cart-title"><button type="button" id="ev-cart-close" class="ev-cart-close" aria-label="Close cart">×</button><p class="ev-kicker">Your selections</p><h2 id="ev-cart-title">Your Event Cart</h2><div id="ev-cart-lines" class="ev-cart-lines"></div><div class="ev-cart-bottom"><div id="ev-cart-package"></div><div class="ev-cart-total"><span>Package subtotal</span><strong id="ev-cart-subtotal">$0.00</strong></div><p>Delivery, setup and collection included in rental prices. Selected treats and staffing are itemized above.</p><button id="ev-cart-proceed" type="button" class="btn-gold">Choose Dates &amp; Checkout</button></div></section></div>
 <div id="ev-date-dialog" class="ev-date-overlay" hidden>
   <section class="ev-date-modal" role="dialog" aria-modal="true" aria-labelledby="ev-date-title">
     <button type="button" class="ev-date-close" id="ev-date-close" aria-label="Close date selection">×</button>
@@ -53,5 +70,5 @@
   </section>
 </div>
 </main>
-<footer><div class="footer-logo">A Slice of G</div><div class="footer-center"><div class="footer-slogan">Not all rum cakes wear black.</div><div class="footer-tag">Small Batch  ·  WHAT SWEET YUH</div><div class="footer-tagline">Every cake is her. Every slice is for you.<br>Made with rum and love.</div></div><div class="footer-right"><a href="mailto:order@asliceofg.com">order@asliceofg.com</a><br>asliceofg.com</div></footer><script src="/js/nav.js"></script><script src="/js/events-cart.js?v=10" defer></script>
+<footer><div class="footer-logo">A Slice of G</div><div class="footer-center"><div class="footer-slogan">Not all rum cakes wear black.</div><div class="footer-tag">Small Batch  ·  WHAT SWEET YUH</div><div class="footer-tagline">Every cake is her. Every slice is for you.<br>Made with rum and love.</div></div><div class="footer-right"><a href="mailto:order@asliceofg.com">order@asliceofg.com</a><br>asliceofg.com</div></footer><script src="/js/nav.js"></script><script src="/js/g-events-pricing.js?v=1" defer></script><script src="/js/events-cart.js?v=11" defer></script>
 </body></html>
