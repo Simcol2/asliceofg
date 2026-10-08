@@ -506,3 +506,62 @@ body.page-events::after{content:"";position:fixed;inset:0;z-index:-1;pointer-eve
     display: block;
   }
 }
+
+
+/* ASG MOBILE DATE CART ONLY v1 */
+/* Desktop styles are intentionally untouched. */
+.page-events .ev-mobile-date-cart{display:none;}
+@media(max-width:780px){
+  .page-events .ev-mcm-date{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-areas:"actions" "visual" "copy"!important;
+    align-items:stretch!important;
+    gap:12px!important;
+    padding:20px!important;
+    height:auto!important;
+  }
+  .page-events .ev-mcm-date .ev-early-date-actions{
+    grid-area:actions!important;
+    order:initial!important;
+    width:100%!important;
+    min-width:0!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:12px!important;
+  }
+  .page-events .ev-mcm-date .ev-early-date-actions label,
+  .page-events .ev-mcm-date .ev-early-date-actions input,
+  .page-events .ev-mcm-date .ev-early-date-next{
+    width:100%!important;
+    max-width:none!important;
+    min-width:0!important;
+    box-sizing:border-box!important;
+  }
+  .page-events .ev-mcm-date .ev-early-date-next{min-height:48px!important;}
+  .page-events .ev-mcm-date .ev-early-date-copy{
+    grid-area:copy!important;
+    order:initial!important;
+    width:100%!important;
+    min-width:0!important;
+    text-align:left!important;
+  }
+  .page-events .ev-mcm-date .ev-mobile-date-cart{
+    grid-area:visual!important;
+    display:flex!important;
+    justify-content:center;
+    align-items:center;
+    min-width:0;
+    padding:0;
+  }
+  .page-events .ev-mcm-date .ev-mobile-date-cart img{
+    display:block;
+    height:auto;
+    max-height:210px;
+    width:min(70%,260px);
+    object-fit:contain;
+    background:transparent;
+    border:0;
+    box-shadow:none;
+  }
+}
