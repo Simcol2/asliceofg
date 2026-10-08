@@ -13,6 +13,8 @@ function updateCart() {
   for (const item of selected.values()) { count += item.quantity; total += item.quantity * item.priceCents; }
   counter.textContent = `${count} rental item${count===1?'':'s'} · ${money(total)}`;
   checkout.disabled = count === 0;
+  document.getElementById('ev-floating-count').textContent=String(count);
+  renderEventCart();
 }
 function gentleScroll(id) {
   const target=document.getElementById(id);
@@ -89,18 +91,15 @@ document.getElementById('ev-date-continue')?.addEventListener('click',()=>{
   const event=dateInput.value;const pickupTime='09:00';
   if(!event||event<dateInput.min){dateError.textContent='Choose a future event date.';dateError.hidden=false;return;}
   const existing=(()=>{try{const x=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(x)?x:[]}catch{return[]}})();
-  for(const item of selected.values()){
-    const old=existing.find(x=>x.kind==='rental'&&Number(x.id)===item.rentalId&&x.meta==null);
-    if(old)old.quantity=Number(old.quantity||0)+item.quantity;
-    else existing.push({id:item.rentalId,kind:'rental',meta:null,quantity:item.quantity});
-  }
+  const remaining=existing.filter(x=>!(x.kind==='rental'&&[600,604,605,606,607].includes(Number(x.id))));
+  const saved=[...remaining,...Array.from(selected.values()).map(x=>({id:x.rentalId,kind:'rental',meta:null,quantity:x.quantity}))];
   const h=Number(pickupTime.slice(0,2))+12;
-  localStorage.setItem(STORAGE_KEY,JSON.stringify(existing));
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(saved));
   localStorage.setItem(DATE_KEY,JSON.stringify({event,pickup:isoShift(event,-1),dropoff:isoShift(event,1),pickupTime,dropoffTime:`${String(h%24).padStart(2,'0')}:${pickupTime.slice(3)}`,earlyPickupDays:0,extendedReturnDays:0,extraDayFeeCents:0}));
   localStorage.setItem('asliceofg-event-date',event);
   sessionStorage.setItem('asliceofg-g-events-checkout','1');
-  // The existing rental app opens its real checkout modal with the saved cart.
-  window.location.assign('/rentals/decor?gEventsCheckout=1');
+  // Open the independent G Events checkout; original rentals checkout is separate.
+  window.location.assign('/rentals/g-events-checkout?gEventsCheckout=1');
 });
 document.querySelectorAll('[data-sweet-choice]').forEach(button=>button.addEventListener('click',()=>{
   const choice=button.dataset.sweetChoice;
@@ -116,3 +115,42 @@ document.querySelectorAll('[data-sweet-choice]').forEach(button=>button.addEvent
   document.querySelectorAll('[data-sweet-choice]').forEach(b=>b.classList.toggle('ev-chosen',b===button));
 }));
 loadProducts();
+
+// Persistent cart review, independent of the date picker.
+const cartOverlay=document.getElementById('ev-cart-drawer');
+const cartLines=document.getElementById('ev-cart-lines');
+function renderEventCart(){
+  if(!cartLines)return;
+  let total=0;
+  cartLines.innerHTML=Array.from(selected.values()).map(x=>{
+    const line=x.quantity*x.priceCents;total+=line;
+    return `<div class="ev-cart-line"><div><div class="ev-cart-line-title">${escapeHtml(x.name)}</div><div class="ev-cart-line-price">${money(line)}</div><button type="button" class="ev-cart-remove" data-remove="${x.rentalId}">Remove</button></div><div class="ev-cart-qty"><button type="button" data-minus="${x.rentalId}" aria-label="Decrease ${escapeHtml(x.name)} quantity">−</button><span>${x.quantity}</span><button type="button" data-plus="${x.rentalId}" aria-label="Increase ${escapeHtml(x.name)} quantity">+</button></div></div>`;
+  }).join('')||'<p>Your cart is empty. Explore the rentals and add your favourites.</p>';
+  document.getElementById('ev-cart-subtotal').textContent=money(total);
+  document.getElementById('ev-cart-proceed').disabled=selected.size===0;
+}
+function closeEventCart(){cartOverlay.hidden=true;document.body.classList.remove('ev-cart-open')}
+function openEventCart(){renderEventCart();cartOverlay.hidden=false;document.body.classList.add('ev-cart-open')}
+document.getElementById('ev-view-cart').addEventListener('click',openEventCart);
+document.getElementById('ev-cart-close').addEventListener('click',closeEventCart);
+cartOverlay.addEventListener('click',e=>{if(e.target===cartOverlay)closeEventCart()});
+cartOverlay.addEventListener('keydown',e=>{if(e.key==='Escape')closeEventCart()});
+cartLines.addEventListener('click',e=>{
+  const b=e.target.closest('button');if(!b)return;
+  const id=Number(b.dataset.remove||b.dataset.minus||b.dataset.plus);const item=selected.get(id);if(!item)return;
+  if(b.dataset.remove){selected.delete(id)}
+  else if(b.dataset.minus){if(item.quantity<=1)selected.delete(id);else item.quantity--}
+  else if(b.dataset.plus){item.quantity++}
+  updateCart();
+});
+document.getElementById('ev-cart-proceed').addEventListener('click',()=>{if(!selected.size)return;closeEventCart();checkout.click()});
+
+// Genuine existing product photographs; rotate gently and permit manual navigation.
+const treatSlides=Array.from(document.querySelectorAll('.ev-treat-slide'));let slideIndex=0;let slideTimer;
+function showTreatSlide(n){if(!treatSlides.length)return;slideIndex=(n+treatSlides.length)%treatSlides.length;treatSlides.forEach((el,i)=>el.classList.toggle('is-active',i===slideIndex));document.getElementById('ev-slide-count').textContent=`${slideIndex+1} / ${treatSlides.length}`}
+function startTreatRotation(){clearInterval(slideTimer);if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)slideTimer=setInterval(()=>showTreatSlide(slideIndex+1),5000)}
+document.getElementById('ev-slide-prev')?.addEventListener('click',()=>{showTreatSlide(slideIndex-1);startTreatRotation()});
+document.getElementById('ev-slide-next')?.addEventListener('click',()=>{showTreatSlide(slideIndex+1);startTreatRotation()});
+document.querySelector('.ev-treat-slideshow')?.addEventListener('mouseenter',()=>clearInterval(slideTimer));
+document.querySelector('.ev-treat-slideshow')?.addEventListener('mouseleave',startTreatRotation);
+startTreatRotation();
