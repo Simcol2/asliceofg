@@ -151,6 +151,6 @@ function showTreatSlide(n){if(!treatSlides.length)return;slideIndex=(n+treatSlid
 function startTreatRotation(){clearInterval(slideTimer);if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches)slideTimer=setInterval(()=>showTreatSlide(slideIndex+1),5000)}
 document.getElementById('ev-slide-prev')?.addEventListener('click',()=>{showTreatSlide(slideIndex-1);startTreatRotation()});
 document.getElementById('ev-slide-next')?.addEventListener('click',()=>{showTreatSlide(slideIndex+1);startTreatRotation()});
-document.querySelector('.ev-treat-slideshow')?.addEventListener('mouseenter',()=>clearInterval(slideTimer));
-document.querySelector('.ev-treat-slideshow')?.addEventListener('mouseleave',startTreatRotation);
+// Slideshow continues automatically; hovering does not stop the rotation.
+// Manual controls are optional, not required for auto-transition.
 startTreatRotation();
