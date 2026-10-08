@@ -676,3 +676,36 @@ body.page-events::after{content:"";position:fixed;inset:0;z-index:-1;pointer-eve
   .page-events .ev-seo-rental-links > div {display:grid;grid-template-columns:minmax(0,1fr);}
   .page-events .ev-seo-rental-links a {display:block;width:100%;}
 }
+
+
+/* ASG Events nav: logo at left; transparent over hero */
+.page-events>nav{
+  background:transparent!important;
+  border-bottom-color:transparent!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  box-shadow:none!important;
+  padding-left:clamp(14px,2.2vw,34px);
+  transition:background .2s ease,backdrop-filter .2s ease,border-color .2s ease;
+}
+.page-events.events-nav-scrolled>nav{
+  background:rgba(5,37,27,.96)!important;
+  border-bottom-color:rgba(206,172,111,.25)!important;
+  -webkit-backdrop-filter:blur(12px)!important;
+  backdrop-filter:blur(12px)!important;
+}
+.page-events>nav .ev-nav-brand{
+  display:inline-flex;align-items:center;gap:10px;
+  text-decoration:none;white-space:nowrap;flex-shrink:0;
+}
+.page-events>nav .ev-nav-mark{
+  display:block;width:36px;height:36px;object-fit:contain;
+  background:transparent;flex-shrink:0;
+}
+@media(max-width:780px){
+ .page-events>nav{padding-left:12px;padding-right:16px;}
+ .page-events>nav .ev-nav-brand{gap:7px;}
+ .page-events>nav .ev-nav-mark{width:33px;height:33px;}
+ .page-events>nav .ev-nav-brand span{font-size:clamp(17px,4vw,22px);}
+}
+@media(prefers-reduced-motion:reduce){.page-events>nav{transition:none;}}
