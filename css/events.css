@@ -261,3 +261,6 @@ body.ev-wall-detail-open{overflow:hidden}
 .page-events .ev-terms-strip a{text-decoration:underline;text-underline-offset:3px;color:#0e4731}
 .page-events .ev-display-rental-terms{font:600 12px/1.4 'Jost',sans-serif;color:#41694e;margin:7px 0 13px}
 @media(max-width:780px){.page-events .ev-early-date{flex-wrap:wrap;padding:18px 22px;gap:13px}.page-events .ev-early-date>div{flex-basis:100%}.page-events .ev-early-date label{flex:1;min-width:190px}}
+
+/* Customer policy links and accessible commitments */
+.page-events .asg-policy-links{margin-top:12px;font:12px/1.5 'Jost',sans-serif}.page-events .asg-policy-links a{color:#efdab4;text-decoration:underline}.page-events .ev-commitments{background:#f4ded3;padding:16px clamp(20px,5vw,76px);display:flex;flex-wrap:wrap;gap:6px 22px;justify-content:space-between;align-items:center;color:#173e2f;font:13px/1.5 'Jost',sans-serif}.page-events .ev-commitments a{color:#0b4933;text-decoration:underline}
