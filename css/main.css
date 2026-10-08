@@ -2353,3 +2353,71 @@ a.product-card:hover .product-card-view { color: var(--gold-light); }
   .pdp-price { font-size: 36px; }
   .pdp-add-btn { text-align: center; }
 }
+
+/* Homepage header refinement */
+body.page-home nav {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+  padding: 18px clamp(24px, 4.5vw, 72px);
+  gap: clamp(18px, 2.2vw, 36px);
+  transition: background 240ms ease, border-color 240ms ease, backdrop-filter 240ms ease;
+}
+body.page-home.home-nav-scrolled nav {
+  background: rgba(4, 13, 10, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom-color: rgba(201, 169, 110, 0.14);
+}
+body.page-home .nav-logo {
+  font-size: clamp(20px, 1.7vw, 27px);
+  font-weight: 400;
+  letter-spacing: 0.085em;
+}
+body.page-home .nav-links {
+  gap: clamp(14px, 1.8vw, 29px);
+  margin-left: auto;
+}
+body.page-home .nav-links a {
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.075em;
+  text-transform: none;
+  color: rgba(255, 252, 245, 0.86);
+}
+body.page-home .nav-links a:hover,
+body.page-home .nav-links a.active { color: var(--gold-light); }
+body.page-home .nav-right { gap: 14px; flex-shrink: 0; }
+body.page-home .nav-cta {
+  padding: 9px 15px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  color: var(--gold-light);
+  background: transparent;
+  border: 1px solid rgba(224, 196, 138, 0.72);
+}
+body.page-home .nav-cta:hover { background: rgba(201, 169, 110, 0.12); }
+body.page-home .nav-cart {
+  border: none;
+  padding: 9px 0;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: none;
+  color: var(--warm-white);
+}
+body.page-home .nav-cart:hover { color: var(--gold-light); }
+@media (max-width: 1150px) {
+  body.page-home .nav-links { display: none; }
+  body.page-home .nav-hamburger { display: flex; }
+  body.page-home .nav-cta { display: none; }
+  body.page-home .nav-right { margin-left: auto; }
+}
+@media (max-width: 768px) {
+  body.page-home nav { padding: 16px 24px; }
+  body.page-home .nav-logo { font-size: 22px; }
+}

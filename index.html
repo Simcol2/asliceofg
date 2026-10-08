@@ -18,7 +18,7 @@
   <meta name="twitter:image" content="https://asliceofg.com/public/images/rumcake.png"/>
   <link rel="canonical" href="https://asliceofg.com/"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="css/main.css?v=20"/>
+  <link rel="stylesheet" href="css/main.css?v=21"/>
   <link rel="icon" href="/public/images/logo.png" type="image/png"/>
   <link rel="apple-touch-icon" href="/public/images/icon-192.png"/>
   <link rel="manifest" href="/manifest.json"/>
@@ -48,16 +48,14 @@
   <nav>
     <a href="index.html" class="nav-logo">A Slice of G</a>
     <ul class="nav-links">
-      <li><a href="shop.html">Shop All</a></li>
-      <li><a href="catering.html">Catering</a></li>
+      <li><a href="shop.html">Shop</a></li>
       <li><a href="/events">Events</a></li>
-      <li><a href="gifting.html">Corporate Gifting</a></li>
+      <li><a href="gifting.html">Corporate Gifts</a></li>
       <li><a href="about.html">About</a></li>
-      <li><a href="https://www.instagram.com/_sliceofg/" target="_blank">Instagram</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
     <div class="nav-right">
-      <a href="catering.html" class="nav-cta">View Catering</a>
+      <a href="catering.html" class="nav-cta">Catering</a>
       <button class="nav-cart" id="btn-open-cart">
         Bag <span class="cart-count" id="cart-count" data-count="0">0</span>
       </button>
@@ -436,6 +434,14 @@
     }).catch(() => {
       document.getElementById('reviews-grid').innerHTML = '';
     });
+  </script>
+  <script>
+    // Transparent over the hero, legible once visitors scroll down.
+    (() => {
+      const updateHomeNav = () => document.body.classList.toggle('home-nav-scrolled', window.scrollY > 48);
+      window.addEventListener('scroll', updateHomeNav, { passive: true });
+      updateHomeNav();
+    })();
   </script>
 </body>
 </html>
