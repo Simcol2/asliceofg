@@ -1,51 +1,73 @@
-// Populate the EXACT same-origin Events cart used by CartContext.jsx.
-// /events is reverse-proxied to the Events repository by cake-site vercel.json.
+// The Events storefront uses Supabase rental IDs and the existing /rentals cart.
 const STORAGE_KEY = 'asliceofg-cart-items-v2';
 const DATE_KEY = 'asliceofg-rental-dates-v2';
 const selected = new Map();
+const productsById = new Map();
 const list = document.getElementById('square-events-products');
-const cart = document.getElementById('square-events-cart');
-const money = cents => new Intl.NumberFormat('en-CA', {style:'currency', currency:'CAD'}).format(cents / 100);
-function escapeHtml(v) {return String(v ?? '').replace(/[&<>"']/g, a => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[a]));}
+const counter = document.getElementById('square-events-cart');
+const checkout = document.getElementById('square-events-checkout');
+const money = cents => new Intl.NumberFormat('en-CA',{style:'currency',currency:'CAD'}).format(cents / 100);
+const escapeHtml = str => String(str ?? '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
 function updateCart() {
   let count = 0, total = 0;
-  selected.forEach(v => { count += v.quantity; total += v.quantity * v.priceCents; });
-  cart.textContent = `${count} rental item${count === 1 ? '' : 's'} Ã‚Â· ${money(total)}`;
-  document.getElementById('square-events-checkout').disabled = count === 0;
+  for (const item of selected.values()) { count += item.quantity; total += item.quantity * item.priceCents; }
+  counter.textContent = `${count} rental item${count===1?'':'s'} · ${money(total)}`;
+  checkout.disabled = count === 0;
+}
+function addRental(id, button) {
+  const item=productsById.get(Number(id));
+  if (!item?.bookable) { document.getElementById('book-online').scrollIntoView({behavior:'smooth'}); return false; }
+  const previous=selected.get(item.rentalId);
+  selected.set(item.rentalId,{...item,quantity:(previous?.quantity||0)+1});
+  updateCart();
+  if (button) {
+    const old=button.textContent;
+    button.textContent='Added ✓';
+    window.setTimeout(()=>{button.textContent=old;},1200);
+  }
+  return true;
 }
 async function loadProducts() {
   try {
-    const response = await fetch('/api/events-catalog', {cache:'no-store'});
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || 'Event products are unavailable');
-    if (!data.products?.length) {list.textContent = 'No event rental products are listed in Square yet.';return;}
-    list.innerHTML = data.products.map((p, i) => `<article class="ev-sq-card">
-      ${p.imageUrl ? `<img loading="lazy" src="${escapeHtml(p.imageUrl)}" alt="${escapeHtml(p.name)}">` : '<div class="ev-sq-no-image">A SLICE OF G</div>'}
+    const response=await fetch('/api/events-catalog',{cache:'no-store'});
+    const data=await response.json();
+    if (!response.ok) throw new Error(data.error||'Event products unavailable');
+    for (const p of data.products||[]) productsById.set(Number(p.rentalId),p);
+    if (!data.products?.length) {list.textContent='Event rentals are not available yet.';return;}
+    list.innerHTML=data.products.map(p=>`<article class="ev-sq-card">
+      ${p.imageUrl?`<img loading="lazy" src="${escapeHtml(p.imageUrl)}" alt="${escapeHtml(p.name)}">`:'<div class="ev-sq-no-image">A SLICE OF G</div>'}
       <div class="ev-sq-copy"><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.description)}</p>
-      <strong>${p.priceCents !== null ? money(p.priceCents) : 'Price on request'}</strong>
-      <button type="button" data-i="${i}" ${p.bookable ? '' : 'disabled'}>${p.bookable ? 'Add to Event Cart' : 'Booking unavailable'}</button>
-      </div></article>`).join('');
-    list.querySelectorAll('button[data-i]').forEach(button => button.addEventListener('click', () => {
-      const p = data.products[Number(button.dataset.i)];
-      if (!p.bookable || !Number.isSafeInteger(p.rentalId) || p.rentalId <= 0) return;
-      const previous = selected.get(p.rentalId);
-      selected.set(p.rentalId, {...p, quantity: (previous?.quantity || 0) + 1});
-      updateCart();
-    }));
-  } catch (e) {list.textContent = e.message;}
+      <strong>${p.priceCents!=null?money(p.priceCents):'Price on request'}</strong>
+      <button type="button" data-rental="${p.rentalId}" ${p.bookable?'':'disabled'}>${p.bookable?'Add to Event Cart':'Unavailable'}</button></div>
+    </article>`).join('');
+    list.addEventListener('click', e=>{const b=e.target.closest('button[data-rental]');if(b)addRental(b.dataset.rental,b);});
+    document.querySelectorAll('[data-display-rental]').forEach(button=>{
+      const p=productsById.get(Number(button.dataset.displayRental));
+      button.disabled=!p?.bookable;
+      if(p?.priceCents!=null) button.textContent=`Add to Event Cart · ${money(p.priceCents)}`;
+    });
+  } catch(e) {list.textContent=e.message;}
 }
-document.getElementById('square-events-checkout').addEventListener('click', () => {
-  if (!selected.size) return;
-  const existing = (() => {try {const x = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');return Array.isArray(x)?x:[];} catch{return [];}})();
-  const incoming = [...selected.values()].map(({rentalId,quantity}) => ({id: rentalId,kind:'rental',meta:null,quantity}));
-  incoming.forEach(item => {
-    const old = existing.find(v => v.kind === 'rental' && Number(v.id) === item.id && (v.meta == null));
-    if (old) old.quantity = Number(old.quantity || 0) + item.quantity;
-    else existing.push(item);
-  });
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
-  // Intentionally do NOT invent dates: the Events calendar validates them.
-  if (!localStorage.getItem(DATE_KEY)) localStorage.setItem(DATE_KEY, JSON.stringify({}));
+checkout?.addEventListener('click',()=>{
+  if(!selected.size)return;
+  const existing=(()=>{try{const data=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(data)?data:[];}catch{return[];}})();
+  for(const item of selected.values()){
+    const old=existing.find(x=>x.kind==='rental'&&Number(x.id)===item.rentalId&&x.meta==null);
+    if(old)old.quantity=Number(old.quantity||0)+item.quantity;
+    else existing.push({id:item.rentalId,kind:'rental',meta:null,quantity:item.quantity});
+  }
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(existing));
+  if(!localStorage.getItem(DATE_KEY))localStorage.setItem(DATE_KEY,JSON.stringify({}));
   window.location.assign('/rentals/decor');
 });
+document.querySelectorAll('[data-display-rental]').forEach(button=>button.addEventListener('click',()=>addRental(button.dataset.displayRental,button)));
+document.querySelectorAll('[data-sweet-choice]').forEach(button=>button.addEventListener('click',()=>{
+  const choice=button.dataset.sweetChoice;
+  if(choice==='staffed'){
+    window.location.href='mailto:order@asliceofg.com?subject=Staffed%20Rum%20Cake%20Cart%20Inquiry&body=Event%20date%3A%0ALocation%3A%0AGuest%20count%3A';return;
+  }
+  addRental(600);
+  const target=choice==='photo'?'photo-walls':choice==='treats'?'treats':'book-online';
+  document.getElementById(target)?.scrollIntoView({behavior:'smooth',block:'start'});
+}));
 loadProducts();

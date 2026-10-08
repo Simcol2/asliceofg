@@ -36,3 +36,11 @@
 .page-events .band-item{white-space:normal}
 @media(max-width:650px){.page-events .ev-wall-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.page-events *, .page-events *::before, .page-events *::after{animation:none!important;transition:none!important}}
+
+/* Clickable Sweet Setup options and per-display rental actions. */
+.page-events button.ev-option { width:100%;font:inherit;text-align:left;cursor:pointer;border-radius:0;color:inherit;appearance:none; }
+.page-events .ev-option:hover,.page-events .ev-option:focus-visible {outline:3px solid var(--gold);outline-offset:2px;transform:translateY(-2px)}
+.page-events .ev-option h3 {color:inherit}
+.page-events .ev-display-add {cursor:pointer;background:var(--emerald);color:white;border:0;padding:13px 18px;font:600 13px 'Jost',sans-serif;margin-top:18px}
+.page-events .ev-display-add:disabled {cursor:wait;opacity:.55}
+.page-events .ev-display-add:focus-visible {outline:3px solid var(--gold);outline-offset:2px}
