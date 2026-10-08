@@ -14,9 +14,32 @@ function updateCart() {
   counter.textContent = `${count} rental item${count===1?'':'s'} · ${money(total)}`;
   checkout.disabled = count === 0;
 }
+function gentleScroll(id) {
+  const target=document.getElementById(id);
+  if (!target) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    target.scrollIntoView({behavior:'instant',block:'start'});
+    return;
+  }
+  const start=window.scrollY;
+  const destination=Math.max(0,Math.min(document.documentElement.scrollHeight-window.innerHeight,
+    target.getBoundingClientRect().top+window.scrollY-90));
+  const change=destination-start;
+  if (Math.abs(change)<8) return;
+  const duration=1100;
+  const started=performance.now();
+  function frame(now) {
+    const p=Math.min(1,(now-started)/duration);
+    const eased=p<.5?4*p*p*p:1-Math.pow(-2*p+2,3)/2;
+    window.scrollTo(0,start+change*eased);
+    if(p<1)requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
 function addRental(id, button) {
   const item=productsById.get(Number(id));
-  if (!item?.bookable) { document.getElementById('book-online').scrollIntoView({behavior:'smooth'}); return false; }
+  if (!item?.bookable) { gentleScroll('book-online'); return false; }
   const previous=selected.get(item.rentalId);
   selected.set(item.rentalId,{...item,quantity:(previous?.quantity||0)+1});
   updateCart();
@@ -68,6 +91,6 @@ document.querySelectorAll('[data-sweet-choice]').forEach(button=>button.addEvent
   }
   addRental(600);
   const target=choice==='photo'?'photo-walls':choice==='treats'?'treats':'book-online';
-  document.getElementById(target)?.scrollIntoView({behavior:'smooth',block:'start'});
+  gentleScroll(target);
 }));
 loadProducts();

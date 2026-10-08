@@ -3,9 +3,9 @@
 const EVENT_ITEM_IDS = [600, 604, 605, 606, 607];
 export default async function handler(req, res) {
   if (req.method !== 'GET') return res.status(405).json({ error: 'Method not allowed' });
-  const url = process.env.EVENTS_SUPABASE_URL || process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
+  const url = process.env.EVENTS_SUPABASE_URL || process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || 'https://rsexseihtkaqoxccrylk.supabase.co';
   const key = process.env.EVENTS_SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.EVENTS_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
-  if (!url || !key) return res.status(503).json({ error: 'Rental inventory connection is not configured' });
+  if (!key) return res.status(503).json({ error: 'Missing Supabase API key in Vercel. Set EVENTS_SUPABASE_SERVICE_ROLE_KEY in the cake website project and redeploy.' });
   try {
     const endpoint = `${url.replace(/\/$/, '')}/rest/v1/items?select=id,name,description,rental_price,photos,active,quantity_owned&active=eq.true&id=in.(${EVENT_ITEM_IDS.join(',')})`;
     const result = await fetch(endpoint, { headers: { apikey: key, Authorization: `Bearer ${key}` }});
@@ -28,6 +28,6 @@ export default async function handler(req, res) {
     return res.status(200).json({ products });
   } catch (error) {
     console.error('Supabase Events inventory failed:', error);
-    return res.status(502).json({ error: 'Event rentals are temporarily unavailable' });
+    return res.status(502).json({ error: 'Supabase rental request failed. Check Vercel server logs and EVENTS_SUPABASE_SERVICE_ROLE_KEY.' });
   }
 }

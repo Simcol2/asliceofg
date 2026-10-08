@@ -44,3 +44,6 @@
 .page-events .ev-display-add {cursor:pointer;background:var(--emerald);color:white;border:0;padding:13px 18px;font:600 13px 'Jost',sans-serif;margin-top:18px}
 .page-events .ev-display-add:disabled {cursor:wait;opacity:.55}
 .page-events .ev-display-add:focus-visible {outline:3px solid var(--gold);outline-offset:2px}
+
+/* Events section scroll offset beneath the fixed header. */
+.page-events #book-online,.page-events #photo-walls,.page-events #treats {scroll-margin-top:90px}
