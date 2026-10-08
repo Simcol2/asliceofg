@@ -719,3 +719,15 @@ body.page-events::after{content:"";position:fixed;inset:0;z-index:-1;pointer-eve
   width: auto;
   backdrop-filter: none !important;
 }
+
+
+/* ASG mobile hero whitespace correction v1 */
+/* Keep the cutout beside the heading while letting the intro begin sooner. */
+@media (max-width:539px) {
+  .page-events .ev-mcm-hero .ev-hero-copy > h1 {margin-bottom:55px!important;}
+  .page-events .ev-mcm-hero .ev-mobile-hero-cart {top:65px!important;}
+}
+@media (min-width:540px) and (max-width:780px) {
+  .page-events .ev-mcm-hero .ev-hero-copy > h1 {margin-bottom:48px!important;}
+  .page-events .ev-mcm-hero .ev-mobile-hero-cart {top:58px!important;}
+}
