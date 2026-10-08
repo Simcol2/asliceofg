@@ -58,3 +58,18 @@
 .page-events .ev-sq-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
 .page-events .ev-sq-card img{height:auto;aspect-ratio:4/5;object-fit:cover}
 @media(max-width:780px){.page-events .ev-options{grid-template-columns:1fr}.page-events .ev-sq-grid{grid-template-columns:1fr}}
+
+/* Restore the approved compact two-column photo cards; no full-width blowups. */
+.page-events .ev-sq-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:1160px}
+.page-events .ev-sq-card img{height:230px;width:100%;object-fit:cover}
+@media(max-width:650px){.page-events .ev-sq-grid{grid-template-columns:1fr}}
+/* Booking date modal, over the same page. */
+.ev-date-overlay[hidden]{display:none!important}
+.ev-date-overlay{position:fixed;inset:0;background:rgba(2,24,16,.7);z-index:99999;display:grid;place-items:center;padding:18px}
+body.ev-date-open{overflow:hidden}
+.ev-date-modal{position:relative;max-height:92vh;overflow:auto;background:#fffdf7;width:min(100%,460px);padding:36px;border:2px solid #c6a05b;box-shadow:0 22px 60px #0004;color:#143f2f}
+.ev-date-modal h2{font:600 32px 'Playfair Display',serif;margin:12px 0}.ev-date-modal p{line-height:1.5;margin:12px 0}
+.ev-date-modal label{display:block;font-weight:600;margin:18px 0 7px}
+.ev-date-modal input,.ev-date-modal select{width:100%;padding:13px;background:white;color:#173c2b;border:1px solid #baa989;font:inherit}
+.ev-date-modal .ev-date-note{font-size:13px;color:#625e55}.ev-date-modal .btn-gold{margin-top:16px;width:100%;cursor:pointer}
+.ev-date-close{position:absolute;right:14px;top:10px;border:0;background:transparent;font-size:32px;cursor:pointer;color:#143f2f}
