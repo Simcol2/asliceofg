@@ -1,4 +1,4 @@
-// Versioned G Events price book. Amounts are CAD cents; no delivery/setup/collection fees.
+// Versioned G Events price book. Amounts are CAD cents; standard delivery/setup/collection included; extended GTA travel is priced separately.
 const G_PRICE_VERSION = 'g-events-packages-v1';
 const G_TREATS = [
   {id:'slice',name:'Rum Cake Slices',retail:400,rates:[350,325,300]},
@@ -7,7 +7,7 @@ const G_TREATS = [
   {id:'ring',name:'Rum Rings',retail:450,rates:[400,375,350]},
 ];
 const G_CART_ITEM_ID = 600;
-const G_CART_BASE_CENTS = 24900;
+const G_CART_BASE_CENTS = 39900;
 function calculateGPackage(config){
   if(!config||typeof config!=='object') throw new Error('Choose a valid cart setup.');
   const kind=String(config.kind||'');

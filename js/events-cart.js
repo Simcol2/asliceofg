@@ -137,7 +137,7 @@ function displayPackage(){
  let quote;const el=document.getElementById('ev-package-breakdown');
  try{quote=GEventsPricing.calculateGPackage({kind:currentPackageKind,guests:Number(packageGuests.value),treats:chosen,hours:Number(packageHours.value)});}catch(e){el.textContent=e.message;document.getElementById('ev-add-package').disabled=true;return;}
  document.getElementById('ev-add-package').disabled=false;
- const base=productsById.get(600)?.priceCents||24900;
+ const base=productsById.get(600)?.priceCents||39900;
  const rows=[['Cart rental (delivery, setup & collection included)',base],...quote.lines.map(l=>[`${l.quantity} × ${l.name} at ${money(l.unitCents)}`,l.totalCents])];
  if(quote.staffCents)rows.push([`${quote.attendants} attendant(s), ${quote.hours} hours`,quote.staffCents]);
  rows.push(['Total package price',base+quote.addonsCents]);
