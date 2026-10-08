@@ -709,3 +709,13 @@ body.page-events::after{content:"";position:fixed;inset:0;z-index:-1;pointer-eve
  .page-events>nav .ev-nav-brand span{font-size:clamp(17px,4vw,22px);}
 }
 @media(prefers-reduced-motion:reduce){.page-events>nav{transition:none;}}
+
+/* Rental SEO links: prevent inherited global navigation layout */
+.page-events .ev-seo-rental-links {
+  position: relative !important;
+  inset: auto !important;
+  z-index: auto !important;
+  display: block !important;
+  width: auto;
+  backdrop-filter: none !important;
+}
