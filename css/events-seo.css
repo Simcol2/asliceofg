@@ -1,0 +1,38 @@
+/* Dedicated indexable Events rental pages; no checkout JavaScript is modified. */
+body.asg-rental-landing{margin:0;background:#0b352a;color:#103f31;font-family:'Jost',Arial,sans-serif;line-height:1.6}
+.asg-rental-landing *{box-sizing:border-box}
+.asg-rental-landing a{color:inherit}
+.asg-rental-shell{max-width:1200px;margin:0 auto;padding:22px clamp(16px,3vw,36px) 70px}
+.asg-rental-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0 26px;color:#fff9eb;flex-wrap:wrap}
+.asg-rental-logo{font:30px 'Cormorant Garamond',Georgia,serif;letter-spacing:.12em;text-decoration:none;color:#eac584!important}
+.asg-rental-nav a:not(.asg-rental-logo){font-weight:600;font-size:13px;text-decoration:underline;text-underline-offset:4px}
+.asg-rental-main{background:#fffaf3;border-radius:4px 86px 4px 4px;overflow:hidden;box-shadow:0 25px 65px #06231a66}
+.asg-rental-hero{display:grid;grid-template-columns:1.04fr .96fr;min-height:515px}
+.asg-rental-copy{padding:clamp(26px,5vw,65px);display:flex;flex-direction:column;justify-content:center}
+.asg-rental-eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#bc674f;font-weight:700}
+.asg-rental-copy h1{font:600 clamp(36px,4.5vw,64px)/1.09 'Playfair Display',Georgia,serif;margin:14px 0 16px}
+.asg-rental-lead{font-size:17px;line-height:1.65;color:#2e5547}
+.asg-rental-price{font-size:26px;font-weight:700;color:#0b4933;margin-top:18px}
+.asg-rental-price small{display:block;font-size:13px;font-weight:400;color:#555}
+.asg-rental-image{background:#f4decf;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.asg-rental-image img{display:block;width:100%;height:100%;max-height:650px;object-fit:cover}
+.asg-rental-buttons{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
+.asg-rental-button{display:inline-block;padding:14px 22px;border-radius:32px;background:#07513b;color:#fff!important;text-decoration:none!important;font-weight:700;font-size:14px}
+.asg-rental-button.secondary{border:1px solid #07513b;background:transparent;color:#07513b!important}
+.asg-rental-details{padding:24px clamp(26px,5vw,65px) 40px;background:#fffef9}
+.asg-rental-details h2{font:600 33px 'Playfair Display',Georgia,serif}
+.asg-rental-details li{margin:8px 0}
+.asg-rental-terms{padding:24px clamp(26px,5vw,65px);background:#f9e2d9;border-left:5px solid #d17e67}
+.asg-rental-terms h2{font:600 23px 'Playfair Display',Georgia,serif;margin:0 0 10px}
+.asg-rental-links{padding:18px clamp(26px,5vw,65px);background:#fffaf3;font-size:13px}
+.asg-rental-links a{margin-right:18px}
+.asg-rental-other{margin-top:28px;background:#fffaf3;padding:24px;border-radius:12px}
+.asg-rental-other h2{font:600 28px 'Playfair Display',Georgia,serif}
+.asg-rental-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.asg-rental-card{display:flex;flex-direction:column;gap:8px;background:#fff;border:1px solid #eee0d0;border-radius:10px;overflow:hidden;text-decoration:none}
+.asg-rental-card img{width:100%;aspect-ratio:5/4;object-fit:cover}
+.asg-rental-card span{padding:0 10px 10px;font-weight:600;font-size:14px}
+@media(max-width:780px){.asg-rental-hero{grid-template-columns:1fr}.asg-rental-image{max-height:430px}.asg-rental-main{border-radius:4px 55px 4px 4px}.asg-rental-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:460px){.asg-rental-cards{grid-template-columns:1fr 1fr}.asg-rental-card span{font-size:12px}}
+
+.ev-seo-rental-links{max-width:1200px;margin:20px auto;padding:25px;background:#fffaf3;color:#114433;border-radius:12px}.ev-seo-rental-links h2{font:600 30px Playfair Display,Georgia,serif}.ev-seo-rental-links>div{display:flex;flex-wrap:wrap;gap:11px}.ev-seo-rental-links a{display:inline-block;padding:9px 13px;border:1px solid #d5b27d;border-radius:25px;color:#0a5038;font:600 13px Jost,Arial,sans-serif;text-decoration:none}
