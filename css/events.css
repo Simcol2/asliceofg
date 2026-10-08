@@ -594,3 +594,21 @@ body.page-events::after{content:"";position:fixed;inset:0;z-index:-1;pointer-eve
 @media(min-width:540px) and (max-width:780px){
   .page-events .ev-mcm-hero .ev-mobile-hero-cart{top:100px;right:20px;width:32%;max-width:195px;}
 }
+
+/* ASG MOBILE HERO CART POSITION v3 */
+@media(max-width:539px){
+ .page-events .ev-mcm-hero .ev-mobile-hero-cart{
+   top:87px!important;
+   right:24px!important;
+   width:44%!important;
+   max-width:190px!important;
+ }
+}
+@media(min-width:540px) and (max-width:780px){
+ .page-events .ev-mcm-hero .ev-mobile-hero-cart{
+   top:80px!important;
+   right:35px!important;
+   width:39%!important;
+   max-width:225px!important;
+ }
+}
