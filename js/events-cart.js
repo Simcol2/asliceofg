@@ -88,7 +88,7 @@ async function loadProducts() {
     list.innerHTML=data.products.filter(p=>Number(p.rentalId)!==600).map(p=>`<article class="ev-sq-card">
       ${p.imageUrl?`<img loading="lazy" src="${escapeHtml(p.imageUrl)}" alt="${escapeHtml(wallDisplayName(p))}">`:'<div class="ev-sq-no-image">A SLICE OF G</div>'}
       <div class="ev-sq-copy"><h3>${escapeHtml(wallDisplayName(p))}</h3><p>${escapeHtml(p.rentalId===605?'One feature wall, two example looks. Your own wording and floral colour are included.':p.description)}</p>
-      <strong>${p.priceCents!=null?money(p.priceCents):'Price on request'}</strong>
+      <strong>${p.priceCents!=null?money(p.priceCents):'Price on request'}</strong><p class="ev-display-rental-terms">8-hour standalone rental · delivery, setup &amp; collection included in the standard area</p>
       <div class="ev-sq-actions"><button type="button" class="ev-wall-detail-link" data-wall-detail="${p.rentalId}">View details &amp; inclusions</button>
       <button type="button" data-rental="${p.rentalId}" ${p.bookable?'':'disabled'}>${p.bookable?'Add to Event Cart':'Unavailable'}</button></div></div>
     </article>`).join('');
@@ -269,6 +269,20 @@ document.getElementById('ev-slide-next')?.addEventListener('click',()=>{showTrea
 startTreatRotation();
 
 // Portion planner only recommends a package: it never changes a customer's cart automatically.
+const earlyDateInput=document.getElementById('ev-early-date-input');
+if(earlyDateInput){
+ const today=new Date();const nextDay=new Date(today.getFullYear(),today.getMonth(),today.getDate()+1);
+ const pad=v=>String(v).padStart(2,'0');const iso=[nextDay.getFullYear(),pad(nextDay.getMonth()+1),pad(nextDay.getDate())].join('-');
+ earlyDateInput.min=iso;
+ try{const saved=JSON.parse(localStorage.getItem(DATE_KEY)||'{}');if(saved.event&&saved.event>=iso){earlyDateInput.value=saved.event;}}catch{}
+ earlyDateInput.addEventListener('change',()=>{
+  const event=earlyDateInput.value;if(!event||event<earlyDateInput.min)return;
+  const shift=(d,n)=>{const t=new Date(d+'T12:00:00Z');t.setUTCDate(t.getUTCDate()+n);return t.toISOString().slice(0,10)};
+  const saved={event,pickup:shift(event,-1),dropoff:shift(event,1),pickupTime:'09:00',dropoffTime:'21:00',earlyPickupDays:0,extendedReturnDays:0,extraDayFeeCents:0};
+  localStorage.setItem(DATE_KEY,JSON.stringify(saved));
+  document.getElementById('ev-date-input').value=event;
+ });
+}
 const evPlannerGuests=document.getElementById('ev-planner-guests');
 const evPlannerPortions=document.getElementById('ev-planner-portions');
 const evPlannerUse=document.getElementById('ev-planner-use');
@@ -279,9 +293,9 @@ function updateEvTreatPlanner(){
  const recommended=Math.max(50,Math.ceil(portionsNeeded/50)*50);
  const available=guests>0&&recommended<=400;
  document.getElementById('ev-planner-result').textContent=guests?available?`${recommended} treats`:'Custom quantity':'Enter guests';
- document.getElementById('ev-planner-detail').textContent=guests?available?`${portionsNeeded} portions, rounded up to ${recommended}`:'Over the 400-treat package maximum; please contact us':'Enter the number of expected guests';
+ document.getElementById('ev-planner-detail').textContent=guests?available?`${portionsNeeded} whole treats needed · ${recommended}-treat package is the smallest package that covers this amount`:'Over the 400-treat package maximum; please contact us':'Enter the number of expected guests';
  evPlannerUse.disabled=!available;
- evPlannerUse.textContent=available?`Use ${recommended}-guest package`:'Choose another amount';
+ evPlannerUse.textContent=available?`Use ${recommended}-treat package`:'Choose another amount';
  evPlannerUse.dataset.guests=String(recommended);
 }
 evPlannerGuests?.addEventListener('input',updateEvTreatPlanner);

@@ -246,3 +246,18 @@ body.ev-wall-detail-open{overflow:hidden}
  .page-events .ev-photo-addon-media img{height:clamp(175px,49vw,250px);}
  .page-events .ev-photo-addon .ev-photo-addon-cta{align-self:flex-start;}
 }
+
+
+/* Booking clarity additions */
+.page-events .ev-hero-faq-link{align-self:center;color:#e6c88b;text-decoration:underline;text-underline-offset:4px;font:600 13px 'Jost',sans-serif}
+.page-events .ev-early-date{display:flex;gap:24px;justify-content:space-between;align-items:center;padding:22px max(5vw,25px);background:#fbe1d7;color:#143f2e}
+.page-events .ev-early-date h2{font:600 clamp(23px,2.3vw,33px) 'Playfair Display',serif;margin:5px 0}
+.page-events .ev-early-date p{font:13px/1.5 'Jost',sans-serif;max-width:630px}
+.page-events .ev-early-date label{font:600 13px 'Jost',sans-serif;min-width:205px}
+.page-events .ev-early-date input{display:block;width:100%;padding:10px;border:1px solid #bda484;background:white;color:#143f2e;margin-top:5px}
+.page-events .ev-early-date-next{font:700 13px 'Jost',sans-serif;text-decoration:underline;white-space:nowrap;color:#143f2e}
+.page-events .ev-terms-strip{margin-top:17px;background:#edf0e9;border-left:4px solid #0e4731;padding:17px 20px;font:14px/1.55 'Jost',sans-serif}
+.page-events .ev-terms-strip p{margin:5px 0}
+.page-events .ev-terms-strip a{text-decoration:underline;text-underline-offset:3px;color:#0e4731}
+.page-events .ev-display-rental-terms{font:600 12px/1.4 'Jost',sans-serif;color:#41694e;margin:7px 0 13px}
+@media(max-width:780px){.page-events .ev-early-date{flex-wrap:wrap;padding:18px 22px;gap:13px}.page-events .ev-early-date>div{flex-basis:100%}.page-events .ev-early-date label{flex:1;min-width:190px}}
