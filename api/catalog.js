@@ -14,6 +14,22 @@ export default async function handler(req, res) {
   }
 
   try {
+    // Preserve /api/categories through a rewrite to this single API function.
+    const categoriesRequest = req.query?.resource === 'categories';
+    if (categoriesRequest) {
+      const categories = [];
+      for await (const obj of await client.catalog.list({ types: 'CATEGORY' })) {
+        if (!obj.isDeleted) {
+          categories.push({
+            id: obj.id,
+            name: obj.categoryData?.name || 'Uncategorized',
+          });
+        }
+      }
+      res.setHeader('Cache-Control', 'no-store');
+      return res.status(200).json({ categories });
+    }
+
     // Collect all pages of catalog objects
     const objects = [];
     for await (const obj of await client.catalog.list({ types: 'ITEM,IMAGE' })) {

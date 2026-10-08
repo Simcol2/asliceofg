@@ -10,7 +10,7 @@ function escapeHtml(v) {return String(v ?? '').replace(/[&<>"']/g, a => ({'&':'&
 function updateCart() {
   let count = 0, total = 0;
   selected.forEach(v => { count += v.quantity; total += v.quantity * v.priceCents; });
-  cart.textContent = `${count} rental item${count === 1 ? '' : 's'} · ${money(total)}`;
+  cart.textContent = `${count} rental item${count === 1 ? '' : 's'} Ã‚Â· ${money(total)}`;
   document.getElementById('square-events-checkout').disabled = count === 0;
 }
 async function loadProducts() {
@@ -46,6 +46,6 @@ document.getElementById('square-events-checkout').addEventListener('click', () =
   localStorage.setItem(STORAGE_KEY, JSON.stringify(existing));
   // Intentionally do NOT invent dates: the Events calendar validates them.
   if (!localStorage.getItem(DATE_KEY)) localStorage.setItem(DATE_KEY, JSON.stringify({}));
-  window.location.assign('/events/decor');
+  window.location.assign('/rentals/decor');
 });
 loadProducts();
