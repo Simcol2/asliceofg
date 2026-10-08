@@ -189,7 +189,7 @@ footer {
 }
 
 .hero-arch {
-  display: none; /* hidden — restore by removing this line */
+  display: block; /* Original arched cake photo restored */
   position: absolute; right: 6%; top: 50%;
   transform: translateY(-50%);
   width: 400px; height: 540px;
@@ -2420,4 +2420,11 @@ body.page-home .nav-cart:hover { color: var(--gold-light); }
 @media (max-width: 768px) {
   body.page-home nav { padding: 16px 24px; }
   body.page-home .nav-logo { font-size: 22px; }
+}
+
+/* Restore original home arch (mobile) */
+@media(max-width:850px){
+  .hero { flex-direction:column; align-items:stretch; padding-bottom:44px; }
+  .hero .hero-arch {position:relative;top:auto;right:auto;transform:none;animation:none;display:block;width:min(74vw,360px);height:auto;aspect-ratio:400/540;margin:14px auto 0;flex-shrink:0;}
+  .hero .hero-content {position:relative;z-index:4;}
 }

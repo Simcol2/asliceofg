@@ -97,3 +97,17 @@ body.ev-date-open{overflow:hidden}
 .page-events .ev-cart-bottom{border-top:2px solid #184a34;padding-top:18px;margin-top:24px}.page-events .ev-cart-total{display:flex;justify-content:space-between;font:600 17px 'Jost',sans-serif}.page-events .ev-cart-bottom p{font:13px/1.6 'Jost',sans-serif;margin:12px 0 18px}.page-events .ev-cart-bottom button{width:100%}.page-events .ev-cart-bottom button:disabled{opacity:.5;cursor:not-allowed}
 @media(max-width:750px){.page-events .ev-treat-showcase{grid-template-columns:1fr}.page-events .ev-treat-slideshow{height:280px}.page-events .ev-floating-cart{right:12px;bottom:12px}}
 @media(prefers-reduced-motion:reduce){.page-events .ev-treat-slide{transition:none}}
+
+/* Arched treats photos and compact mobile event band */
+.page-events .ev-treat-slideshow { height:430px; width:min(100%,345px); margin-inline:auto; border-radius:180px 180px 0 0; overflow:hidden; background:transparent; border:none; box-shadow:none; }
+.page-events .ev-treat-slide {width:100%;height:100%;object-fit:cover;object-position:center;}
+.page-events .ev-treat-controls {border-radius:20px;bottom:10px;right:10px;}
+@media(max-width:650px){
+  .page-events .band {padding:8px 0;overflow:hidden;white-space:nowrap;}
+  .page-events .band-inner {display:flex;flex-wrap:nowrap;justify-content:flex-start;gap:9px;align-items:center;overflow-x:auto;scrollbar-width:none;padding:0 12px;max-width:100%;-webkit-overflow-scrolling:touch;}
+  .page-events .band-inner::-webkit-scrollbar {display:none;}
+  .page-events .band-item {font-size:9px;letter-spacing:.035em;line-height:1.25;gap:0;flex-shrink:0;white-space:nowrap;}
+  .page-events .band-item::after {content:none;}
+  .page-events .band-item:not(:last-child)::after {content:'·';display:inline-block;margin-left:9px;color:var(--forest-deep);}
+  .page-events .ev-treat-slideshow {height:355px;width:min(84vw,290px);border-radius:150px 150px 0 0;}
+}

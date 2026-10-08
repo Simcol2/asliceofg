@@ -8,11 +8,32 @@ const counter = document.getElementById('square-events-cart');
 const checkout = document.getElementById('square-events-checkout');
 const money = cents => new Intl.NumberFormat('en-CA',{style:'currency',currency:'CAD'}).format(cents / 100);
 const escapeHtml = str => String(str ?? '').replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+function persistEventSelections() {
+  let existing=[];
+  try { const parsed=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');if(Array.isArray(parsed))existing=parsed; }catch{}
+  const eventIds=new Set([600,604,605,606,607]);
+  const otherItems=existing.filter(x=>!(x.kind==='rental'&&eventIds.has(Number(x.id))&&x.meta==null));
+  const eventItems=Array.from(selected.values()).map(x=>({id:Number(x.rentalId),kind:'rental',meta:null,quantity:Number(x.quantity)}));
+  localStorage.setItem(STORAGE_KEY,JSON.stringify([...otherItems,...eventItems]));
+}
+function restoreEventSelections(){
+  let existing=[];
+  try {const parsed=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');if(Array.isArray(parsed))existing=parsed;}catch{}
+  selected.clear();
+  for(const row of existing){
+    if(row.kind!=='rental'||row.meta!=null)continue;
+    const product=productsById.get(Number(row.id));
+    const quantity=Math.floor(Number(row.quantity)||0);
+    if(product&&quantity>0)selected.set(product.rentalId,{...product,quantity});
+  }
+  updateCart();
+}
 function updateCart() {
   let count = 0, total = 0;
   for (const item of selected.values()) { count += item.quantity; total += item.quantity * item.priceCents; }
   counter.textContent = `${count} rental item${count===1?'':'s'} · ${money(total)}`;
   checkout.disabled = count === 0;
+  persistEventSelections();
   document.getElementById('ev-floating-count').textContent=String(count);
   renderEventCart();
 }
@@ -58,6 +79,7 @@ async function loadProducts() {
     const data=await response.json();
     if (!response.ok) throw new Error(data.error||'Event products unavailable');
     for (const p of data.products||[]) productsById.set(Number(p.rentalId),p);
+    restoreEventSelections();
     if (!data.products?.length) {list.textContent='Event rentals are not available yet.';return;}
     list.innerHTML=data.products.filter(p=>Number(p.rentalId)!==600).map(p=>`<article class="ev-sq-card">
       ${p.imageUrl?`<img loading="lazy" src="${escapeHtml(p.imageUrl)}" alt="${escapeHtml(p.name)}">`:'<div class="ev-sq-no-image">A SLICE OF G</div>'}
