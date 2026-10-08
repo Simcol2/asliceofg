@@ -73,3 +73,9 @@ body.ev-date-open{overflow:hidden}
 .ev-date-modal input,.ev-date-modal select{width:100%;padding:13px;background:white;color:#173c2b;border:1px solid #baa989;font:inherit}
 .ev-date-modal .ev-date-note{font-size:13px;color:#625e55}.ev-date-modal .btn-gold{margin-top:16px;width:100%;cursor:pointer}
 .ev-date-close{position:absolute;right:14px;top:10px;border:0;background:transparent;font-size:32px;cursor:pointer;color:#143f2f}
+
+/* G EVENTS: full-image rental cards, 3 on desktop, 2 tablet, 1 phone. */
+.page-events .ev-sq-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));max-width:1250px;gap:18px}
+.page-events .ev-sq-card img{display:block;width:100%;height:260px;aspect-ratio:auto;object-fit:contain;object-position:center;background:#f7f4ee}
+@media(max-width:980px){.page-events .ev-sq-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.page-events .ev-sq-grid{grid-template-columns:minmax(0,1fr)}}

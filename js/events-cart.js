@@ -70,7 +70,7 @@ async function loadProducts() {
 // Collect dates in a modal instead of jumping into the catalogue.
 const dateOverlay=document.getElementById('ev-date-dialog');
 const dateInput=document.getElementById('ev-date-input');
-const timeInput=document.getElementById('ev-pickup-time');
+
 const dateError=document.getElementById('ev-date-error');
 function isoShift(date,days){const d=new Date(date+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+days);return d.toISOString().slice(0,10);}
 function closeBookingDate(){dateOverlay.hidden=true;document.body.classList.remove('ev-date-open');checkout.focus();}
@@ -79,15 +79,15 @@ checkout?.addEventListener('click',()=>{
   const today=new Date();const localToday=[today.getFullYear(),String(today.getMonth()+1).padStart(2,'0'),String(today.getDate()).padStart(2,'0')].join('-');
   dateInput.min=isoShift(localToday,1); // Pickup must not be in the past.
   const existing=(()=>{try{return JSON.parse(localStorage.getItem(DATE_KEY)||'{}')}catch{return {}}})();
-  dateInput.value=existing.event||'';timeInput.value=existing.pickupTime||'';
+  dateInput.value=existing.event||'';
   dateError.hidden=true;dateOverlay.hidden=false;document.body.classList.add('ev-date-open');dateInput.focus();
 });
 document.getElementById('ev-date-close')?.addEventListener('click',closeBookingDate);
 dateOverlay?.addEventListener('click',e=>{if(e.target===dateOverlay)closeBookingDate()});
 dateOverlay?.addEventListener('keydown',e=>{if(e.key==='Escape')closeBookingDate()});
 document.getElementById('ev-date-continue')?.addEventListener('click',()=>{
-  const event=dateInput.value,pickupTime=timeInput.value;
-  if(!event||!pickupTime||event<dateInput.min){dateError.textContent='Choose a future event date and pickup time.';dateError.hidden=false;return;}
+  const event=dateInput.value;const pickupTime='09:00';
+  if(!event||event<dateInput.min){dateError.textContent='Choose a future event date.';dateError.hidden=false;return;}
   const existing=(()=>{try{const x=JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]');return Array.isArray(x)?x:[]}catch{return[]}})();
   for(const item of selected.values()){
     const old=existing.find(x=>x.kind==='rental'&&Number(x.id)===item.rentalId&&x.meta==null);
@@ -98,8 +98,9 @@ document.getElementById('ev-date-continue')?.addEventListener('click',()=>{
   localStorage.setItem(STORAGE_KEY,JSON.stringify(existing));
   localStorage.setItem(DATE_KEY,JSON.stringify({event,pickup:isoShift(event,-1),dropoff:isoShift(event,1),pickupTime,dropoffTime:`${String(h%24).padStart(2,'0')}:${pickupTime.slice(3)}`,earlyPickupDays:0,extendedReturnDays:0,extraDayFeeCents:0}));
   localStorage.setItem('asliceofg-event-date',event);
+  sessionStorage.setItem('asliceofg-g-events-checkout','1');
   // The existing rental app opens its real checkout modal with the saved cart.
-  window.location.assign('/rentals/?openCart=1');
+  window.location.assign('/rentals/decor?gEventsCheckout=1');
 });
 document.querySelectorAll('[data-sweet-choice]').forEach(button=>button.addEventListener('click',()=>{
   const choice=button.dataset.sweetChoice;
