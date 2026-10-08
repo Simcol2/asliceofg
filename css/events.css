@@ -443,3 +443,54 @@ body.page-events::after{content:"";position:fixed;inset:0;z-index:-1;pointer-eve
 }
 @media(max-width:440px){.page-events .ev-how-grid{grid-template-columns:1fr;}.page-events .ev-mcm-hero h1{font-size:47px;}.page-events .ev-mcm-hero h1 em{font-size:45px;}}
 @media(prefers-reduced-motion:reduce){.page-events .ev-mcm-catalog .ev-option{transition:none;}}
+
+
+/* MCM ACCURATE SECTION FIX v2 */
+/* User-approved hero photo remains in the hero. Cutout cart is for the package feature only. */
+.page-events .ev-mcm-hero .ev-hero-visual{padding:0!important;display:block!important;background:#173b30!important;overflow:hidden!important;min-height:540px;}
+.page-events .ev-mcm-hero .ev-hero-arch,.page-events .ev-mcm-hero .ev-mcm-cart{display:none!important;}
+.page-events .ev-mcm-hero .ev-mcm-hero-photo{display:block;width:100%;height:100%;min-height:540px;object-fit:cover;object-position:52% center;}
+.page-events .ev-mcm-hero .ev-photo-foot{z-index:2;}
+/* Signature cart, displayed prominently as a feature rather than squeezed into a photo slideshow. */
+.page-events .ev-mcm-catalog>.ev-heading{display:none;}
+.page-events .ev-mcm-cart-feature{position:relative;isolation:isolate;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;min-height:360px;margin:0 0 23px;background:linear-gradient(112deg,#083d2d 0%,#0f5940 62%,#e8b5a3 62%);color:#fffaef;border-radius:35px 35px 8px 8px;overflow:hidden;}
+.page-events .ev-mcm-cart-feature:before{content:'';position:absolute;width:330px;height:330px;border-radius:50%;right:-110px;bottom:-180px;background:#c34770;z-index:-1;}
+.page-events .ev-mcm-cart-feature-copy{padding:32px clamp(20px,3.6vw,50px);}
+.page-events .ev-mcm-cart-feature .ev-kicker{color:#e6bd80;letter-spacing:.17em;}
+.page-events .ev-mcm-cart-feature h2{font:600 clamp(34px,4.2vw,62px)/1.05 'Playfair Display',serif;color:#fff9ef;margin:9px 0 14px;}
+.page-events .ev-mcm-cart-feature-copy>p:not(.ev-kicker){font:15px/1.6 'Jost',sans-serif;max-width:490px;}
+.page-events .ev-mcm-cart-highlights{display:flex;flex-wrap:wrap;gap:10px 16px;margin:18px 0;color:#ffe6a5;font:600 12px/1.4 'Jost',sans-serif;}
+.page-events .ev-mcm-feature-cta,.page-events .ev-mcm-portions-cta{display:inline-flex;align-items:center;gap:12px;background:#e9c58d;color:#0a4230;border-radius:26px;padding:12px 21px;font:700 12px 'Jost',sans-serif;text-decoration:none;}
+.page-events .ev-mcm-cart-feature-image{position:relative;min-height:350px;display:flex;align-items:flex-end;justify-content:center;}
+.page-events .ev-mcm-cart-feature-image>img{display:block;width:min(100%,510px);height:350px;object-fit:contain;object-position:center bottom;filter:drop-shadow(4px 14px 11px #17312655);background:transparent;border:0;}
+.page-events .ev-mcm-price-bubble{position:absolute;left:1%;top:9%;height:119px;width:119px;display:flex;flex-direction:column;justify-content:center;align-items:center;border-radius:50%;background:#dbb66c;border:3px solid #f5ddb1;box-shadow:0 0 0 3px #bd9452,0 5px 15px #08261b40;color:#123e2e;text-align:center;transform:rotate(-5deg);}
+.page-events .ev-mcm-price-bubble small{font:700 9px/1.35 'Jost',sans-serif;letter-spacing:.07em;}
+.page-events .ev-mcm-price-bubble strong{font:700 37px/1.1 'Cormorant Garamond',serif;}
+/* Separate treat section. Existing two-photo slideshow + its JS controls remain intact. */
+.page-events .ev-mcm-catalog .ev-mcm-portions{display:grid;grid-template-columns:1.15fr .85fr;align-items:center;background:#fffbf3!important;color:#123e2d!important;min-height:225px;padding:20px 30px;margin:0 0 18px;border:1px solid #ead9bf;border-radius:12px;}
+.page-events .ev-mcm-catalog .ev-mcm-portions .ev-treat-showcase-copy{padding:0;}
+.page-events .ev-mcm-catalog .ev-mcm-portions .ev-kicker{color:#b75b45!important;}
+.page-events .ev-mcm-catalog .ev-mcm-portions h3{font:600 clamp(26px,3.2vw,43px)/1.1 'Playfair Display',serif;color:#113c2c!important;margin:9px 0;}
+.page-events .ev-mcm-catalog .ev-mcm-portions h3 em{color:#c34a66!important;}
+.page-events .ev-mcm-catalog .ev-mcm-portions p{color:#305849!important;font:14px/1.5 'Jost',sans-serif;max-width:510px;}
+.page-events .ev-mcm-catalog .ev-mcm-portions .ev-treat-slideshow{margin:0 auto;max-height:230px;height:230px;width:min(100%,260px);}
+.page-events .ev-mcm-catalog .ev-mcm-portions .ev-mcm-portions-cta{background:#0c543c;color:#fff9ef;margin-top:15px;}
+/* The photo-moment feature is a compact editorial strip, not a full-screen image. */
+.page-events .ev-mcm-addon.ev-mcm-addon-compact{display:grid!important;grid-template-columns:1fr 1fr;gap:0;width:calc(100% - 50px);max-width:1270px;height:auto;min-height:0;margin:17px auto 22px;border-radius:18px;padding:0;overflow:hidden;}
+.page-events .ev-mcm-addon-compact .ev-photo-addon-media{height:280px!important;min-height:0!important;overflow:hidden;}
+.page-events .ev-mcm-addon-compact .ev-photo-addon-media img{display:block;height:100%!important;min-height:0!important;max-height:none!important;width:100%;object-fit:cover;object-position:center;}
+.page-events .ev-mcm-addon-compact .ev-photo-addon-copy{padding:28px 34px;}
+.page-events .ev-mcm-addon-compact h3{font-size:clamp(27px,3vw,43px);margin:6px 0;}
+.page-events .ev-mcm-addon-compact p{font-size:14px;line-height:1.55;margin-bottom:15px;}
+.page-events .ev-mcm-addon-compact .ev-photo-addon-cta{padding:12px 19px;}
+.page-events #ev-cart-package-choices,.page-events #ev-treat-planner{scroll-margin-top:115px;}
+@media(max-width:800px){
+ .page-events .ev-mcm-hero .ev-hero-visual,.page-events .ev-mcm-hero .ev-mcm-hero-photo{min-height:360px;max-height:400px;}
+ .page-events .ev-mcm-cart-feature{grid-template-columns:1fr;}
+ .page-events .ev-mcm-cart-feature-image{min-height:250px;}
+ .page-events .ev-mcm-cart-feature-image>img{height:295px;}
+ .page-events .ev-mcm-price-bubble{top:0;left:12%;width:105px;height:105px;}
+ .page-events .ev-mcm-catalog .ev-mcm-portions{grid-template-columns:1fr;gap:18px;}
+ .page-events .ev-mcm-addon.ev-mcm-addon-compact{width:calc(100% - 28px);grid-template-columns:1fr!important;}
+ .page-events .ev-mcm-addon-compact .ev-photo-addon-media{height:230px!important;}
+}
