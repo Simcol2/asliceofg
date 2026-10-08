@@ -39,7 +39,7 @@ function gentleScroll(id) {
 
 function addRental(id, button) {
   const item=productsById.get(Number(id));
-  if (!item?.bookable) { gentleScroll('book-online'); return false; }
+  if (!item?.bookable) { const feedback=document.getElementById('ev-cart-feedback'); if(feedback) feedback.textContent='The cart is temporarily unavailable. Please try again shortly.'; return false; }
   const previous=selected.get(item.rentalId);
   selected.set(item.rentalId,{...item,quantity:(previous?.quantity||0)+1});
   updateCart();
@@ -57,18 +57,14 @@ async function loadProducts() {
     if (!response.ok) throw new Error(data.error||'Event products unavailable');
     for (const p of data.products||[]) productsById.set(Number(p.rentalId),p);
     if (!data.products?.length) {list.textContent='Event rentals are not available yet.';return;}
-    list.innerHTML=data.products.map(p=>`<article class="ev-sq-card">
+    list.innerHTML=data.products.filter(p=>Number(p.rentalId)!==600).map(p=>`<article class="ev-sq-card">
       ${p.imageUrl?`<img loading="lazy" src="${escapeHtml(p.imageUrl)}" alt="${escapeHtml(p.name)}">`:'<div class="ev-sq-no-image">A SLICE OF G</div>'}
       <div class="ev-sq-copy"><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.description)}</p>
       <strong>${p.priceCents!=null?money(p.priceCents):'Price on request'}</strong>
       <button type="button" data-rental="${p.rentalId}" ${p.bookable?'':'disabled'}>${p.bookable?'Add to Event Cart':'Unavailable'}</button></div>
     </article>`).join('');
     list.addEventListener('click', e=>{const b=e.target.closest('button[data-rental]');if(b)addRental(b.dataset.rental,b);});
-    document.querySelectorAll('[data-display-rental]').forEach(button=>{
-      const p=productsById.get(Number(button.dataset.displayRental));
-      button.disabled=!p?.bookable;
-      if(p?.priceCents!=null) button.textContent=`Add to Event Cart · ${money(p.priceCents)}`;
-    });
+    
   } catch(e) {list.textContent=e.message;}
 }
 checkout?.addEventListener('click',()=>{
@@ -83,14 +79,18 @@ checkout?.addEventListener('click',()=>{
   if(!localStorage.getItem(DATE_KEY))localStorage.setItem(DATE_KEY,JSON.stringify({}));
   window.location.assign('/rentals/decor');
 });
-document.querySelectorAll('[data-display-rental]').forEach(button=>button.addEventListener('click',()=>addRental(button.dataset.displayRental,button)));
+
 document.querySelectorAll('[data-sweet-choice]').forEach(button=>button.addEventListener('click',()=>{
   const choice=button.dataset.sweetChoice;
-  if(choice==='staffed'){
-    window.location.href='mailto:order@asliceofg.com?subject=Staffed%20Rum%20Cake%20Cart%20Inquiry&body=Event%20date%3A%0ALocation%3A%0AGuest%20count%3A';return;
-  }
-  addRental(600);
-  const target=choice==='photo'?'photo-walls':choice==='treats'?'treats':'book-online';
-  gentleScroll(target);
+  const added=addRental(600);
+  const feedback=document.getElementById('ev-cart-feedback');
+  if(!added) return;
+  const messages={
+    cart:'Cart Only added. Your cart is ready below.',
+    treats:'Cart added. A Slice of G treats will be quoted separately based on your event.',
+    staffed:'Cart added. Treats and staffing require a separate quote before your booking is final.'
+  };
+  if(feedback) feedback.textContent=messages[choice]||messages.cart;
+  document.querySelectorAll('[data-sweet-choice]').forEach(b=>b.classList.toggle('ev-chosen',b===button));
 }));
 loadProducts();

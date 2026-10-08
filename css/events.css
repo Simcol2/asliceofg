@@ -47,3 +47,14 @@
 
 /* Events section scroll offset beneath the fixed header. */
 .page-events #book-online,.page-events #photo-walls,.page-events #treats {scroll-margin-top:90px}
+
+/* Consolidated Events shopping categories */
+.page-events .ev-options{grid-template-columns:repeat(3,minmax(0,1fr))}
+.page-events .ev-category-heading{display:flex;align-items:center;gap:17px;border-top:2px solid var(--emerald);border-bottom:1px solid #d7cbb6;padding:15px 0;margin:0 0 25px}
+.page-events .ev-category-heading span{font:600 14px 'Jost',sans-serif;color:var(--coral)}
+.page-events .ev-category-heading h3{font:600 clamp(21px,2.8vw,31px) 'Playfair Display',serif;margin:0;color:var(--emerald)}
+.page-events .ev-cart-feedback{font:600 14px/1.5 'Jost',sans-serif;color:var(--emerald);min-height:1.6em;margin-top:20px}
+.page-events .ev-option.ev-chosen{border:2px solid var(--emerald);box-shadow:0 3px 18px rgba(5,60,40,.12)}
+.page-events .ev-sq-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.page-events .ev-sq-card img{height:auto;aspect-ratio:4/5;object-fit:cover}
+@media(max-width:780px){.page-events .ev-options{grid-template-columns:1fr}.page-events .ev-sq-grid{grid-template-columns:1fr}}
