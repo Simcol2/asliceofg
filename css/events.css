@@ -565,3 +565,32 @@ body.page-events::after{content:"";position:fixed;inset:0;z-index:-1;pointer-eve
     box-shadow:none;
   }
 }
+
+/* ASG MOBILE HERO CART PLACEMENT v2: no desktop layout modifications */
+.page-events .ev-mobile-hero-cart{display:none;}
+@media(max-width:780px){
+  .page-events .ev-mcm-date{grid-template-areas:"actions" "copy"!important;}
+  .page-events .ev-mcm-date .ev-mobile-date-cart{display:none!important;}
+  .page-events .ev-mcm-hero .ev-hero-copy{position:relative;isolation:isolate;overflow:hidden;}
+  .page-events .ev-mcm-hero .ev-mobile-hero-cart{
+    display:block!important;
+    position:absolute;
+    top:110px;
+    right:9px;
+    width:36%;
+    max-width:155px;
+    height:auto;
+    object-fit:contain;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    filter:none;
+    pointer-events:none;
+    z-index:0;
+  }
+  .page-events .ev-mcm-hero .ev-hero-copy > :not(.ev-mobile-hero-cart){position:relative;z-index:1;}
+}
+@media(min-width:540px) and (max-width:780px){
+  .page-events .ev-mcm-hero .ev-mobile-hero-cart{top:100px;right:20px;width:32%;max-width:195px;}
+}
