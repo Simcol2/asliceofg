@@ -494,3 +494,15 @@ body.page-events::after{content:"";position:fixed;inset:0;z-index:-1;pointer-eve
  .page-events .ev-mcm-addon.ev-mcm-addon-compact{width:calc(100% - 28px);grid-template-columns:1fr!important;}
  .page-events .ev-mcm-addon-compact .ev-photo-addon-media{height:230px!important;}
 }
+
+/* Mirrored MCM corner: HERO PHOTO ONLY */
+@media (min-width: 781px) {
+  .page-events .ev-mcm-hero .ev-hero-visual {
+    border-radius: 110px 2px 2px 2px !important;
+    overflow: hidden !important;
+  }
+  .page-events .ev-mcm-hero .ev-mcm-hero-photo {
+    border-radius: inherit;
+    display: block;
+  }
+}
