@@ -12,3 +12,5 @@ The cover and gallery use the existing public Supabase bucket `Photos from`: `th
 To add another event, create another static detail page, add its card to `index.html`, add an explicit rewrite in `vercel.json`, and list the new URL in `sitemap.xml`. The Oscars page is published at `/past-events/night-at-the-oscars` using `oscarshero.jpg`, `oscars1.png`, `oscars2.jpg`, and `oscars3.png` from the same public Supabase bucket.
 
 The Oscars gallery also includes `oscars6.jpeg`. The four files named `oscarssmall.jpeg`, `oscarssmall2.jpeg`, `oscarssmall4.jpeg`, and `oscarssmall5.jpeg` appear together in a compact two-column, two-row grid on desktop and mobile. The Thanksgiving table cover is shown only once on its detail page; the gallery contains the other three photos.
+
+The baby shower page is `/past-events/make-way-for-the-little-ones`. Its cover uses `baby shower hero.png`; the gallery includes `babyshowermain.png`, `babyshower.jpg`, `babyshower2.jpg`, `babyshower21.png`, and `babyshower5.jpeg`. Thanksgiving retains its existing URL with the title “A night to give thanks”.

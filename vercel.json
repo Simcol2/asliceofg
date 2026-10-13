@@ -22,6 +22,10 @@
       "destination": "/past-events/night-at-the-oscars.html"
     },
     {
+      "source": "/past-events/make-way-for-the-little-ones",
+      "destination": "/past-events/make-way-for-the-little-ones.html"
+    },
+    {
       "source": "/api/categories",
       "destination": "/api/catalog?resource=categories"
     },
