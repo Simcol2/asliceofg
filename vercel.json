@@ -10,6 +10,14 @@
   },
   "rewrites": [
     {
+      "source": "/past-events",
+      "destination": "/past-events/index.html"
+    },
+    {
+      "source": "/past-events/thanksgiving-gathering",
+      "destination": "/past-events/thanksgiving-gathering.html"
+    },
+    {
       "source": "/api/categories",
       "destination": "/api/catalog?resource=categories"
     },
