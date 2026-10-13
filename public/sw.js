@@ -1,14 +1,12 @@
-const CACHE = 'asliceofg-v1';
+const CACHE = 'asliceofg-v2';
 const STATIC = [
   '/',
   '/index.html',
   '/shop.html',
   '/catering.html',
-  '/gifting.html',
   '/about.html',
   '/contact.html',
   '/css/main.css',
-  '/css/gifting.css',
   '/css/portal.css',
   '/js/cart-drawer.js',
   '/js/shop.js',

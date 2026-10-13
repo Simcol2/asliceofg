@@ -109,5 +109,22 @@
         }
       ]
     }
+  ],
+  "redirects": [
+    {
+      "source": "/gifting.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/gifting",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/gifting/",
+      "destination": "/",
+      "permanent": false
+    }
   ]
 }

@@ -50,7 +50,7 @@
     <ul class="nav-links">
       <li><a href="shop.html">Shop</a></li>
       <li><a href="/events">Events</a></li>
-      <li><a href="gifting.html">Corporate Gifts</a></li>
+
       <li><a href="about.html">About</a></li>
       <li><a href="/past-events">Past Events</a></li>
       <li><a href="contact.html">Contact</a></li>
@@ -67,11 +67,11 @@
   </nav>
 
   <div class="nav-mobile-menu" id="nav-mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu">
-    <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu">✕</button>
+    <button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu"><span aria-hidden="true">&times;</span></button>
     <a href="shop.html">Shop All</a>
     <a href="catering.html">Catering</a>
     <a href="/events">Events</a>
-    <a href="gifting.html">Corporate Gifting</a>
+
     <a href="about.html">About</a>
     <a href="https://www.instagram.com/_sliceofg/" target="_blank">Instagram</a>
     <a href="/past-events">Past Events</a>
@@ -385,7 +385,7 @@
   <div class="asg-policy-links" style="margin-top:12px;font-size:12px;line-height:1.6"><a href="/terms.html" style="color:#dfc79d;text-decoration:underline">Terms &amp; Refunds</a> · <a href="/accessibility.html" style="color:#dfc79d;text-decoration:underline">Accessibility &amp; Inclusion</a></div></footer>
 
   <script src="js/cart-drawer.js"></script>
-  <script src="/js/nav.js"></script>
+  <script src="/js/nav.js?v=2"></script>
   <script>
     fetch('/api/reviews').then(r => r.json()).then(({ reviews, rating, totalRatings }) => {
       const scoreEl = document.getElementById('reviews-score');
