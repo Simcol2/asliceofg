@@ -26,6 +26,10 @@
       "destination": "/past-events/make-way-for-the-little-ones.html"
     },
     {
+      "source": "/past-events/extra-special-touches",
+      "destination": "/past-events/extra-special-touches.html"
+    },
+    {
       "source": "/api/categories",
       "destination": "/api/catalog?resource=categories"
     },
