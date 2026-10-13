@@ -9,4 +9,4 @@ Adapted from the supplied `asliceofg-past-events` pack for this repository's sta
 
 The cover and gallery use the existing public Supabase bucket `Photos from`: `thanksgiving4.png` (table), `thanksgiving3.png` (desserts), and `centerpiece.png` (florals). Gallery links open the original photos. No storage permissions or database records were changed.
 
-To add another event, create another static detail page, add its card to `index.html`, add an explicit rewrite in `vercel.json`, and list the new URL in `sitemap.xml`. The pack's unpublished Oscars draft has not been published.
+To add another event, create another static detail page, add its card to `index.html`, add an explicit rewrite in `vercel.json`, and list the new URL in `sitemap.xml`. The Oscars page is published at `/past-events/night-at-the-oscars` using `oscarshero.jpg`, `oscars1.png`, `oscars2.jpg`, and `oscars3.png` from the same public Supabase bucket.

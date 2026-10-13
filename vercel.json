@@ -18,6 +18,10 @@
       "destination": "/past-events/thanksgiving-gathering.html"
     },
     {
+      "source": "/past-events/night-at-the-oscars",
+      "destination": "/past-events/night-at-the-oscars.html"
+    },
+    {
       "source": "/api/categories",
       "destination": "/api/catalog?resource=categories"
     },
