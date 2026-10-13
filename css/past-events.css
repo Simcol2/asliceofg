@@ -5,3 +5,5 @@ body{margin:0}.detailHero img,.galleryItem img{position:absolute;inset:0;width:1
 .detail[data-event-theme=cinema] .galleryItem{background:#003e34}.detail[data-event-theme=cinema] .galleryItem img{object-fit:contain}
 
 .gallerySmallGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;max-width:720px;margin:28px auto 0}.gallerySmallGrid .galleryItem{aspect-ratio:1}.gallerySmallGrid .zoomLabel{right:10px;bottom:10px;font-size:9px;padding:8px 10px}@media(max-width:700px){.gallerySmallGrid{gap:8px;margin-top:16px}.gallerySmallGrid .zoomLabel{right:6px;bottom:6px;font-size:8px;padding:7px}}
+
+.artCaption{z-index:1;background:var(--deep);padding:14px 18px;border-radius:4px;max-width:calc(100% - 26%)}
