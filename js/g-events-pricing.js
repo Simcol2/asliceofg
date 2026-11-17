@@ -38,3 +38,26 @@ function calculateGPackage(config){
 }
 
 window.GEventsPricing={G_PRICE_VERSION,G_TREATS,G_CART_ITEM_ID,G_CART_BASE_CENTS,calculateGPackage};
+
+// Delivery pricing for the order form. Mirrors gEventDelivery.js in the Events app,
+// which is the version the server charges from. Amounts are CAD cents, once per booking.
+function gEventDeliveryZone(postalInput){
+  const postal=String(postalInput||'').replace(/\s/g,'').toUpperCase();
+  if(!/^[A-Z]\d[A-Z]\d[A-Z]\d$/.test(postal)||/[DFIOQU]/.test(postal))return null;
+  const fsa=postal.slice(0,3);
+  if(postal[0]==='M'||['L1S','L1T','L1V','L1W','L1X','L1Z'].includes(fsa))return {feeCents:0,label:'Included delivery, setup & collection'};
+  if(/^L[134567]/.test(fsa)||['L9T','L9E'].includes(fsa))return {feeCents:5000,label:'Extended GTA delivery, setup & collection'};
+  return null;
+}
+// Display estimates only. The server recomputes both amounts from the same tiers before charging.
+function estimateBookingDepositCents(totalCents){return Math.ceil(totalCents*0.5);}
+function estimateSecurityDepositCents(totalCents){
+  if(totalCents>=100000)return 30000;
+  if(totalCents>=75000)return 25000;
+  if(totalCents>=50000)return 20000;
+  if(totalCents>=30000)return 15000;
+  if(totalCents>=15000)return 10000;
+  if(totalCents>=5000)return 5000;
+  return 0;
+}
+Object.assign(window.GEventsPricing,{gEventDeliveryZone,estimateBookingDepositCents,estimateSecurityDepositCents});

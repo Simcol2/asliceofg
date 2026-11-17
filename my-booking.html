@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Booking | A Slice of G Events</title>
+<meta name="description" content="Sign in to view your A Slice of G event booking: your accepted contract, invoice and upcoming payments.">
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://asliceofg.com/my-booking">
+
+
+
+
+
+<meta name="theme-color" content="#040d0a">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/main.css?v=20"><link rel="stylesheet" href="/css/cart-order.css?v=1">
+<link rel="icon" href="/public/images/logo.png" type="image/png">
+</head>
+<body class="page-cart-order">
+<a class="co-skip" href="#mb-main">Skip to your booking</a>
+<nav><a href="/" class="nav-logo">A Slice of G</a><ul class="nav-links"><li><a href="/shop.html">Shop All</a></li><li><a href="/catering.html">Catering</a></li><li><a href="/events" class="active">Events</a></li><li><a href="/about.html">About</a></li><li><a href="/past-events">Past Events</a></li><li><a href="/contact.html">Contact</a></li></ul><div class="nav-right"><a href="/book-rum-cake-cart" class="nav-cta">Book the Cart</a></div><button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button></nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation menu"><button class="nav-mobile-close" id="nav-mobile-close" aria-label="Close menu"><span aria-hidden="true">&times;</span></button><a href="/shop.html">Shop All</a><a href="/catering.html">Catering</a><a href="/events" class="active">Events</a><a href="/about.html">About</a><a href="/past-events">Past Events</a><a href="/contact.html">Contact</a><a href="/book-rum-cake-cart" class="nav-mobile-cta">Book the Cart</a></div>
+
+<main id="mb-main" class="co-main">
+  <div class="mb-wrap">
+    <header class="mb-head">
+      <p class="co-kicker">Client portal · Events</p>
+      <h1>My <em>booking.</em></h1>
+      <p id="mb-intro">Your accepted contract, invoice and upcoming payments, all in one place.</p>
+    </header>
+
+    <p class="co-status" id="mb-loading" role="status" aria-live="polite">Loading…</p>
+
+    <section class="mb-card mb-auth" id="mb-auth" hidden aria-labelledby="mb-auth-title">
+      <h2 id="mb-auth-title">Sign in</h2>
+      <p>Use the email address you booked with. New here? Choose “Create account” or ask for an email link.</p>
+      <button type="button" class="co-button-outline" id="mb-google">Continue with Google</button>
+      <p class="mb-divider">OR</p>
+      <div class="mb-tabs" role="group" aria-label="Sign-in method">
+        <button type="button" data-mode="password" aria-pressed="true">Password</button>
+        <button type="button" data-mode="create" aria-pressed="false">Create account</button>
+        <button type="button" data-mode="magic" aria-pressed="false">Email link</button>
+      </div>
+      <form id="mb-auth-form" novalidate>
+        <div class="co-field"><label for="mb-email">Email address</label><input type="email" id="mb-email" required autocomplete="email"></div>
+        <div class="co-field" id="mb-password-wrap"><label for="mb-password">Password</label><input type="password" id="mb-password" minlength="8" autocomplete="current-password"></div>
+        <p class="co-error" id="mb-auth-error" role="alert" hidden></p>
+        <p class="co-notice" id="mb-auth-sent" role="status" hidden></p>
+        <button type="submit" class="co-button" id="mb-auth-submit">Sign in</button>
+      </form>
+    </section>
+
+    <div id="mb-content" hidden>
+      <div class="mb-topline mb-no-print"><p class="mb-meta" id="mb-signed-in"></p><button type="button" class="mb-signout" id="mb-signout">Sign out</button></div>
+      <p class="co-error co-error-box" id="mb-error" role="alert" hidden></p>
+      <div id="mb-bookings"></div>
+      <section class="mb-card mb-no-print" id="mb-empty" hidden>
+        <h2>No event bookings yet</h2>
+        <p>We could not find a rum cake cart booking for this email address. If you booked with a different email, sign out and sign in with that one.</p>
+        <div class="mb-actions"><a class="co-button" href="/book-rum-cake-cart">Book the cart</a><a class="co-button-outline" href="/rentals/client">Open the full client portal</a></div>
+      </section>
+      <p class="co-hint mb-no-print" id="mb-other" hidden>You also have other rentals or purchases with us. <a href="/rentals/client">Open the full client portal</a> to see everything.</p>
+    </div>
+  </div>
+</main>
+
+<footer><div class="footer-logo">A Slice of G</div><div class="footer-center"><div class="footer-slogan">Not all rum cakes wear black.</div><div class="footer-tag">Small Batch  ·  WHAT SWEET YUH</div><div class="footer-tagline">Every cake is her. Every slice is for you.<br>Made with rum and love.</div></div><div class="footer-right"><a href="mailto:order@asliceofg.com">order@asliceofg.com</a><br>asliceofg.com<div class="asg-policy-links"><a href="/terms.html">Terms &amp; Refunds</a> · <a href="/accessibility.html">Accessibility &amp; Inclusion</a></div></div></footer>
+<script src="/js/nav.js?v=2"></script>
+<script type="module" src="/js/my-booking.js?v=1"></script>
+</body>
+</html>

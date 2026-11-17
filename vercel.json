@@ -38,6 +38,14 @@
       "destination": "/events.html"
     },
     {
+      "source": "/book-rum-cake-cart",
+      "destination": "/book-rum-cake-cart.html"
+    },
+    {
+      "source": "/my-booking",
+      "destination": "/my-booking.html"
+    },
+    {
       "source": "/rentals",
       "destination": "https://events-mauve-three.vercel.app/rentals"
     },
