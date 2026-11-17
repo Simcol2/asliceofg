@@ -28,7 +28,7 @@ async function open({viewport={width:1280,height:900},available=1,booking,catalo
     if(u.pathname.endsWith('/rpc/get_reservation_item_availability')){calls.availability.push(route.request().postDataJSON());return available==='fail'?route.abort():route.fulfill({json:available});}
     return route.abort();
   });
-  await page.route('**/api/events-catalog',route=>route.fulfill({json:catalog||{products:[{rentalId:600,name:'A Slice of G Rum Cake Cart',priceCents:39900,bookable:true}]}}));
+  await page.route('**/api/events-catalog',route=>route.fulfill({json:catalog||{products:[{rentalId:600,name:'The Likkle Sweet Shop',priceCents:39900,bookable:true}]}}));
   await page.route('**/rentals/api/square?resource=g-events-booking',route=>{
     calls.booking.push(route.request().postDataJSON());
     if(booking==='drop')return route.abort();
@@ -244,7 +244,7 @@ await test('unavailable date and out-of-area postal code block payment',async()=
 });
 
 await test('server rejection shows the reason and keeps the form usable',async()=>{
-  const {page,calls,context}=await open({booking:{status:500,json:{error:'A Slice of G Rum Cake Cart is no longer available for those dates.'}}});
+  const {page,calls,context}=await open({booking:{status:500,json:{error:'The Likkle Sweet Shop is no longer available for those dates.'}}});
   await fillBasics(page,{date:iso(30)});
   await acceptContract(page);
   await page.waitForSelector('#co-date-status[data-state=ok]');

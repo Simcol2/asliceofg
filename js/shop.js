@@ -228,7 +228,9 @@ function closeCart() {
 // ─── Checkout Flow Square Hosted Checkout ───────────────────────────────────
 async function startCheckout() {
   if (!cart.length) return;
-
+  // Pickup location and its opening hours (js/pickup-locations.js). Any problem is shown beside the fields.
+  const pickup = window.ASGPickup ? window.ASGPickup.check(fulfillmentType) : {};
+  if (pickup.error) return;
   const btn = document.getElementById('btn-checkout-main');
   const originalText = btn.textContent;
   btn.disabled = true;
@@ -246,6 +248,7 @@ async function startCheckout() {
         cartItems: cart.map(c => ({ variationId: c.variationId, quantity: c.quantity })),
         fulfillmentType,
         fulfillmentDateTime,
+        ...(pickup.id ? { pickupLocation: pickup.id } : {}),
         ...(orderNote ? { orderNote } : {}),
       }),
     });
@@ -294,6 +297,7 @@ function showOrderConfirmation(squareUrl, fulfillmentDateTime) {
       ? `Pickup ${dateStr} at ${timeStr}`
       : `Ship by ${dateStr}`;
   }
+  if (isPickup && window.ASGPickup) fulfillmentLine += window.ASGPickup.summary();
 
   // Build order summary rows
   let totalCents = 0;

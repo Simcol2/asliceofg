@@ -34,7 +34,7 @@ const reservation={id:42,booking_number:'ASG-R-1042',status:'pending',service_st
   accepted_event_agreement:{reservation_id:42,agreement_version:'asg-events-terms-2026-10-08',accepted_at:'2026-11-17T15:04:00.000Z',snapshot_sha256:'abcdef0123456789abcdef',
     terms_html:'<html><body><h1>Event Rental Terms &amp; Conditions</h1><p>Archived copy.</p><script>parent.__escaped=true</script></body></html>',accessibility_html:'<html><body><h1>Accessibility</h1></body></html>'}};
 const portal={customer:{id:7,name:'Test Customer',email:'test.customer@example.com'},reservations:[reservation],
-  reservationItems:[{id:1,reservation_id:42,item_id:600,quantity:1,item:{id:600,name:'A Slice of G Rum Cake Cart'}}],contracts:[],transactions:[],purchases:[],purchaseItems:[],requests:[]};
+  reservationItems:[{id:1,reservation_id:42,item_id:600,quantity:1,item:{id:600,name:'The Likkle Sweet Shop'}}],contracts:[],transactions:[],purchases:[],purchaseItems:[],requests:[]};
 const square={reservations:[{id:42,future_payment_method:'card_on_file',balance_due_at:null,security_deposit_due_at:null,pickup_at:'2027-06-11T13:00:00.000Z',pickup_date:'2027-06-11'}],
   transactions:[{id:1,reservation_id:42,kind:'booking_deposit',amount_cents:83200,status:'paid',paid_at:'2026-11-17T15:05:00.000Z'}]};
 

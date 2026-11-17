@@ -163,7 +163,7 @@ function bookingCard(reservation,items,square,transactions,customer){
   card.append(
     el('div',{class:'mb-topline'},
       el('div',{},pill(label,tone),el('p',{class:'mb-number',text:reservation.booking_number||`Booking ${reservation.id}`}),
-        el('h2',{text:'Rum Cake Cart & Event Rentals'}),
+        el('h2',{text:'The Likkle Sweet Shop & Event Rentals'}),
         el('p',{class:'mb-meta',text:`Event ${dateLabel(reservation.event_date)} · Delivery, setup and collection included`}),
         (reservation.venue_name||reservation.venue_address)&&el('p',{class:'mb-meta',text:`Venue: ${[reservation.venue_name,reservation.venue_address].filter(Boolean).join(', ')}`})),
       el('div',{},el('p',{class:'mb-meta',text:'Booking total'}),el('p',{class:'mb-number',text:money(reservation.rental_total_cents)}))),

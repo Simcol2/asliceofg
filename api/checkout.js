@@ -9,8 +9,49 @@ const client = new SquareClient({
     : SquareEnvironment.Sandbox,
 });
 
-function formatFulfillmentLabel(type, dateTime) {
-  if (!dateTime) return null;
+// Pickup locations offered in the cart (js/pickup-locations.js shows the same options).
+// A location with `days` only accepts pickups on those weekdays (0 = Sunday) between
+// startMinutes and endMinutes, measured in Toronto time.
+export const PICKUP_LOCATIONS = {
+  spadina: { label: '70 Spadina Road' },
+  woodbine: {
+    label: '7270 Woodbine Avenue (Cravins Caribbean Grill)',
+    days: [1, 2, 3, 4, 5, 6],
+    startMinutes: 12 * 60,
+    endMinutes: 17 * 60,
+    hoursText: 'Monday to Saturday between 12:00 pm and 5:00 pm',
+  },
+};
+
+// Returns { location } for a valid choice, or { error } with a customer-facing message.
+// No location (an order from a page loaded before this option existed) is allowed.
+export function resolvePickupLocation(pickupLocation, dateTime) {
+  if (pickupLocation == null || pickupLocation === '') return { location: null };
+  const location = Object.prototype.hasOwnProperty.call(PICKUP_LOCATIONS, pickupLocation)
+    ? PICKUP_LOCATIONS[pickupLocation]
+    : null;
+  if (!location) return { error: 'Choose a valid pickup location.' };
+  if (!location.days) return { location };
+
+  const dt = dateTime ? new Date(dateTime) : null;
+  if (!dt || isNaN(dt.getTime())) {
+    return { error: `Choose a pickup date and time. ${location.label} pickup is available ${location.hoursText}.` };
+  }
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-CA', {
+      timeZone: 'America/Toronto', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+    }).formatToParts(dt).map(part => [part.type, part.value])
+  );
+  const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(parts.weekday);
+  const minutes = Number(parts.hour) * 60 + Number(parts.minute);
+  if (!location.days.includes(day) || minutes < location.startMinutes || minutes > location.endMinutes) {
+    return { error: `${location.label} pickup is only available ${location.hoursText}. Please choose another time or the other pickup location.` };
+  }
+  return { location };
+}
+
+function formatFulfillmentLabel(type, dateTime, pickupLabel) {
+  if (!dateTime) return type === 'PICKUP' && pickupLabel ? `Pickup at ${pickupLabel}` : null;
   const dt = new Date(dateTime);
   const dateStr = dt.toLocaleDateString('en-CA', {
     weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
@@ -21,7 +62,7 @@ function formatFulfillmentLabel(type, dateTime) {
     timeZone: 'America/Toronto',
   });
   return type === 'PICKUP'
-    ? `Pickup: ${dateStr} at ${timeStr}`
+    ? `Pickup${pickupLabel ? ` at ${pickupLabel}` : ''}: ${dateStr} at ${timeStr}`
     : `Ships by: ${dateStr}`;
 }
 
@@ -30,7 +71,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { cartItems, fulfillmentType, fulfillmentDateTime, orderNote } = req.body;
+  const { cartItems, fulfillmentType, fulfillmentDateTime, orderNote, pickupLocation } = req.body;
 
   if (!cartItems || !Array.isArray(cartItems) || cartItems.length === 0) {
     return res.status(400).json({ error: 'Cart is empty' });
@@ -43,6 +84,13 @@ export default async function handler(req, res) {
   }
 
   const type = fulfillmentType === 'SHIPMENT' ? 'SHIPMENT' : 'PICKUP';
+
+  let pickup = null;
+  if (type === 'PICKUP') {
+    const resolved = resolvePickupLocation(pickupLocation, fulfillmentDateTime);
+    if (resolved.error) return res.status(400).json({ error: resolved.error });
+    pickup = resolved.location;
+  }
 
   // Build fulfillment object — recipient.displayName is required for PICKUP/DELIVERY.
   // For SHIPMENT, Square collects the address on their hosted checkout page.
@@ -69,12 +117,13 @@ export default async function handler(req, res) {
         scheduleType: 'SCHEDULED',
         pickupAt: scheduledAt,
         recipient: { displayName: 'Customer' },
+        ...(pickup ? { note: `Pickup location: ${pickup.label}` } : {}),
       },
     };
   }
 
   try {
-    const fulfillmentLabel = formatFulfillmentLabel(type, fulfillmentDateTime);
+    const fulfillmentLabel = formatFulfillmentLabel(type, fulfillmentDateTime, pickup?.label);
 
     const lineItems = [
       ...cartItems.map(item => ({

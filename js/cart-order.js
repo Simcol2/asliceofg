@@ -77,7 +77,7 @@ function scheduleRows(q,eventIso,paid){
 }
 function render(){
   const q=quote();
-  const lines=[['A Slice of G Rum Cake Cart','One-day rental, up to 8 event hours',state.cartCents]];
+  const lines=[['The Likkle Sweet Shop','One-day rental, up to 8 event hours',state.cartCents]];
   if(q.pkg){
     for(const l of q.pkg.lines)lines.push([l.name,`${l.quantity} × ${money(l.unitCents)}`,l.totalCents]);
     if(q.pkg.staffCents)lines.push(['Staffed dessert service',`${q.pkg.attendants} ${q.pkg.attendants===1?'attendant':'attendants'} × ${q.pkg.hours} hours`,q.pkg.staffCents]);
