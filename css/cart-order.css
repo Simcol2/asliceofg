@@ -69,6 +69,26 @@
 .co-inline small{display:block;color:var(--co-muted);font-size:13px}
 .co-inline-block{border:1px solid var(--co-line);background:#fff;padding:12px 14px}
 
+/* Treat split */
+.co-treat{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 14px;align-items:center;padding:12px 14px;border:1px solid var(--co-line);background:#fff;margin:0 0 8px}
+.co-treat .co-inline{margin:0!important}
+.co-treat-qty{display:flex;align-items:center;gap:8px}
+.co-treat-qty label{margin:0;font-size:13px;font-weight:600;color:var(--co-muted)}
+.co-treat-qty input{width:92px!important;min-height:44px!important;text-align:center;padding:8px!important;border:1px solid #9aa79f;font:16px 'Jost',sans-serif;border-radius:2px;background:#fff;color:var(--co-ink)}
+.co-treat-line{grid-column:1/-1;font-size:13px;color:var(--co-muted);margin:0}
+.co-treat.is-off{background:transparent}
+.co-treat.is-off .co-treat-qty{display:none}
+/* .co-field label sets display:block with higher specificity, so restate the flex row here. */
+.co-field label.co-inline,.co-treat label.co-inline{display:flex}
+.co-treat .co-inline small{font-weight:400}
+.co-split-bar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;margin-top:10px}
+.co-split-bar .co-status{margin:0;font-weight:600}
+.co-link-button{background:none;border:0;padding:0;min-height:44px;color:var(--emerald);font:600 14px 'Jost',sans-serif;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.co-cookie{border-left:4px solid var(--gold)!important;background:var(--gold-faint);padding:16px 18px!important}
+.co-hint-top{margin:0 0 12px}
+.co-field-color{margin:6px 0 0;max-width:380px}
+@media(max-width:520px){.co-treat{grid-template-columns:1fr}.co-treat-qty{padding-left:30px}}
+
 /* Contract */
 .co-contract-points{margin:0 0 18px;padding:16px 18px 16px 36px;background:var(--gold-faint);border-left:4px solid var(--gold)}
 .co-contract-points li{margin:0 0 8px;font-size:15px}

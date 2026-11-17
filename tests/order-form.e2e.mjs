@@ -144,6 +144,91 @@ await test('staffed package in the extended area with manual later payments',asy
   await context.close();
 });
 
+await test('dessert split is shown, adjustable and validated; Gramma cookies take a colour or a chocolate upgrade',async()=>{
+  const {page,calls,errors,context}=await open();
+  const qty=id=>page.inputValue(`#co-qty-${id}`);
+  await page.check('input[name=kind][value=treats]');
+  await page.selectOption('#co-guests','50');
+  // One treat takes the whole order and cannot be edited.
+  assert.equal(await qty('slice'),'50');
+  assert.equal(await page.getAttribute('#co-qty-slice','readonly'),'');
+  await page.check('#co-treats input[value=ring]');
+  assert.deepEqual([await qty('slice'),await qty('ring')],['25','25']);
+  assert.equal(await text(page,'#co-split-status'),'50 of 50 treats allocated.');
+  assert.equal(await text(page,'[data-treat-line=slice]'),'25 × $3.50 = $87.50');
+  assert.equal(await page.isVisible('#co-split-reset'),false);
+  // With two treats, changing one rebalances the other.
+  await page.fill('#co-qty-slice','30');
+  assert.equal(await qty('ring'),'20');
+  assert.equal(await text(page,'#co-total'),'$584.00'); // 39900 + 30 x 350 + 20 x 400
+  assert.equal(await page.isVisible('#co-split-reset'),true);
+  // Adding cookies restarts from the suggested split and reveals the cookie options.
+  assert.equal(await page.isVisible('#co-cookie'),false);
+  await page.check('#co-treats input[value=cookie]');
+  assert.deepEqual([await qty('slice'),await qty('ring'),await qty('cookie')],['25','13','12']);
+  assert.equal(await page.isVisible('#co-cookie'),true);
+  assert.ok((await text(page,'#co-cookie')).includes('white and one colour of your choice'));
+  assert.ok((await text(page,'[data-treat-line=cookie]')).startsWith('12 × $3.25 = $39.00'));
+  // A split that does not add up is explained and blocks payment.
+  await page.fill('#co-qty-slice','10');await page.fill('#co-qty-ring','10');await page.fill('#co-qty-cookie','20');
+  assert.equal(await text(page,'#co-split-status'),'40 of 50 treats allocated. Add 10 more.');
+  assert.equal(await text(page,'#co-package-error'),'Your treat quantities add up to 40. They need to total 50.');
+  await page.fill('#co-qty-cookie','45');
+  assert.equal(await text(page,'#co-split-status'),'65 of 50 treats allocated. Remove 15.');
+  await page.fill('#co-qty-cookie','30');
+  assert.equal(await text(page,'#co-split-status'),'50 of 50 treats allocated.');
+  await fillBasics(page,{date:iso(40)});
+  await acceptContract(page);
+  await page.waitForSelector('#co-date-status[data-state=ok]');
+  // Icing needs one colour before payment.
+  await page.click('#co-pay');
+  assert.ok((await text(page,'#co-missing')).includes('Enter one icing colour for your Gramma cookies.'));
+  assert.equal(await text(page,'#co-cookie-color-error'),'Enter one icing colour for your Gramma cookies.');
+  assert.equal(calls.booking.length,0);
+  // Chocolate dipped: 75 cents more per cookie, and no colour needed.
+  await page.check('input[name=cookieFinish][value=chocolate]');
+  assert.equal(await page.isVisible('#co-cookie-color'),false);
+  assert.ok((await text(page,'#co-cookie-upgrade')).includes('$0.75 per cookie'));
+  assert.equal(await text(page,'#co-total'),'$594.00'); // 39900 + 3500 + 4000 + 30 x 400
+  assert.equal(await page.isVisible('#co-missing'),false);
+  // Back to icing with a colour: 30 cookies at the standard $3.25.
+  await page.check('input[name=cookieFinish][value=icing]');
+  await page.fill('#co-cookie-color','  Blush   pink ');
+  assert.equal(await text(page,'#co-total'),'$571.50'); // 39900 + 3500 + 4000 + 30 x 325
+  assert.equal(await text(page,'#co-due-today'),'$285.75');
+  assert.ok((await text(page,'#co-summary-lines')).includes('Gramma Cookies, rum kissed icing (white, Blush pink, gold accents)'));
+  if(shots)await page.locator('#co-package').screenshot({path:`${shots}/split-desktop.png`});
+  await page.click('#co-pay');
+  await page.waitForSelector('#co-confirmation:not([hidden])');
+  assert.deepEqual(calls.booking[0].gEvents.package,{kind:'treats',guests:50,hours:0,treats:['slice','ring','cookie'],quantities:{slice:10,ring:10,cookie:30},cookie:{finish:'icing',color:'Blush pink'}});
+  assert.equal((await page.evaluate(()=>window.__tokenize)).amount,'285.75');
+  assert.deepEqual(errors,[]);
+  await context.close();
+});
+
+await test('reset returns to the suggested split and volume cookie pricing applies above 50',async()=>{
+  const {page,context}=await open({viewport:{width:375,height:740}});
+  await page.check('input[name=kind][value=treats]');
+  await page.check('#co-treats input[value=cookie]');
+  assert.deepEqual([await page.inputValue('#co-qty-slice'),await page.inputValue('#co-qty-cookie')],['50','50']);
+  await page.fill('#co-qty-cookie','51');
+  assert.equal(await page.inputValue('#co-qty-slice'),'49');
+  assert.ok((await text(page,'[data-treat-line=cookie]')).startsWith('51 × $3.00 = $153.00'));
+  await page.check('input[name=cookieFinish][value=chocolate]');
+  assert.ok((await text(page,'[data-treat-line=cookie]')).startsWith('51 × $3.75 = $191.25'));
+  await page.click('#co-split-reset');
+  assert.deepEqual([await page.inputValue('#co-qty-slice'),await page.inputValue('#co-qty-cookie')],['50','50']);
+  assert.equal(await page.isVisible('#co-split-reset'),false);
+  // Changing the total restarts the suggested split for the new size.
+  await page.fill('#co-qty-cookie','60');
+  await page.selectOption('#co-guests','200');
+  assert.deepEqual([await page.inputValue('#co-qty-slice'),await page.inputValue('#co-qty-cookie')],['100','100']);
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);
+  assert.ok(overflow<=1,`horizontal overflow of ${overflow}px`);
+  if(shots)await page.locator('#co-package').screenshot({path:`${shots}/split-mobile.png`});
+  await context.close();
+});
+
 await test('unavailable date and out-of-area postal code block payment',async()=>{
   const {page,calls,context}=await open({available:0});
   await fillBasics(page,{date:iso(20),postal:'K1A 0B1'});

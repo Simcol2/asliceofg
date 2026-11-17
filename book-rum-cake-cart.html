@@ -14,7 +14,7 @@
 <meta name="theme-color" content="#040d0a">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/main.css?v=20"><link rel="stylesheet" href="/css/cart-order.css?v=1">
+<link rel="stylesheet" href="/css/main.css?v=20"><link rel="stylesheet" href="/css/cart-order.css?v=2">
 <link rel="icon" href="/public/images/logo.png" type="image/png">
 </head>
 <body class="page-cart-order">
@@ -55,15 +55,31 @@
 
         <div id="co-package" class="co-package" hidden>
           <div class="co-field">
-            <label for="co-guests">Number of treats (one per guest)</label>
+            <label for="co-guests">Total number of treats (plan one per guest)</label>
             <select id="co-guests" name="guests">
               <option value="50">50</option><option value="100" selected>100</option><option value="150">150</option><option value="200">200</option><option value="250">250</option><option value="300">300</option><option value="350">350</option><option value="400">400</option>
             </select>
           </div>
           <fieldset class="co-field co-checks">
-            <legend>Treats (choose one or more)</legend>
-            <div id="co-treats"></div>
-            <p class="co-hint">Choosing more than one treat splits your total evenly. Rum cake slices always make up half when combined with other treats.</p>
+            <legend>Choose your treats and set how many of each</legend>
+            <div id="co-treats" class="co-treats"></div>
+            <div class="co-split-bar">
+              <p class="co-status" id="co-split-status" role="status" aria-live="polite"></p>
+              <button type="button" class="co-link-button" id="co-split-reset">Reset to our suggested split</button>
+            </div>
+            <p class="co-hint">We suggest a split to start: rum cake slices make up half when combined with other treats, and the rest is shared evenly. Change any quantity to suit your guests. The quantities need to add up to your total.</p>
+          </fieldset>
+          <fieldset class="co-field co-checks co-cookie" id="co-cookie" hidden>
+            <legend>Your Gramma cookies</legend>
+            <p class="co-hint co-hint-top">Brown butter Gramma cookies with a hint of rum.</p>
+            <label class="co-inline co-inline-block"><input type="radio" name="cookieFinish" value="icing" checked> <span><strong>Rum kissed icing.</strong> Iced in white and one colour of your choice, finished with gold accents to match your event palette.</span></label>
+            <label class="co-inline co-inline-block"><input type="radio" name="cookieFinish" value="chocolate"> <span><strong>Chocolate dipped upgrade.</strong> Dipped in chocolate instead of iced. <span id="co-cookie-upgrade"></span></span></label>
+            <div class="co-field co-field-color" id="co-cookie-color-wrap">
+              <label for="co-cookie-color">Your icing colour</label>
+              <input type="text" id="co-cookie-color" maxlength="40" placeholder="For example, blush pink" aria-describedby="co-cookie-color-hint co-cookie-color-error">
+              <p class="co-hint" id="co-cookie-color-hint">One colour. We pair it with white icing and gold accents.</p>
+              <p class="co-error" id="co-cookie-color-error" hidden></p>
+            </div>
           </fieldset>
           <fieldset class="co-field co-checks" id="co-hours-wrap" hidden>
             <legend>Staffed service length</legend>
@@ -206,7 +222,7 @@
 
 <footer><div class="footer-logo">A Slice of G</div><div class="footer-center"><div class="footer-slogan">Not all rum cakes wear black.</div><div class="footer-tag">Small Batch  ·  WHAT SWEET YUH</div><div class="footer-tagline">Every cake is her. Every slice is for you.<br>Made with rum and love.</div></div><div class="footer-right"><a href="mailto:order@asliceofg.com">order@asliceofg.com</a><br>asliceofg.com<div class="asg-policy-links"><a href="/terms.html">Terms &amp; Refunds</a> · <a href="/accessibility.html">Accessibility &amp; Inclusion</a></div></div></footer>
 <script src="/js/nav.js?v=2"></script>
-<script src="/js/g-events-pricing.js?v=3" defer></script>
-<script src="/js/cart-order.js?v=1" defer></script>
+<script src="/js/g-events-pricing.js?v=4" defer></script>
+<script src="/js/cart-order.js?v=2" defer></script>
 </body>
 </html>

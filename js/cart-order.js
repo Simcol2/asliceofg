@@ -22,7 +22,7 @@ const money=cents=>new Intl.NumberFormat('en-CA',{style:'currency',currency:'CAD
 const form=$('co-form');
 if(!form||!P)return;
 
-const state={cartCents:P.G_CART_BASE_CENTS,bookable:true,availability:null,availabilityDate:'',reviewed:false,cardReady:false,busy:false,contractLoaded:false};
+const state={customSplit:false,cartCents:P.G_CART_BASE_CENTS,bookable:true,availability:null,availabilityDate:'',reviewed:false,cardReady:false,busy:false,contractLoaded:false};
 let tokenizeCard=null;
 
 // ── Dates ──────────────────────────────────────────────────────────────
@@ -37,20 +37,34 @@ const longDate=iso=>new Intl.DateTimeFormat('en-CA',{weekday:'long',year:'numeri
 function dueDates(eventIso){return {balance:shiftIso(eventIso,-8),security:shiftIso(eventIso,-3)};}
 
 // ── Quote ──────────────────────────────────────────────────────────────
+function selectedTreats(){return [...document.querySelectorAll('#co-treats input[type=checkbox]:checked')].map(el=>el.value);}
 function readPackage(){
   const kind=form.elements.kind.value;
   if(kind==='cart')return null;
-  return {kind,guests:Number($('co-guests').value),hours:kind==='staffed'?Number(form.elements.hours.value):0,
-    treats:[...document.querySelectorAll('#co-treats input:checked')].map(el=>el.value)};
+  const treats=selectedTreats();
+  const config={kind,guests:Number($('co-guests').value),hours:kind==='staffed'?Number(form.elements.hours.value):0,treats};
+  // Quantities are only sent once the customer has changed the suggested split.
+  if(state.customSplit){config.quantities={};for(const id of treats){const raw=qtyInput(id).value.trim();config.quantities[id]=/^\d+$/.test(raw)?Number(raw):NaN;}}
+  if(treats.includes('cookie')){const finish=form.elements.cookieFinish.value;config.cookie=finish==='chocolate'?{finish}:{finish,color:$('co-cookie-color').value.replace(/\s+/g,' ').trim()};}
+  return config;
 }
 function quote(){
   const config=readPackage();
-  let pkg=null,packageError='';
-  if(config){try{pkg=P.calculateGPackage(config);}catch(e){packageError=e.message;}}
+  let pkg=null,packageError='',colourError='';
+  if(config){
+    try{pkg=P.calculateGPackage(config);}
+    catch(e){
+      if(/icing colour/.test(e.message)){
+        // The colour does not change the price, so keep showing the total while it is still to be entered.
+        colourError=e.message;
+        try{pkg=P.calculateGPackage({...config,cookie:{finish:'icing',color:'your colour'}});}catch(e2){packageError=e2.message;}
+      }else packageError=e.message;
+    }
+  }
   const zone=P.gEventDeliveryZone($('co-postal').value);
   const total=state.cartCents+(pkg?pkg.addonsCents:0)+(zone?zone.feeCents:0);
   const deposit=P.estimateBookingDepositCents(total);
-  return {config,pkg,packageError,zone,total,deposit,balance:Math.max(0,total-deposit),security:P.estimateSecurityDepositCents(total)};
+  return {config,pkg,packageError,colourError,zone,total,deposit,balance:Math.max(0,total-deposit),security:P.estimateSecurityDepositCents(total)};
 }
 function scheduleRows(q,eventIso,paid){
   const due=validIso(eventIso)?dueDates(eventIso):null;
@@ -86,31 +100,83 @@ function render(){
   $('co-sched-balance').textContent=money(rows[1].cents);$('co-sched-balance-when').textContent=rows[1].note;
   $('co-sched-security').textContent=q.security?money(rows[2].cents):'$0.00';$('co-sched-security-when').textContent=rows[2].note;
   $('co-price-cart').textContent=money(state.cartCents);
+  if(q.config)updateTreatRows(q);
   const err=$('co-package-error');err.hidden=!q.packageError;err.textContent=q.packageError;
   if(!state.busy)$('co-pay').textContent=`Pay ${money(q.deposit)} booking deposit`;
   return q;
 }
 
 // ── Setup choices ──────────────────────────────────────────────────────
+const qtyInput=id=>$(`co-qty-${id}`);
 function buildTreats(){
   const box=$('co-treats');
   for(const treat of P.G_TREATS){
+    const row=document.createElement('div');row.className='co-treat';row.dataset.treatRow=treat.id;
     const label=document.createElement('label');label.className='co-inline';
     const input=document.createElement('input');input.type='checkbox';input.name='treats';input.value=treat.id;input.checked=treat.id==='slice';
-    const text=document.createElement('span');text.textContent=treat.name;
-    const small=document.createElement('small');small.dataset.treat=treat.id;text.appendChild(small);
-    label.append(input,text);box.appendChild(label);
+    const name=document.createElement('span');name.textContent=treat.name;
+    if(treat.id==='cookie'){const note=document.createElement('small');note.textContent='Brown butter cookies with a hint of rum, finished with rum kissed icing or dipped in chocolate';name.appendChild(note);}
+    label.append(input,name);
+    const qty=document.createElement('div');qty.className='co-treat-qty';
+    const qtyLabel=document.createElement('label');qtyLabel.htmlFor=`co-qty-${treat.id}`;qtyLabel.textContent='Quantity';
+    const sr=document.createElement('span');sr.className='co-sr';sr.textContent=` of ${treat.name}`;qtyLabel.appendChild(sr);
+    const number=document.createElement('input');number.type='number';number.id=`co-qty-${treat.id}`;number.min='1';number.step='1';number.inputMode='numeric';number.dataset.qty=treat.id;
+    qty.append(qtyLabel,number);
+    const line=document.createElement('p');line.className='co-treat-line';line.dataset.treatLine=treat.id;
+    row.append(label,qty,line);box.appendChild(row);
   }
 }
-function updateTreatRates(){
-  const guests=Number($('co-guests').value);const tier=guests===50?0:guests<=200?1:2;
-  for(const treat of P.G_TREATS){const el=document.querySelector(`[data-treat="${treat.id}"]`);if(el)el.textContent=`${money(treat.rates[tier])} each at this quantity`;}
+// Puts the suggested split back into the quantity boxes (after a treat or total change, or on request).
+function applySuggestedSplit(){
+  state.customSplit=false;
+  const treats=selectedTreats();const split=treats.length?P.defaultGSplit(treats,Number($('co-guests').value)):{};
+  for(const treat of P.G_TREATS){const input=qtyInput(treat.id);input.value=split[treat.id]!=null?String(split[treat.id]):'';}
+}
+function onQuantityInput(event){
+  const id=event.target.dataset.qty;if(!id)return;
+  state.customSplit=true;
+  const treats=selectedTreats();const guests=Number($('co-guests').value);
+  // With exactly two treats the other one follows automatically, so the total always holds.
+  if(treats.length===2){
+    const other=treats.find(t=>t!==id);const value=Number(event.target.value);
+    if(Number.isInteger(value)&&value>=1&&value<=guests-1)qtyInput(other).value=String(guests-value);
+  }
+  render();
+}
+function updateTreatRows(q){
+  const treats=selectedTreats();const guests=Number($('co-guests').value);const tier=guests===50?0:guests<=200?1:2;
+  const cookie=q.config&&q.config.cookie;
+  let allocated=0;
+  for(const treat of P.G_TREATS){
+    const on=treats.includes(treat.id);const row=document.querySelector(`[data-treat-row="${treat.id}"]`);
+    row.classList.toggle('is-off',!on);
+    const input=qtyInput(treat.id);input.max=String(guests);
+    // A single treat always takes the whole order, so there is nothing to adjust.
+    input.readOnly=treats.length===1;
+    const quantity=/^\d+$/.test(input.value.trim())?Number(input.value):0;
+    if(on)allocated+=quantity;
+    const unit=P.gTreatUnitCents(treat,tier,quantity,cookie);
+    let text=on?`${quantity} × ${money(unit)} = ${money(quantity*unit)}`:`${money(P.gTreatUnitCents(treat,tier,0,null))} each`;
+    if(treat.id==='cookie'&&!on)text+=`, or ${money(P.G_COOKIE.volumeCents)} each when you order more than ${P.G_COOKIE.volumeOver}`;
+    else if(treat.id==='cookie')text+=quantity>P.G_COOKIE.volumeOver?` · volume price for more than ${P.G_COOKIE.volumeOver} cookies`:` · ${money(P.G_COOKIE.volumeCents+(cookie&&cookie.finish==='chocolate'?P.G_COOKIE.chocolateDipCents:0))} each when you order more than ${P.G_COOKIE.volumeOver}`;
+    document.querySelector(`[data-treat-line="${treat.id}"]`).textContent=text;
+  }
+  const status=$('co-split-status');const difference=guests-allocated;
+  if(!treats.length)setStatus(status,'Choose at least one treat.','bad');
+  else if(difference===0)setStatus(status,`${allocated} of ${guests} treats allocated.`,'ok');
+  else if(difference>0)setStatus(status,`${allocated} of ${guests} treats allocated. Add ${difference} more.`,'bad');
+  else setStatus(status,`${allocated} of ${guests} treats allocated. Remove ${-difference}.`,'bad');
+  $('co-split-reset').hidden=!state.customSplit;
+  const hasCookie=treats.includes('cookie');
+  $('co-cookie').hidden=!hasCookie;
+  $('co-cookie-color-wrap').hidden=form.elements.cookieFinish.value==='chocolate';
+  $('co-cookie-upgrade').textContent=`Adds ${money(P.G_COOKIE.chocolateDipCents)} per cookie.`;
 }
 function syncKind(){
   const kind=form.elements.kind.value;
   $('co-package').hidden=kind==='cart';
   $('co-hours-wrap').hidden=kind!=='staffed';
-  updateTreatRates();render();
+  render();
 }
 
 // ── Availability ───────────────────────────────────────────────────────
@@ -241,7 +307,9 @@ function fieldError(inputId,errorId,message){
 function validate(q){
   const problems=[];const add=(message,focusId)=>problems.push({message,focusId});
   const v=id=>$(id).value.trim();
-  if(q.packageError)add(q.packageError,'co-guests');
+  if(q.packageError)add(q.packageError,/quantit/.test(q.packageError)?`co-qty-${(q.config.treats||[])[0]}`:'co-guests');
+  fieldError('co-cookie-color','co-cookie-color-error',q.colourError);
+  if(q.colourError)add(q.colourError,'co-cookie-color');
   const date=v('co-date');
   if(!validIso(date)||date<$('co-date').min){add('Choose a future event date.','co-date');$('co-date').setAttribute('aria-invalid','true');}
   else if(state.availability===false&&state.availabilityDate===date){add('The cart is not available on that date. Choose another date.','co-date');$('co-date').setAttribute('aria-invalid','true');}
@@ -367,7 +435,7 @@ function prefill(){
       P.calculateGPackage(saved);
       form.elements.kind.value=saved.kind;$('co-guests').value=String(saved.guests);
       if(saved.kind==='staffed')form.elements.hours.value=String(saved.hours);
-      document.querySelectorAll('#co-treats input').forEach(el=>{el.checked=saved.treats.includes(el.value);});
+      document.querySelectorAll('#co-treats input[type=checkbox]').forEach(el=>{el.checked=saved.treats.includes(el.value);});
     }
   }catch{}
   if(validIso(date)&&date>=dateInput.min)dateInput.value=date;
@@ -375,6 +443,7 @@ function prefill(){
 
 buildTreats();
 prefill();
+applySuggestedSplit();
 syncKind();
 form.addEventListener('submit',submit);
 // Once a submit attempt has listed problems, keep that list and the field errors current as they are fixed.
@@ -382,8 +451,12 @@ function refreshProblems(){if(!$('co-missing').hidden&&!state.busy)showProblems(
 form.addEventListener('input',refreshProblems);
 form.addEventListener('change',refreshProblems);
 form.querySelectorAll('input[name=kind]').forEach(el=>el.addEventListener('change',syncKind));
-$('co-guests').addEventListener('change',()=>{updateTreatRates();render();});
-$('co-treats').addEventListener('change',render);
+$('co-guests').addEventListener('change',()=>{applySuggestedSplit();render();});
+$('co-treats').addEventListener('change',event=>{if(event.target.type==='checkbox'){applySuggestedSplit();render();}});
+$('co-treats').addEventListener('input',onQuantityInput);
+$('co-split-reset').addEventListener('click',()=>{applySuggestedSplit();render();$('co-split-status').focus?.();});
+form.querySelectorAll('input[name=cookieFinish]').forEach(el=>el.addEventListener('change',render));
+$('co-cookie-color').addEventListener('input',render);
 form.querySelectorAll('input[name=hours]').forEach(el=>el.addEventListener('change',render));
 $('co-date').addEventListener('change',()=>{render();checkAvailability();});
 $('co-postal').addEventListener('input',updatePostal);

@@ -1,5 +1,5 @@
 // Confirms the browser price book in js/g-events-pricing.js matches the Events app
-// modules the server charges from. Run: node tests/pricing-parity.test.mjs <path-to-events-repo>
+// modules the server charges from. Run: node tests/pricing-parity.test.mjs <path-to-events-repo> [path-to-previous-events-checkout]
 import fs from 'node:fs';
 import vm from 'node:vm';
 import path from 'node:path';
@@ -16,18 +16,61 @@ const [pricing,delivery,tiers]=await Promise.all([load('gEventsPricing.js'),load
 const plain=value=>JSON.parse(JSON.stringify(value));
 let checks=0;
 
-// Every valid and invalid package configuration.
+// Every valid and invalid package configuration, with and without cookie options and custom splits.
 const treatIds=pricing.G_TREATS.map(t=>t.id);
 const subsets=[];
 for(let mask=0;mask<1<<treatIds.length;mask++)subsets.push(treatIds.filter((_,i)=>mask&(1<<i)));
-for(const kind of ['cart','treats','staffed','bogus'])for(const guests of [0,25,50,75,100,150,200,250,300,350,400,450])for(const hours of [0,2,3,4])for(const treats of subsets){
-  const config={kind,guests,hours,treats};
+let seed=20261117;const random=()=>(seed=(seed*1664525+1013904223)%4294967296)/4294967296;
+const cookieOptions=[undefined,{finish:'icing',color:'Blush pink'},{finish:'chocolate'},{finish:'icing',color:''},{finish:'sprinkles'},{finish:'icing',color:'<script>'}];
+function compare(config){
   let expected,actual,expectedError=null,actualError=null;
   try{expected=pricing.calculateGPackage(config)}catch(e){expectedError=e.message}
   try{actual=local.calculateGPackage(config)}catch(e){actualError=e.message}
   assert.equal(actualError,expectedError,`error mismatch for ${JSON.stringify(config)}`);
-  if(!expectedError)assert.deepEqual(plain(actual),plain(expected),`quote mismatch for ${JSON.stringify(config)}`);
+  if(!expectedError){
+    assert.deepEqual(plain(actual),plain(expected),`quote mismatch for ${JSON.stringify(config)}`);
+    // Independent arithmetic checks on every accepted quote.
+    assert.equal(actual.lines.reduce((sum,l)=>sum+l.quantity,0),config.kind==='cart'?0:config.guests,'quantities must total the package size');
+    assert.equal(actual.treatCents,actual.lines.reduce((sum,l)=>sum+l.quantity*l.unitCents,0));
+    assert.equal(actual.addonsCents,actual.treatCents+actual.staffCents);
+  }
   checks++;
+  return expectedError?null:expected;
+}
+for(const kind of ['cart','treats','staffed','bogus'])for(const guests of [0,25,50,75,100,150,200,250,300,350,400,450])for(const hours of [0,2,3,4])for(const treats of subsets)for(const cookie of cookieOptions){
+  const base={kind,guests,hours,treats,...(cookie?{cookie}:{})};
+  compare(base);
+  if(!treats.length||guests<50)continue;
+  // A valid custom split, then the same split broken in several ways.
+  const quantities={};let left=guests;
+  treats.forEach((id,i)=>{const q=i===treats.length-1?left:1+Math.floor(random()*Math.max(1,left-(treats.length-i)));quantities[id]=q;left-=q;});
+  compare({...base,quantities});
+  compare({...base,quantities:{...quantities,[treats[0]]:quantities[treats[0]]+1}});
+  compare({...base,quantities:{...quantities,[treats[0]]:0}});
+  compare({...base,quantities:{...quantities,[treats[0]]:String(quantities[treats[0]])}});
+  compare({...base,quantities:{...quantities,extra:1}});
+  compare({...base,quantities:[]});
+}
+// Cookie pricing at the volume boundary, with and without the chocolate upgrade.
+const cookieLine=(quantity,cookie)=>compare({kind:'treats',guests:100,treats:['slice','cookie'],quantities:{slice:100-quantity,cookie:quantity},cookie}).lines.find(l=>l.id==='cookie');
+assert.equal(cookieLine(50,{finish:'icing',color:'Sage'}).unitCents,325);
+assert.equal(cookieLine(51,{finish:'icing',color:'Sage'}).unitCents,300);
+assert.equal(cookieLine(50,{finish:'chocolate'}).unitCents,400);
+assert.equal(cookieLine(51,{finish:'chocolate'}).unitCents,375);
+assert.equal(cookieLine(51,{finish:'icing',color:'  Sage   green '}).name,'Gramma Cookies, rum kissed icing (white, Sage green, gold accents)');
+assert.equal(cookieLine(51,{finish:'chocolate',color:'ignored'}).name,'Gramma Cookies, chocolate dipped');
+// Bookings made the previous way (no quantities, no cookie) must price exactly as before.
+const legacyRepo=process.argv[3];
+if(legacyRepo){
+  const legacy=await import(pathToFileURL(path.resolve(legacyRepo,'gEventsPricing.js')).href);
+  const legacyIds=legacy.G_TREATS.map(t=>t.id);let legacyChecks=0;
+  for(const kind of ['cart','treats','staffed'])for(const guests of [50,100,150,200,250,300,350,400])for(const hours of [2,4])for(let mask=1;mask<1<<legacyIds.length;mask++){
+    const config={kind,guests,hours,treats:legacyIds.filter((_,i)=>mask&(1<<i))};
+    const before=legacy.calculateGPackage(config),after=local.calculateGPackage(config);
+    for(const key of ['guests','hours','attendants','lines','treatCents','staffCents','addonsCents'])assert.deepEqual(plain(after[key]),plain(before[key]),`legacy ${key} changed for ${JSON.stringify(config)}`);
+    legacyChecks++;
+  }
+  console.log(`legacy pricing unchanged: ${legacyChecks} checks`);
 }
 // Every forward sortation area plus malformed input.
 const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
