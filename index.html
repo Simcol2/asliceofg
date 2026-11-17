@@ -19,6 +19,7 @@
   <link rel="canonical" href="https://asliceofg.com/"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="css/main.css?v=21"/>
+  <link rel="stylesheet" href="/css/home-feature.css?v=1"/>
   <link rel="icon" href="/public/images/logo.png" type="image/png"/>
   <link rel="apple-touch-icon" href="/public/images/icon-192.png"/>
   <link rel="manifest" href="/manifest.json"/>
@@ -119,147 +120,39 @@
 
   </section>
 
-  <!-- Thanksgiving Campaign -->
-  <section class="tg-campaign">
+  <!-- Seasonal feature: rotates between the treats cart and the current promotion -->
+  <section class="hf" id="home-feature" aria-roledescription="carousel" aria-label="Featured from A Slice of G">
+    <div class="hf-track" id="hf-track">
 
-    <!-- Campaign Hero -->
-    <div class="tg-hero">
-
-      <div class="tg-hero-copy">
-        <div class="tg-eyebrow-row">
-          <span class="tg-eyebrow">Thanksgiving Drop</span>
-          <span class="tg-eyebrow-line"></span>
+      <article class="hf-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 2: The Likkle Sweet Shop">
+        <div class="hf-copy">
+          <p class="hf-eyebrow">Treats cart rental · Toronto &amp; GTA</p>
+          <h2 class="hf-title">The Likkle <em>Sweet Shop.</em></h2>
+          <p class="hf-text">Our emerald and gold treats cart, delivered and set up for your celebration. Fill it with Jamaican rum cake treats and Gramma cookies, and let your guests answer the question: what sweet yuh?</p>
+          <a class="btn-gold hf-cta" href="/book-rum-cake-cart">Book the cart <span aria-hidden="true">→</span></a>
         </div>
-
-        <h2 class="tg-main-headline">
-          Bring
-          <span>the good</span>
-          stuff.
-        </h2>
-
-        <p class="tg-intro">
-          Rum cakes, treats and centrepieces for a more delicious Thanksgiving.
-        </p>
-
-        <p class="tg-deadline">
-          Pre-orders close October 6
-        </p>
-
-        <a href="shop.html" class="tg-main-cta">
-          <span>Shop Thanksgiving</span>
-          <span class="tg-arrow">→</span>
+        <a class="hf-visual" href="/book-rum-cake-cart" tabindex="-1" aria-hidden="true">
+          <img src="/public/images/likkle-sweet-shop-cart.jpg" alt="" width="1493" height="2000">
         </a>
-      </div>
+      </article>
 
-      <a
-        href="product.html?name=Thanksgiving+Lazy+Susan+Centerpiece"
-        class="tg-hero-visual"
-        aria-label="Shop the Thanksgiving Lazy Susan Centerpiece"
-      >
-        <div class="tg-rust-shape"></div>
-
-        <img
-          src="/public/images/centerpiece.jpg"
-          alt="Thanksgiving Lazy Susan Centerpiece with rum-infused bites and fall florals"
-        />
-
-        <div class="tg-hero-side-copy">
-          <span>Good food</span>
-          <span>brings us</span>
-          <span>closer.</span>
+      <article class="hf-slide" role="group" aria-roledescription="slide" aria-label="2 of 2: Christmas" hidden>
+        <div class="hf-copy">
+          <p class="hf-eyebrow">Christmas · Coming soon</p>
+          <h2 class="hf-title">Christmas, <em>soaked in rum.</em></h2>
+          <p class="hf-text">Our holiday collection is on its way. Details coming soon.</p>
+          <a class="btn-gold hf-cta" href="shop.html">Shop all <span aria-hidden="true">→</span></a>
         </div>
-      </a>
+        <div class="hf-visual hf-placeholder" aria-hidden="true"><span>Christmas promo<br>coming soon</span></div>
+      </article>
 
     </div>
-
-
-    <!-- Lazy Susan Feature -->
-    <a
-      href="product.html?name=Thanksgiving+Lazy+Susan+Centerpiece"
-      class="tg-feature"
-    >
-      <div class="tg-feature-copy">
-
-        <span class="tg-product-kicker">
-          The Thanksgiving
-        </span>
-
-        <h3 class="tg-feature-title">
-          Lazy Susan<br>
-          Centerpiece
-        </h3>
-
-        <div class="tg-small-rule"></div>
-
-        <p class="tg-feature-tagline">
-          Unbutton your pants.<br>
-          Spin the good stuff your way.
-        </p>
-
-        <span class="tg-feature-link">
-          Shop the Centerpiece
-          <span>→</span>
-        </span>
-
-      </div>
-
-      <div class="tg-feature-image">
-        <img
-          src="/public/images/centerpiece.jpg"
-          alt="Thanksgiving Lazy Susan Centerpiece"
-          loading="lazy"
-        />
-      </div>
-    </a>
-
-
-    <!-- Treat Box Feature -->
-    <a
-      href="product.html?name=Treats+Box"
-      class="tg-treat"
-    >
-
-      <div class="tg-treat-image">
-        <img
-          src="/public/images/treatbox.png"
-          alt="A Slice of G Thanksgiving Treat Box"
-          loading="lazy"
-        />
-      </div>
-
-      <div class="tg-treat-copy">
-
-        <span class="tg-product-kicker">
-          The Thanksgiving
-        </span>
-
-        <h3 class="tg-treat-title">
-          Treat Box
-        </h3>
-
-        <p class="tg-treat-desc">
-          A curated box of rum cake treats made for hosts, guests and people
-          pretending they were only going to have one.
-        </p>
-
-        <span class="tg-feature-link tg-feature-link-dark">
-          Shop the Treat Box
-          <span>→</span>
-        </span>
-
-      </div>
-
-      <div class="tg-treat-shape">
-        <span>
-          Bring<br>
-          dessert.<br>
-          Get invited<br>
-          back.
-        </span>
-      </div>
-
-    </a>
-
+    <div class="hf-controls">
+      <button type="button" class="hf-btn" id="hf-prev" aria-label="Previous feature">‹</button>
+      <div class="hf-dots" id="hf-dots"></div>
+      <button type="button" class="hf-btn" id="hf-next" aria-label="Next feature">›</button>
+      <button type="button" class="hf-btn hf-pause" id="hf-pause" aria-pressed="false">Pause</button>
+    </div>
   </section>
 
   <section class="intro">
@@ -386,6 +279,7 @@
 
   <script src="js/cart-drawer.js"></script>
   <script src="/js/nav.js?v=2"></script>
+  <script src="/js/home-feature.js?v=1" defer></script>
   <script>
     fetch('/api/reviews').then(r => r.json()).then(({ reviews, rating, totalRatings }) => {
       const scoreEl = document.getElementById('reviews-score');
