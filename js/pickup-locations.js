@@ -2,10 +2,13 @@
 // The same rules are enforced again on the server in api/checkout.js.
 (function(){
   'use strict';
+  // Both locations need at least 24 hours' notice. Hours are Toronto local time; days use 0 = Sunday.
+  const NOTICE_HOURS=24;
   const LOCATIONS={
-    spadina:{label:'70 Spadina Road'},
+    spadina:{label:'70 Spadina Road',detail:'Every day, 12 to 7 pm',
+      days:[0,1,2,3,4,5,6],open:'12:00',close:'19:00',openText:'12:00 pm',closeText:'7:00 pm',dayText:'every day'},
     woodbine:{label:'7270 Woodbine Avenue (Cravins Caribbean Grill)',short:'7270 Woodbine Avenue',detail:'Cravins Caribbean Grill · Monday to Saturday, 12 to 5 pm',
-      closedDays:[0],open:'12:00',close:'17:00',hoursText:'Monday to Saturday, between 12:00 pm and 5:00 pm'},
+      days:[1,2,3,4,5,6],open:'12:00',close:'17:00',openText:'12:00 pm',closeText:'5:00 pm',dayText:'Monday to Saturday'},
   };
   const holder=document.getElementById('fulfillment-select');
   const options=holder&&holder.querySelector('.fulfillment-options');
@@ -38,16 +41,25 @@
   const selectedId=()=>(field.querySelector('input:checked')||{}).value||'spadina';
   const isPickup=()=>{const active=holder.querySelector('.fulfillment-btn.active');return !active||active.dataset.type==='PICKUP';};
 
+  const nameOf=loc=>loc.short||loc.label;
+  const hoursOf=loc=>`${loc.dayText}, between ${loc.openText} and ${loc.closeText}`;
   // Returns a message when the chosen date and time do not suit the chosen location, otherwise ''.
-  function problem(requireDate){
+  // requireAll is true at checkout; while the customer is still typing, missing fields are not flagged.
+  function problem(requireAll){
     const loc=LOCATIONS[selectedId()];
-    if(!loc.closedDays)return '';
     const date=(dateInput()||{}).value||'';const time=(timeInput()||{}).value||'';
-    if(!date)return requireDate?`Choose a pickup date. ${loc.short} pickup is available ${loc.hoursText}.`:'';
+    if(!date)return requireAll?`Choose a pickup date. ${nameOf(loc)} pickup is available ${hoursOf(loc)}.`:'';
     const [y,m,d]=date.split('-').map(Number);
-    if(loc.closedDays.includes(new Date(y,m-1,d).getDay()))return `${loc.short} pickup is not available on Sundays. Choose a day from Monday to Saturday, or pick up at ${LOCATIONS.spadina.label}.`;
-    if(!time)return requireDate?`Choose a pickup time between 12:00 pm and 5:00 pm.`:'';
-    if(time<loc.open||time>loc.close)return `${loc.short} pickup is available between 12:00 pm and 5:00 pm. Choose a time in that window.`;
+    if(!loc.days.includes(new Date(y,m-1,d).getDay()))return `${nameOf(loc)} pickup is not available on Sundays. Choose a day from Monday to Saturday, or pick up at ${LOCATIONS.spadina.label}.`;
+    if(!time)return requireAll?`Choose a pickup time between ${loc.openText} and ${loc.closeText}.`:'';
+    if(time<loc.open||time>loc.close)return `${nameOf(loc)} pickup is available between ${loc.openText} and ${loc.closeText}. Choose a time in that window.`;
+    const [h,min]=time.split(':').map(Number);
+    const earliest=Date.now()+NOTICE_HOURS*36e5;
+    if(new Date(y,m-1,d,h,min).getTime()<earliest){
+      const when=new Date(earliest).toLocaleString('en-CA',{weekday:'long',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'});
+      // en-CA times end in "p.m.", so only add a full stop when one is not already there.
+      return `Pickups need at least 24 hours' notice. Choose a time after ${when}${when.endsWith('.')?'':'.'}`;
+    }
     return '';
   }
   function sync(){

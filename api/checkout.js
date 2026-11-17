@@ -10,10 +10,17 @@ const client = new SquareClient({
 });
 
 // Pickup locations offered in the cart (js/pickup-locations.js shows the same options).
-// A location with `days` only accepts pickups on those weekdays (0 = Sunday) between
-// startMinutes and endMinutes, measured in Toronto time.
+// Each location accepts pickups on `days` (0 = Sunday) between startMinutes and endMinutes,
+// in Toronto time, and every pickup needs at least PICKUP_NOTICE_HOURS of notice.
+export const PICKUP_NOTICE_HOURS = 24;
 export const PICKUP_LOCATIONS = {
-  spadina: { label: '70 Spadina Road' },
+  spadina: {
+    label: '70 Spadina Road',
+    days: [0, 1, 2, 3, 4, 5, 6],
+    startMinutes: 12 * 60,
+    endMinutes: 19 * 60,
+    hoursText: 'every day between 12:00 pm and 7:00 pm',
+  },
   woodbine: {
     label: '7270 Woodbine Avenue (Cravins Caribbean Grill)',
     days: [1, 2, 3, 4, 5, 6],
@@ -24,14 +31,13 @@ export const PICKUP_LOCATIONS = {
 };
 
 // Returns { location } for a valid choice, or { error } with a customer-facing message.
-// No location (an order from a page loaded before this option existed) is allowed.
-export function resolvePickupLocation(pickupLocation, dateTime) {
-  if (pickupLocation == null || pickupLocation === '') return { location: null };
-  const location = Object.prototype.hasOwnProperty.call(PICKUP_LOCATIONS, pickupLocation)
-    ? PICKUP_LOCATIONS[pickupLocation]
+// A request without a location (a page loaded before the choice existed) is treated as Spadina.
+export function resolvePickupLocation(pickupLocation, dateTime, now = Date.now()) {
+  const id = pickupLocation == null || pickupLocation === '' ? 'spadina' : pickupLocation;
+  const location = Object.prototype.hasOwnProperty.call(PICKUP_LOCATIONS, id)
+    ? PICKUP_LOCATIONS[id]
     : null;
   if (!location) return { error: 'Choose a valid pickup location.' };
-  if (!location.days) return { location };
 
   const dt = dateTime ? new Date(dateTime) : null;
   if (!dt || isNaN(dt.getTime())) {
@@ -46,6 +52,9 @@ export function resolvePickupLocation(pickupLocation, dateTime) {
   const minutes = Number(parts.hour) * 60 + Number(parts.minute);
   if (!location.days.includes(day) || minutes < location.startMinutes || minutes > location.endMinutes) {
     return { error: `${location.label} pickup is only available ${location.hoursText}. Please choose another time or the other pickup location.` };
+  }
+  if (dt.getTime() < now + PICKUP_NOTICE_HOURS * 60 * 60 * 1000) {
+    return { error: `Pickups need at least ${PICKUP_NOTICE_HOURS} hours' notice. Please choose a later time.` };
   }
   return { location };
 }
